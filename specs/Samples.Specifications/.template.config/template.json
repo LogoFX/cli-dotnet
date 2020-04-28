@@ -10,7 +10,7 @@
     "language": "C#",
     "type":"project"
   },
-  "sourceName": "Samples.Specifications.Launcher",
+  "sourceName": "Samples.Specifications",
   "preferNameDirectory": true,
   "symbols":{
     "presentation": {
