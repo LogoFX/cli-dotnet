@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Configurations>DebugWithFake;Release;DebugWithReal</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
+    <PackageReference Include="LogoFX.Client.Mvvm.Model" Version="2.2.0-rc1" />
+    <PackageReference Include="Solid.Practices.Modularity" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Samples.Basics.Data.Contracts.Dto\Samples.Basics.Data.Contracts.Dto.csproj" />
+    <ProjectReference Include="..\Samples.Basics.Data.Contracts.Providers\Samples.Basics.Data.Contracts.Providers.csproj" />
+    <ProjectReference Include="..\Samples.Basics.Model.Contracts\Samples.Basics.Model.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
