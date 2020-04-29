@@ -6,11 +6,11 @@ using Samples.Basics.Model.Contracts;
 namespace Samples.Basics.Model.Mappers
 {
     [UsedImplicitly]
-    internal sealed class WarehouseItemMapper
+    internal sealed class WarehouseMapper
     {
         private readonly IMapper _mapper;
 
-        public WarehouseItemMapper(IMapper mapper) => _mapper = mapper;
+        public WarehouseMapper(IMapper mapper) => _mapper = mapper;
 
         public IWarehouseItem MapToWarehouseItem(WarehouseItemDto warehouseItemDto) => 
             _mapper.Map<IWarehouseItem>(warehouseItemDto);

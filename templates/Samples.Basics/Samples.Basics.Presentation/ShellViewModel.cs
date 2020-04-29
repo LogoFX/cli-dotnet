@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
+using System.Windows.Input;
 using Caliburn.Micro;
 using JetBrains.Annotations;
+using LogoFX.Client.Mvvm.Commanding;
 using LogoFX.Client.Mvvm.ViewModel.Services;
 using Samples.Basics.Presentation.Contracts.Shell;
 
@@ -15,6 +17,16 @@ namespace Samples.Basics.Presentation.Shell
         {
             _viewModelCreatorService = viewModelCreatorService;
         }
+        
+        private ICommand _closeCommand;
+
+        public ICommand CloseCommand => _closeCommand ??= ActionCommand
+            .When(() => true)
+            .Do(() =>
+            {
+                TryClose();
+            });
+
 
         protected override void OnActivate()
         {

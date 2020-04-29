@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using LogoFX.Client.Core;
 using LogoFX.Core;
 using Samples.Basics.Data.Contracts.Providers;
@@ -9,6 +10,7 @@ using Samples.Basics.Model.Mappers;
 
 namespace Samples.Basics.Model
 {
+    [UsedImplicitly]
     internal sealed class DataService : NotifyPropertyChangedBase<DataService>, IDataService
     {
         private readonly IWarehouseProvider _warehouseProvider;
@@ -23,16 +25,14 @@ namespace Samples.Basics.Model
             _warehouseMapper = warehouseMapper;
         }
 
-        private async Task GetWarehouseItemsInternal() => await MethodRunner.RunAsync(() =>
+        IEnumerable<IWarehouseItem> IDataService.WarehouseItems => _warehouseItems;
+
+        Task IDataService.GetWarehouseItems() => MethodRunner.RunAsync(() =>
         {
             var warehouseItems = _warehouseProvider.GetWarehouseItems().Select(_warehouseMapper.MapToWarehouseItem);
             _warehouseItems.Clear();
             _warehouseItems.AddRange(warehouseItems);
         });
-
-        IEnumerable<IWarehouseItem> IDataService.WarehouseItems => _warehouseItems;
-
-        Task IDataService.GetWarehouseItems() => MethodRunner.RunAsync(GetWarehouseItemsInternal);
 
         Task<IWarehouseItem> IDataService.NewWarehouseItem() => MethodRunner.RunWithResultAsync<IWarehouseItem>(() =>
             new WarehouseItem("New Kind", 0d, 1)

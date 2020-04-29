@@ -25,7 +25,7 @@ namespace Samples.Basics.Model
             var mapper = config.CreateMapper();
             dependencyRegistrator
                 .AddInstance(mapper)
-                .AddSingleton<WarehouseItemMapper>();
+                .AddSingleton<WarehouseMapper>();
         }
     }
 }

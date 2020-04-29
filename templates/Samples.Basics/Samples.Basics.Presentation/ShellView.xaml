@@ -4,12 +4,33 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Samples.Basics.Presentation.Shell"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:commanding="clr-namespace:LogoFX.Client.Mvvm.Commanding;assembly=LogoFX.Client.Mvvm.Commanding.Platform"
         d:DataContext="{d:DesignInstance local:ShellViewModel}"
         mc:Ignorable="d"
         Title="ShellView" 
         Height="450" 
         Width="800">
-    <Grid>
-        <ContentControl Margin="8" x:Name="ActiveItem" />
+    
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="100"
+                Height="24"
+                Content="Exit">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <commanding:ExecuteCommandAction Command="{Binding Path=CloseCommand, Mode=OneTime}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+
+        <ContentControl Grid.Row="1" Margin="8" x:Name="ActiveItem" />
     </Grid>
 </Window>
