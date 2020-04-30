@@ -1,7 +1,7 @@
 ﻿using System;
 using LogoFX.Client.Bootstrapping;
 using LogoFX.Client.Bootstrapping.Adapters.SimpleContainer;
-using Samples.Basics.Presentation.Contracts.Shell;
+using Samples.Basics.Presentation.Contracts;
 using Solid.Practices.Composition;
 
 namespace Samples.Basics.Launcher

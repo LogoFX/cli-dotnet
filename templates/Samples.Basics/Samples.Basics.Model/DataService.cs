@@ -27,12 +27,14 @@ namespace Samples.Basics.Model
 
         IEnumerable<IWarehouseItem> IDataService.WarehouseItems => _warehouseItems;
 
-        Task IDataService.GetWarehouseItems() => MethodRunner.RunAsync(() =>
+        Task IDataService.GetWarehouseItems() => MethodRunner.RunAsync(Method);
+
+        private void Method()
         {
             var warehouseItems = _warehouseProvider.GetWarehouseItems().Select(_warehouseMapper.MapToWarehouseItem);
             _warehouseItems.Clear();
             _warehouseItems.AddRange(warehouseItems);
-        });
+        }
 
         Task<IWarehouseItem> IDataService.NewWarehouseItem() => MethodRunner.RunWithResultAsync<IWarehouseItem>(() =>
             new WarehouseItem("New Kind", 0d, 1)

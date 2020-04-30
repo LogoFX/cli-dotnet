@@ -1,5 +1,5 @@
 ﻿using JetBrains.Annotations;
-using Samples.Basics.Presentation.Contracts.Shell;
+using Samples.Basics.Presentation.Contracts;
 using Solid.Practices.IoC;
 using Solid.Practices.Modularity;
 

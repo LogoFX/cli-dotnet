@@ -6,6 +6,12 @@
     <Configurations>DebugWithFake;Release;DebugWithReal</Configurations>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWithFake|AnyCPU'">
+    <OutputPath>..\Bin\DebugWithFake</OutputPath>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />

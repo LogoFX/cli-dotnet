@@ -20,11 +20,13 @@
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
     <PackageReference Include="LogoFX.Client.Mvvm.Commanding" Version="2.2.0-rc1" />
+    <PackageReference Include="LogoFX.Client.Mvvm.ViewModel.Core" Version="2.2.0-rc1" />
     <PackageReference Include="LogoFX.Client.Mvvm.ViewModel.Extensions" Version="2.2.0-rc1" />
     <PackageReference Include="LogoFX.Client.Mvvm.ViewModel.Services.Core" Version="2.2.0-rc1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Samples.Basics.Model.Contracts\Samples.Basics.Model.Contracts.csproj" />
     <ProjectReference Include="..\Samples.Basics.Presentation.Contracts\Samples.Basics.Presentation.Contracts.csproj" />
   </ItemGroup>
 

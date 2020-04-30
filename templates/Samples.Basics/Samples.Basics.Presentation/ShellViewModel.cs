@@ -4,7 +4,7 @@ using Caliburn.Micro;
 using JetBrains.Annotations;
 using LogoFX.Client.Mvvm.Commanding;
 using LogoFX.Client.Mvvm.ViewModel.Services;
-using Samples.Basics.Presentation.Contracts.Shell;
+using Samples.Basics.Presentation.Contracts;
 
 namespace Samples.Basics.Presentation.Shell
 {

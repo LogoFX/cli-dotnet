@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using AutoMapper;
 using JetBrains.Annotations;
-using Samples.Basics.Data.Contracts.Providers;
+using Samples.Basics.Model.Contracts;
 using Samples.Basics.Model.Mappers;
 using Solid.Practices.IoC;
 using Solid.Practices.Modularity;

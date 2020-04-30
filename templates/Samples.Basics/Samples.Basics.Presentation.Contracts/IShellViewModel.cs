@@ -1,4 +1,4 @@
-﻿namespace Samples.Basics.Presentation.Contracts.Shell
+﻿namespace Samples.Basics.Presentation.Contracts
 {
     public interface IShellViewModel
     {

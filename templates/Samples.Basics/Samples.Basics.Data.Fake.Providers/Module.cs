@@ -9,9 +9,12 @@ namespace Samples.Basics.Data.Fake.Providers
     [UsedImplicitly]
     internal sealed class Module : ICompositionModule<IDependencyRegistrator>
     {
-        public void RegisterModule(IDependencyRegistrator dependencyRegistrator) => dependencyRegistrator
-            .RegisterAutomagically(
-                Assembly.LoadFrom(AssemblyInfo.AssemblyName),
-                Assembly.GetExecutingAssembly());
+        public void RegisterModule(IDependencyRegistrator dependencyRegistrator)
+        {
+            dependencyRegistrator
+                .RegisterAutomagically(
+                    Assembly.LoadFrom(AssemblyInfo.AssemblyName),
+                    Assembly.GetExecutingAssembly());
+        }
     }
 }
