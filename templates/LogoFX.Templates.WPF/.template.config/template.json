@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "LogoUI",
+  "classifications": [ "LogoFX", "WPF" ], 
+  "name": "The LogoFX Basic WPF MVVM Application",
+  "identity": "LogoFX.Basic.Wpf.Wvvm.CSharp",         
+  "groupIdentity":"LogoFX.Basic.Wpf.Wvvm",
+  "shortName": "logofx-basic",
+  "tags": {
+    "language": "C#",
+    "type":"project"
+  },
+  "sourceName": "LogoFX.Templates.WPF",
+  "preferNameDirectory": true
+}

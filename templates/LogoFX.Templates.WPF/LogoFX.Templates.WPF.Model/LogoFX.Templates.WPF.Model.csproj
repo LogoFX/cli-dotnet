@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Configurations>DebugWithFake;Release;DebugWithReal</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWithFake|AnyCPU'">
+    <OutputPath>..\Bin\DebugWithFake</OutputPath>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
+    <PackageReference Include="LogoFX.Client.Mvvm.Model" Version="2.2.0-rc1" />
+    <PackageReference Include="Solid.Practices.Modularity" Version="2.2.0" />
+    <PackageReference Include="Solid.Practices.Scheduling" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LogoFX.Templates.WPF.Data.Contracts.Dto\LogoFX.Templates.WPF.Data.Contracts.Dto.csproj" />
+    <ProjectReference Include="..\LogoFX.Templates.WPF.Data.Contracts.Providers\LogoFX.Templates.WPF.Data.Contracts.Providers.csproj" />
+    <ProjectReference Include="..\LogoFX.Templates.WPF.Model.Contracts\LogoFX.Templates.WPF.Model.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
