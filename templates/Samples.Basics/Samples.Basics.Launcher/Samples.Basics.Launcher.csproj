@@ -32,6 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Common.Bootstrapping\Common.Bootstrapping.csproj" />
+    <ProjectReference Include="..\Samples.Basics.Data.Contracts.Providers\Samples.Basics.Data.Contracts.Providers.csproj" />
+    <ProjectReference Include="..\Samples.Basics.Data.Fake.Containers.Contracts\Samples.Basics.Data.Fake.Containers.Contracts.csproj" />
     <ProjectReference Include="..\Samples.Basics.Presentation.Contracts\Samples.Basics.Presentation.Contracts.csproj" />
   </ItemGroup>
 

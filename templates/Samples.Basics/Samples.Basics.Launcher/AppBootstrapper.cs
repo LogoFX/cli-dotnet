@@ -19,13 +19,10 @@ namespace Samples.Basics.Launcher
         public override CompositionOptions CompositionOptions => new CompositionOptions
         {
             Prefixes = new[] {
-                "Samples.Basics.Infra",
+                "Common.Data",
                 "Samples.Basics.Data",
                 "Samples.Basics.Model",
                 "Samples.Basics.Presentation",
-                "Samples.Basics.Modules",
-                "Samples.Basics.Shell",
-                "Samples.Basics.Licensing"
             }
         };
 
