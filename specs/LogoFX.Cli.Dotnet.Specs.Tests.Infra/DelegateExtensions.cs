@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Samples.Cli.Specs.Tests.Infra
+namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
 {
     public static class DelegateExtensions
     {

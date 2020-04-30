@@ -5,7 +5,7 @@ using Solid.Practices.IoC;
 using Solid.Practices.Middleware;
 using BootstrapperBase = Attest.Testing.Bootstrapping.BootstrapperBase;
 
-namespace Samples.Cli.Specs.Launcher
+namespace LogoFX.Cli.Dotnet.Specs.Launcher
 {
     internal sealed class Bootstrapper :
         BootstrapperBase,
@@ -26,7 +26,7 @@ namespace Samples.Cli.Specs.Launcher
         {
             Prefixes = new[]
             {
-                "Samples.Cli.Specs.Tests.Infra"
+                "LogoFX.Cli.Dotnet.Specs.Tests.Infra"
             }
         };
     }

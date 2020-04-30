@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using JetBrains.Annotations;
-using Samples.Cli.Specs.Tests.Contracts;
+using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
 
-namespace Samples.Cli.Specs.Tests.Infra
+namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
 {
     [UsedImplicitly]
     internal sealed class WindowsProcessManagementService : IProcessManagementService

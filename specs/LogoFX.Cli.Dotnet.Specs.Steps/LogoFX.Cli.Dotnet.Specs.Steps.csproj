@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Samples.Cli.Specs.Launcher\Samples.Cli.Specs.Launcher.csproj" />
+    <ProjectReference Include="..\LogoFX.Cli.Dotnet.Specs.Launcher\LogoFX.Cli.Dotnet.Specs.Launcher.csproj" />
   </ItemGroup>
 
 </Project>

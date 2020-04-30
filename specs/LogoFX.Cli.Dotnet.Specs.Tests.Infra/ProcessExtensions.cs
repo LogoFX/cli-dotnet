@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Management;
 
-namespace Samples.Cli.Specs.Tests.Infra
+namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
 {
     public static class ProcessExtensions
     {

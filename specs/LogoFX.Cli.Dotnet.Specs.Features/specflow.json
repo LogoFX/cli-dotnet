@@ -9,7 +9,7 @@
   "plugins": [],
   "stepAssemblies": [
     {
-      "assembly": "Samples.Cli.Specs.Steps"
+      "assembly": "LogoFX.Cli.Dotnet.Specs.Steps"
     }
   ]
 }

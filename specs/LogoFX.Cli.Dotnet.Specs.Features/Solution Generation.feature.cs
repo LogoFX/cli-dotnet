@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Samples.Cli.Specs.Features
+namespace LogoFX.Cli.Dotnet.Specs.Features
 {
     using TechTalk.SpecFlow;
     using System;
@@ -31,7 +31,7 @@ namespace Samples.Cli.Specs.Features
 #line 1 "Solution Generation.feature"
 #line hidden
         
-        public SolutionGenerationFeature(SolutionGenerationFeature.FixtureData fixtureData, Samples_Cli_Specs_Features_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public SolutionGenerationFeature(SolutionGenerationFeature.FixtureData fixtureData, LogoFX_Cli_Dotnet_Specs_Features_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();

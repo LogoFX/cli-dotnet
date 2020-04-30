@@ -2,12 +2,12 @@
 using Attest.Testing.Core;
 using BoDi;
 using JetBrains.Annotations;
-using Samples.Cli.Specs.Launcher;
+using LogoFX.Cli.Dotnet.Specs.Launcher;
 using Solid.Common;
 using Solid.IoC.Adapters.BoDi;
 using TechTalk.SpecFlow;
 
-namespace Samples.Cli.Specs.Steps
+namespace LogoFX.Cli.Dotnet.Specs.Steps
 {
     [Binding, UsedImplicitly]
     internal sealed class LifecycleHook

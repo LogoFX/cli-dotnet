@@ -5,7 +5,7 @@ using Solid.Core;
 using Solid.Practices.IoC;
 using BootstrapperBase = Attest.Testing.Bootstrapping.BootstrapperBase;
 
-namespace Samples.Cli.Specs.Launcher
+namespace LogoFX.Cli.Dotnet.Specs.Launcher
 {
     internal sealed class Startup : IInitializable
     {

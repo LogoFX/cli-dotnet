@@ -1,4 +1,4 @@
-﻿namespace Samples.Cli.Specs.Tests.Contracts
+﻿namespace LogoFX.Cli.Dotnet.Specs.Tests.Contracts
 {
     public interface IProcessManagementService
     {

@@ -1,9 +1,9 @@
 ﻿using JetBrains.Annotations;
-using Samples.Cli.Specs.Tests.Contracts;
+using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
 using Solid.Practices.IoC;
 using Solid.Practices.Modularity;
 
-namespace Samples.Cli.Specs.Tests.Infra
+namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
 {
     [UsedImplicitly]
     internal sealed class Module : ICompositionModule<IDependencyRegistrator>

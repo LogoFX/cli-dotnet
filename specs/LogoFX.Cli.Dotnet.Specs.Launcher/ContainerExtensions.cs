@@ -1,6 +1,6 @@
 ﻿using Solid.Practices.IoC;
 
-namespace Samples.Cli.Specs.Launcher
+namespace LogoFX.Cli.Dotnet.Specs.Launcher
 {
     public static class ContainerExtensions
     {

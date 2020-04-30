@@ -1,6 +1,6 @@
 ﻿using TechTalk.SpecFlow;
 
-namespace Samples.Cli.Specs.Steps
+namespace LogoFX.Cli.Dotnet.Specs.Steps
 {
     [Binding]
     internal sealed class SolutionGenerationSteps

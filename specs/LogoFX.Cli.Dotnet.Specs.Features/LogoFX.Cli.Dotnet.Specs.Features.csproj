@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Samples.Cli.Specs.Steps\Samples.Cli.Specs.Steps.csproj" />
+    <ProjectReference Include="..\LogoFX.Cli.Dotnet.Specs.Steps\LogoFX.Cli.Dotnet.Specs.Steps.csproj" />
   </ItemGroup>
 
   <ItemGroup>
