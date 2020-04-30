@@ -10,7 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Attest.Testing.Contracts" Version="2.1.0-rc1" />
+    <PackageReference Include="Attest.Tests.Core" Version="2.1.0-rc1" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
+    <PackageReference Include="Solid.Common.Core" Version="2.2.0" />
+    <PackageReference Include="Solid.IoC.Adapters.BoDi" Version="2.2.0" />
     <PackageReference Include="SpecFlow" Version="3.1.97" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Samples.Cli.Specs.Launcher\Samples.Cli.Specs.Launcher.csproj" />
   </ItemGroup>
 
 </Project>

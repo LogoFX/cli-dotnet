@@ -110,7 +110,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 7
- testRunner.When("I install the \'Samples.Basics\' template via dotnet Cli", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I install the \'LogoFX.Templates.WPF\' template via dotnet Cli", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                             "Templates",
@@ -118,8 +118,8 @@ this.ScenarioInitialize(scenarioInfo);
                             "Language",
                             "Tags"});
                 table1.AddRow(new string[] {
-                            "LogoFX Basics",
-                            "logofx-basics",
+                            "LogoFX Client MVVM app for WPF",
+                            "logofx-wpf",
                             "C#",
                             "LogoFX;WPF"});
 #line 8
@@ -157,7 +157,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 13
- testRunner.When("I install the \'Samples.Basics\' template via dotnet Cli", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I install the \'LogoFX.Templates.WPF\' template via dotnet Cli", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 14
  testRunner.And("I create a folder named \'Generation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -166,7 +166,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("I navigate to the folder named \'Generation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 16
- testRunner.And("I generate the code using \'logofx-basics\' template with the default options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I generate the code using \'logofx-wpf\' template with the default options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 17
  testRunner.Then("The folder \'Generation\' contains working LogoFX template-based solution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

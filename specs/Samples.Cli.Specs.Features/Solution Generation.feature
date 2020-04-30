@@ -4,14 +4,14 @@
 	I want to be able to install and use the correspondent template via existing dotnet means
 
 Scenario: Install template
-	When I install the 'Samples.Basics' template via dotnet Cli
+	When I install the 'LogoFX.Templates.WPF' template via dotnet Cli
 	Then The template for 'LogoFX' is installed with the following parameters
-	| Templates     | Short Name    | Language | Tags       |
-	| LogoFX Basics | logofx-basics | C#       | LogoFX;WPF |
+	| Templates                      | Short Name | Language | Tags       |
+	| LogoFX Client MVVM app for WPF | logofx-wpf | C#       | LogoFX;WPF |
 
 Scenario: Generate solution skeleton
-	When I install the 'Samples.Basics' template via dotnet Cli
+	When I install the 'LogoFX.Templates.WPF' template via dotnet Cli
 	And I create a folder named 'Generation'
 	And I navigate to the folder named 'Generation'
-	And I generate the code using 'logofx-basics' template with the default options
+	And I generate the code using 'logofx-wpf' template with the default options
 	Then The folder 'Generation' contains working LogoFX template-based solution
