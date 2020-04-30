@@ -32,7 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common.Bootstrapping\Common.Bootstrapping.csproj" />
+    <ProjectReference Include="..\..\..\common\Common.Bootstrapping\Common.Bootstrapping.csproj" />
+    <ProjectReference Include="..\..\..\common\Common.Data.Fake.Setup\Common.Data.Fake.Setup.csproj" />
     <ProjectReference Include="..\LogoFX.Templates.WPF.Data.Contracts.Providers\LogoFX.Templates.WPF.Data.Contracts.Providers.csproj" />
     <ProjectReference Include="..\LogoFX.Templates.WPF.Data.Fake.Containers.Contracts\LogoFX.Templates.WPF.Data.Fake.Containers.Contracts.csproj" />
     <ProjectReference Include="..\LogoFX.Templates.WPF.Presentation.Contracts\LogoFX.Templates.WPF.Presentation.Contracts.csproj" />
