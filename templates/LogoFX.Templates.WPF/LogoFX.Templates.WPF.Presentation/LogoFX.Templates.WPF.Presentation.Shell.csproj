@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <UseWPF>true</UseWPF>
+    <Configurations>DebugWithFake;Release;DebugWithReal</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWithFake|AnyCPU'">
+    <OutputPath>..\Bin\DebugWithFake</OutputPath>
+    <DefineConstants>TRACE;DEBUG;FAKE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWithReal|AnyCPU'">
+    <OutputPath>..\Bin\DebugWithReal</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
+    <PackageReference Include="LogoFX.Client.Mvvm.Commanding" Version="2.2.0-rc1" />
+    <PackageReference Include="LogoFX.Client.Mvvm.ViewModel.Core" Version="2.2.0-rc1" />
+    <PackageReference Include="LogoFX.Client.Mvvm.ViewModel.Extensions" Version="2.2.0-rc1" />
+    <PackageReference Include="LogoFX.Client.Mvvm.ViewModel.Services.Core" Version="2.2.0-rc1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LogoFX.Templates.WPF.Model.Contracts\LogoFX.Templates.WPF.Model.Contracts.csproj" />
+    <ProjectReference Include="..\LogoFX.Templates.WPF.Presentation.Contracts\LogoFX.Templates.WPF.Presentation.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="MainView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>
