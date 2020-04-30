@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Configurations>DebugWithFake;ReleaseWithFake;ReleaseWithReal;DebugWithReal;DebugWithSpecs</Configurations>
+  </PropertyGroup>
+         
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWithSpecs|AnyCPU'">
+    <OutputPath>..\bin\DebugWithSpecs</OutputPath>
+  </PropertyGroup>  
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugWithFake|AnyCPU' ">
+    <IntermediateOutputPath>obj\DebugWithFake</IntermediateOutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Bin\DebugWithFake</OutputPath>
+    <DefineConstants></DefineConstants>
+    <NoWarn></NoWarn>
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugWithReal|AnyCPU' ">
+    <DebugType></DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants></DefineConstants>
+    <NoWarn></NoWarn>
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseWithFake|AnyCPU' ">
+    <DebugType></DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\ReleaseWithFake</OutputPath>
+    <DefineConstants></DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn></NoWarn>
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseWithReal|AnyCPU' ">
+    <DebugType></DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants></DefineConstants>
+    <NoWarn></NoWarn>
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Attest.Fake.Core" Version="2.1.0-rc1" />
+    <PackageReference Include="Attest.Fake.Moq" Version="2.1.0-rc1" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
+    <PackageReference Include="Solid.Practices.Modularity" Version="2.2.0" />
+  </ItemGroup>  
+</Project>
