@@ -3,17 +3,17 @@
 namespace Samples.Cli.Specs.Steps
 {
     [Binding]
-    internal sealed class TemplateSteps
+    internal sealed class SolutionGenerationSteps
     {
         private readonly ScenarioContext _scenarioContext;
 
-        public TemplateSteps(ScenarioContext scenarioContext)
+        public SolutionGenerationSteps(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
         }
 
-        [When(@"I install the basics template via dotnet Cli")]
-        public void WhenIInstallTheBasicsTemplateViaDotnetCli()
+        [When(@"I install the '(.*)' template via dotnet Cli")]
+        public void WhenIInstallTheTemplateViaDotnetCli(string name)
         {
             _scenarioContext.Pending();
         }

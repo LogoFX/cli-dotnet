@@ -19,7 +19,7 @@ namespace Samples.Cli.Specs.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class TemplateInstallationFeature : object, Xunit.IClassFixture<TemplateInstallationFeature.FixtureData>, System.IDisposable
+    public partial class SolutionGenerationFeature : object, Xunit.IClassFixture<SolutionGenerationFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace Samples.Cli.Specs.Features
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "Template Installation.feature"
+#line 1 "Solution Generation.feature"
 #line hidden
         
-        public TemplateInstallationFeature(TemplateInstallationFeature.FixtureData fixtureData, Samples_Cli_Specs_Features_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public SolutionGenerationFeature(SolutionGenerationFeature.FixtureData fixtureData, Samples_Cli_Specs_Features_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,9 +40,9 @@ namespace Samples.Cli.Specs.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Template Installation", "\tIn order to provide template to developers who want to scaffold LogoFX-based sol" +
-                    "utions\r\n\tAs a framework developer\r\n\tI want to be able to install the template vi" +
-                    "a existing dotnet means", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Solution Generation", "\tIn order to provide tools to developers who want to scaffold LogoFX-based soluti" +
+                    "ons\r\n\tAs a framework developer\r\n\tI want to be able to install and use the corres" +
+                    "pondent template via existing dotnet means", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -83,7 +83,7 @@ namespace Samples.Cli.Specs.Features
         }
         
         [Xunit.SkippableFactAttribute(DisplayName="Install template")]
-        [Xunit.TraitAttribute("FeatureTitle", "Template Installation")]
+        [Xunit.TraitAttribute("FeatureTitle", "Solution Generation")]
         [Xunit.TraitAttribute("Description", "Install template")]
         public virtual void InstallTemplate()
         {
@@ -110,7 +110,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 7
- testRunner.When("I install the basics template via dotnet Cli", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I install the \'Samples.Basics\' template via dotnet Cli", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                             "Templates",
@@ -129,6 +129,52 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.SkippableFactAttribute(DisplayName="Generate solution skeleton")]
+        [Xunit.TraitAttribute("FeatureTitle", "Solution Generation")]
+        [Xunit.TraitAttribute("Description", "Generate solution skeleton")]
+        public virtual void GenerateSolutionSkeleton()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate solution skeleton", null, ((string[])(null)));
+#line 12
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 13
+ testRunner.When("I install the \'Samples.Basics\' template via dotnet Cli", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 14
+ testRunner.And("I create a folder named \'Generation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 15
+ testRunner.And("I navigate to the folder named \'Generation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 16
+ testRunner.And("I generate the code using \'logofx-basics\' template with the default options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 17
+ testRunner.Then("The folder \'Generation\' contains working LogoFX template-based solution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable
@@ -136,12 +182,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                TemplateInstallationFeature.FeatureSetup();
+                SolutionGenerationFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                TemplateInstallationFeature.FeatureTearDown();
+                SolutionGenerationFeature.FeatureTearDown();
             }
         }
     }
