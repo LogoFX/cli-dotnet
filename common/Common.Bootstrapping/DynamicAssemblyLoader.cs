@@ -6,7 +6,7 @@ using McMaster.NETCore.Plugins;
 
 namespace Common.Bootstrapping
 {
-    internal static class CustomAssemblyLoader
+    internal static class DynamicAssemblyLoader
     {
         internal static IEnumerable<Assembly> Get(IEnumerable<string> files)
         {

@@ -8,7 +8,7 @@ namespace Common.Bootstrapping
     {
         public static void UseDynamicLoad(this IServiceCollection serviceCollection)
         {
-            AssemblyLoader.LoadAssembliesFromPaths = CustomAssemblyLoader.Get;
+            AssemblyLoader.LoadAssembliesFromPaths = DynamicAssemblyLoader.Get;
         }
     }
 
@@ -16,7 +16,7 @@ namespace Common.Bootstrapping
     {
         public static void UseDynamicLoad(this IInitializable initializable)
         {
-            AssemblyLoader.LoadAssembliesFromPaths = CustomAssemblyLoader.Get;
+            AssemblyLoader.LoadAssembliesFromPaths = DynamicAssemblyLoader.Get;
         }
     }
 }
