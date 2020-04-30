@@ -1,5 +1,5 @@
-# Samples.Cli
-Command-line interface for generating and managing desktop .NET apps
+# cli-dotnet
+Command-line interface for generating and managing desktop .NET apps via `dotnet` tool
 
 ## Create template
 
