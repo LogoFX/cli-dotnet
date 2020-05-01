@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="Attest.Testing.Contracts" Version="2.1.0-rc1" />
     <PackageReference Include="Attest.Tests.Core" Version="2.1.0-rc1" />
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
     <PackageReference Include="Solid.Common.Core" Version="2.2.0" />
     <PackageReference Include="Solid.IoC.Adapters.BoDi" Version="2.2.0" />
@@ -20,6 +21,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LogoFX.Cli.Dotnet.Specs.Launcher\LogoFX.Cli.Dotnet.Specs.Launcher.csproj" />
+    <ProjectReference Include="..\LogoFX.Cli.Dotnet.Specs.Tests.Contracts\LogoFX.Cli.Dotnet.Specs.Tests.Contracts.csproj" />
+    <ProjectReference Include="..\LogoFX.Cli.Dotnet.Specs.Tests.Infra\LogoFX.Cli.Dotnet.Specs.Tests.Infra.csproj" />
   </ItemGroup>
 
 </Project>

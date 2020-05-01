@@ -113,17 +113,17 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I install the \'LogoFX.Templates.WPF\' template via dotnet Cli", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Templates",
+                            "Description",
                             "Short Name",
-                            "Language",
+                            "Languages",
                             "Tags"});
                 table1.AddRow(new string[] {
-                            "LogoFX Client MVVM app for WPF",
+                            "LogoFX WPF Application",
                             "logofx-wpf",
-                            "C#",
-                            "LogoFX;WPF"});
+                            "[C#]",
+                            "LogoFX/WPF"});
 #line 8
- testRunner.Then("The template for \'LogoFX\' is installed with the following parameters", ((string)(null)), table1, "Then ");
+ testRunner.Then("The template for \'logofx-wpf\' is installed with the following parameters", ((string)(null)), table1, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

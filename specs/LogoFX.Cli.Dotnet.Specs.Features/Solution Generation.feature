@@ -5,9 +5,9 @@
 
 Scenario: Install template
 	When I install the 'LogoFX.Templates.WPF' template via dotnet Cli
-	Then The template for 'LogoFX' is installed with the following parameters
-	| Templates                      | Short Name | Language | Tags       |
-	| LogoFX Client MVVM app for WPF | logofx-wpf | C#       | LogoFX;WPF |
+	Then The template for 'logofx-wpf' is installed with the following parameters
+	| Description            | Short Name | Languages | Tags       |
+	| LogoFX WPF Application | logofx-wpf | [C#]      | LogoFX/WPF |
 
 Scenario: Generate solution skeleton
 	When I install the 'LogoFX.Templates.WPF' template via dotnet Cli
