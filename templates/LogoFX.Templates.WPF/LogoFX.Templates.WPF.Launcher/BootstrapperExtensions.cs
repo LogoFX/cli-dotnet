@@ -1,0 +1,19 @@
+﻿using LogoFX.Client.Mvvm.ViewModel.Services;
+using LogoFX.Client.Mvvm.ViewModelFactory.SimpleContainer;
+using Solid.Bootstrapping;
+using Solid.Core;
+using Solid.Extensibility;
+using Solid.Practices.Composition.Contracts;
+
+namespace LogoFX.Templates.WPF.Launcher
+{
+    public static class BootstrapperExtensions
+    {
+        public static IInitializable UseShared<TBootstrapper>(
+            this TBootstrapper bootstrapper)
+            where TBootstrapper : class, IExtensible<TBootstrapper>, IHaveRegistrator, ICompositionModulesProvider, IInitializable =>
+            bootstrapper
+                .UseViewModelCreatorService()
+                .UseViewModelFactory();
+    }
+}

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "UninstallTemplate": {
+      "commandName": "Project",
+      "commandLineArgs": "-d LogoFX.Templates.WPF"
+    }
+  }
+}
