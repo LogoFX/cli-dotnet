@@ -22,10 +22,15 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             _processManagementService = processManagementService;
         }
 
-        [When(@"I install the '(.*)' template via dotnet Cli")]
-        public void WhenIInstallTheTemplateViaDotnetCli(string name)
+        [When(@"I install the '(.*)' template for location '(.*)' via dotnet Cli")]
+        public void WhenIInstallTheTemplateViaDotnetCli(string name, string location)
         {
-            var processId = _processManagementService.Start("dotnet", "new " + "-i" + " " + ".." + "\\" + ".." + "\\" + "templates" + "\\" + name);
+            //should uninstall the tool first
+            var uninstallProcessId = _processManagementService.Start("dotnet",
+                $"../../utils/UninstallTemplate/bin/uninstalltemplate.dll -s {name}");
+            Task.Delay(5000).Wait();
+            uninstallProcessId.KillProcessAndChildren();
+            var processId = _processManagementService.Start("dotnet", $"new -i ../../templates/{location}");
             Task.Delay(3000).Wait();
             processId.KillProcessAndChildren();
         }
