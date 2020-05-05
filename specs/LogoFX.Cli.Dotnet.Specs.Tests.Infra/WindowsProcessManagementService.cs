@@ -42,6 +42,10 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
 
                 process.OutputDataReceived += (sender, e) =>
                 {
+                    if (e.Data == null)
+                    {
+                        return;
+                    }
                     outputStrings.Add(e.Data);
                     Debug.WriteLine("output>>" + e.Data);
                 };

@@ -163,12 +163,10 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("I create a folder named \'Generation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 15
- testRunner.And("I navigate to the folder named \'Generation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I generate the code in folder named \'Generation\' using \'logofx-wpf\' template with" +
+                        " the default options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 16
- testRunner.And("I generate the code using \'logofx-wpf\' template with the default options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 17
  testRunner.Then("The folder \'Generation\' contains working LogoFX template-based solution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

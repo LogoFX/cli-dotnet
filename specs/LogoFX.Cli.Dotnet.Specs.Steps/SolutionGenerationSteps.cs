@@ -94,23 +94,26 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             Directory.Exists(path).Should().BeTrue();
         }
 
-        [When(@"I navigate to the folder named '(.*)'")]
-        public void WhenINavigateToTheFolderNamed(string folderName)
+        [When(@"I generate the code in folder named '(.*)' using '(.*)' template with the default options")]
+        public void WhenIGenerateTheCodeInFolderNamedUsingTemplateWithTheDefaultOptions(string folderName, string shortName)
         {
             var tempPath = Path.GetTempPath();
             var path = Path.Combine(tempPath, folderName);
-        }
 
-        [When(@"I generate the code using '(.*)' template with the default options")]
-        public void WhenIGenerateTheCodeUsingTemplateWithTheDefaultOptions(string shortName)
-        {
-            
+            var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), $"new {shortName}", 30000);
+            execInfo.Test();
         }
 
         [Then(@"The folder '(.*)' contains working LogoFX template-based solution")]
         public void ThenTheFolderContainsWorkingLogoFXTemplate_BasedSolution(string folderName)
         {
-            
+            var tempPath = Path.GetTempPath();
+            var path = Path.Combine(tempPath, folderName);
+
+            var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), $"build", 30000);
+            execInfo.Test();
+
+            execInfo.OutputStrings.Should().ContainMatch("Build succeeded.");
         }
     }
 
