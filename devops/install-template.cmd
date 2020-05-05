@@ -40,6 +40,7 @@ dotnet add reference ..\%common1% ..\%common2%
 
 REM Install template
 cd ..\..
+dotnet ..\devops\utils\UninstallTemplate.dll -d %1
 dotnet new -i %1
 
 cd ..\devops
