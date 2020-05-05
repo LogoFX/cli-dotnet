@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -110,7 +109,14 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             var tempPath = Path.GetTempPath();
             var path = Path.Combine(tempPath, folderName);
 
-            var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), $"build", 30000);
+            const string config =
+#if DEBUG
+                "DebugWithFake";
+#else
+                "Release";
+#endif
+
+            var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), $"build -c {config}", 30000);
             execInfo.ShouldBeSuccessful();
 
             execInfo.OutputStrings.Should().ContainMatch("Build succeeded.");
