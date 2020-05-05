@@ -28,7 +28,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
         public void WhenIInstallTheTemplateForLocationViaBatchFile(string location)
         {
             var execInfo = _processManagementService.Start("../../devops/install-template", location, 30000);
-            execInfo.Test();
+            execInfo.ShouldBeSuccessful();
         }
 
         [Then(@"The template for '(.*)' is installed with the following parameters")]
@@ -36,7 +36,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
         {
             var expectedResult = table.CreateSet<TemplateAssertionData>().Single();
             var execInfo = _processManagementService.Start("dotnet", $"new {shortName} -l");
-            execInfo.Test();
+            execInfo.ShouldBeSuccessful();
             var lines = execInfo.OutputStrings;
             var dashLine = lines[1];
             var infoLine = lines[2];
@@ -101,7 +101,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             var path = Path.Combine(tempPath, folderName);
 
             var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), $"new {shortName}", 30000);
-            execInfo.Test();
+            execInfo.ShouldBeSuccessful();
         }
 
         [Then(@"The folder '(.*)' contains working LogoFX template-based solution")]
@@ -111,7 +111,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             var path = Path.Combine(tempPath, folderName);
 
             var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), $"build", 30000);
-            execInfo.Test();
+            execInfo.ShouldBeSuccessful();
 
             execInfo.OutputStrings.Should().ContainMatch("Build succeeded.");
         }

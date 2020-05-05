@@ -38,8 +38,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
 
                 var process = Process.Start(processInfo);
 
-                Debug.Assert(process != null, nameof(process) + " != null");
-
+                // ReSharper disable once PossibleNullReferenceException
                 process.OutputDataReceived += (sender, e) =>
                 {
                     if (e.Data == null)
