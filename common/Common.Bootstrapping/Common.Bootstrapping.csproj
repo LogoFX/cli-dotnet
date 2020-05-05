@@ -3,59 +3,28 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <Configurations>DebugWithFake;ReleaseWithFake;ReleaseWithReal;DebugWithReal;DebugWithSpecs</Configurations>
+    <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
     
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugWithFake|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\DebugWithFake</OutputPath>
-    <DefineConstants></DefineConstants>
+    <OutputPath>..\bin\Debug</OutputPath>
+    <DefineConstants />
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>obj\DebugWithFake</IntermediateOutputPath>
-    <NoWarn></NoWarn>
-    <NoStdLib>false</NoStdLib>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWithSpecs|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\bin\DebugWithSpecs</OutputPath>
-    <DefineConstants></DefineConstants>
-    <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>obj\DebugWithFake</IntermediateOutputPath>
+    <IntermediateOutputPath>obj\Debug</IntermediateOutputPath>
     <NoWarn />
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugWithReal|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\DebugWithReal</OutputPath>
-    <DefineConstants></DefineConstants>
-    <NoWarn></NoWarn>
-    <NoStdLib>false</NoStdLib>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseWithFake|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\bin\ReleaseWithFake</OutputPath>
-    <DefineConstants>RELEASEWITHFAKE;NETCOREAPP;NETCOREAPP2_0</DefineConstants>
+    <OutputPath>..\bin\Release</OutputPath>
+    <DefineConstants>NETCOREAPP;NETCOREAPP2_0</DefineConstants>
     <WarningLevel>4</WarningLevel>
-    <NoWarn></NoWarn>
-    <NoStdLib>false</NoStdLib>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseWithReal|AnyCPU' ">
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType></DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\bin\ReleaseWithReal</OutputPath>
-    <DefineConstants></DefineConstants>
-    <NoWarn></NoWarn>
+    <NoWarn />
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
   <ItemGroup>

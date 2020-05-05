@@ -1,0 +1,10 @@
+configuration: Release
+
+before_build:
+- cd src
+- nuget restore
+
+image: Visual Studio 2019
+
+build:
+  verbosity: minimal
