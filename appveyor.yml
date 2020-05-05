@@ -2,7 +2,7 @@ configuration: Release
 
 before_build:
 - cd specs
-- echo dir
+- nuget restore
 
 branches:
   only:
