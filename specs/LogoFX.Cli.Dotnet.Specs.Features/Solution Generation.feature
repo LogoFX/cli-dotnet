@@ -4,7 +4,7 @@
 	I want to be able to install and use the correspondent template via existing dotnet means
 
 Scenario: Install template
-	When I install the 'logofx-wpf' template for location '' via dotnet Cli
+	When I install the template for location 'LogoFX.Templates.WPF' via batch file
 	Then The template for 'logofx-wpf' is installed with the following parameters
 	| Description            | Short Name | Languages | Tags       |
 	| LogoFX WPF Application | logofx-wpf | [C#]      | LogoFX/WPF |
