@@ -10,6 +10,7 @@ branches:
 
 build:
   verbosity: minimal
+  project: specs\LogoFX.Cli.Dotnet.Specs.sln
 
 image: Visual Studio 2019
   
