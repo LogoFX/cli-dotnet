@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Threading.Tasks;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
-using LogoFX.Cli.Dotnet.Specs.Tests.Infra;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
@@ -37,23 +36,23 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             var lines = execInfo.OutputStrings;
             var dashLine = lines[1];
             var infoLine = lines[2];
-            const int InitStart = -1;
-            const int InitLength = 0;
-            int start = InitStart;
-            int length = InitLength;
+            const int initStart = -1;
+            const int initLength = 0;
+            int start = initStart;
+            int length = initLength;
             var words = new List<string>();
             for (int i = 0; i < dashLine.Length; i++)
             {
                 if (dashLine[i] == ' ')
                 {
-                    if (length == InitLength)
+                    if (length == initLength)
                     {
                         continue;
                     }
                 }
                 if (dashLine[i] == '-')
                 {
-                    if (start == InitStart)
+                    if (start == initStart)
                     {
                         start = i;
                     }
@@ -62,8 +61,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
                         continue;
                 }
                 words.Add(infoLine[new Range(new Index(start),new Index(start + length))].Trim());
-                start = InitStart;
-                length = InitLength;
+                start = initStart;
+                length = initLength;
             }
 
             var actualDescription = words[0];
@@ -77,6 +76,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
         }
     }
 
+    [UsedImplicitly]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     class TemplateAssertionData
     {
         public string Description { get; set; }
