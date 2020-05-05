@@ -47,6 +47,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
                     }
                     outputStrings.Add(e.Data);
                     Debug.WriteLine("output>>" + e.Data);
+                    Console.WriteLine(e.Data);
                 };
                 process.BeginOutputReadLine();
 
@@ -58,6 +59,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
                     }
                     errorStrings.Add(e.Data);
                     Debug.WriteLine("error>>" + e.Data);
+                    Console.WriteLine(e.Data);
                 };
                 process.BeginErrorReadLine();
 
