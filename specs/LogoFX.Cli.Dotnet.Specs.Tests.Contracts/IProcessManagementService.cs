@@ -2,7 +2,6 @@
 {
     public interface IProcessManagementService
     {
-        string SetCurrentDir(string path);
         ExecutionInfo Start(string tool, string args, int? waitTime = null);
         void Stop(int processId);
     }

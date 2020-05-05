@@ -10,7 +10,7 @@ Scenario: Install template
 	| LogoFX WPF Application | logofx-wpf | [C#]      | LogoFX/WPF |
 
 Scenario: Generate solution skeleton
-	When I install the 'LogoFX.Templates.WPF' template for location '' via dotnet Cli
+	When I install the template for location 'LogoFX.Templates.WPF' via batch file
 	And I create a folder named 'Generation'
 	And I navigate to the folder named 'Generation'
 	And I generate the code using 'logofx-wpf' template with the default options

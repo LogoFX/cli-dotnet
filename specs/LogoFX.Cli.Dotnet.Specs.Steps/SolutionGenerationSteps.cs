@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using FluentAssertions;
 using JetBrains.Annotations;
 using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
+using LogoFX.Cli.Dotnet.Specs.Tests.Infra;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
@@ -24,8 +27,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
         [When(@"I install the template for location '(.*)' via batch file")]
         public void WhenIInstallTheTemplateForLocationViaBatchFile(string location)
         {
-            _processManagementService.SetCurrentDir("../../devops");
-            _processManagementService.Start("install-template", location, 30000);
+            var execInfo = _processManagementService.Start("../../devops/install-template", location, 30000);
+            execInfo.Test();
         }
 
         [Then(@"The template for '(.*)' is installed with the following parameters")]
@@ -33,6 +36,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
         {
             var expectedResult = table.CreateSet<TemplateAssertionData>().Single();
             var execInfo = _processManagementService.Start("dotnet", $"new {shortName} -l");
+            execInfo.Test();
             var lines = execInfo.OutputStrings;
             var dashLine = lines[1];
             var infoLine = lines[2];
@@ -73,6 +77,40 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             actualShortName.Should().Be(expectedResult.ShortName);
             actualLanguages.Should().Be(expectedResult.Languages);
             actualTags.Should().Be(expectedResult.Tags);
+        }
+
+        [When(@"I create a folder named '(.*)'")]
+        public void WhenICreateAFolderNamed(string folderName)
+        {
+            var tempPath = Path.GetTempPath();
+            var path = Path.Combine(tempPath, folderName);
+
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
+
+            Directory.CreateDirectory(path);
+            Directory.Exists(path).Should().BeTrue();
+        }
+
+        [When(@"I navigate to the folder named '(.*)'")]
+        public void WhenINavigateToTheFolderNamed(string folderName)
+        {
+            var tempPath = Path.GetTempPath();
+            var path = Path.Combine(tempPath, folderName);
+        }
+
+        [When(@"I generate the code using '(.*)' template with the default options")]
+        public void WhenIGenerateTheCodeUsingTemplateWithTheDefaultOptions(string shortName)
+        {
+            
+        }
+
+        [Then(@"The folder '(.*)' contains working LogoFX template-based solution")]
+        public void ThenTheFolderContainsWorkingLogoFXTemplate_BasedSolution(string folderName)
+        {
+            
         }
     }
 
