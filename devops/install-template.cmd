@@ -19,7 +19,7 @@ if EXIST %1 (
 	rmdir %1 /s /q
 )
 md %1
-xcopy /e /i /y ..\templates\%1 .\%1 /exclude:..\devops\excludefiles.txt
+xcopy /e /i /y /h ..\templates\%1 .\%1 /exclude:..\devops\excludefiles.txt
 
 REM Copy 'Common' projects
 
