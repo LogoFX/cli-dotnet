@@ -2,6 +2,7 @@ configuration: Release
 
 before_build:
 - cd specs
+- echo cd
 
 branches:
   only:
