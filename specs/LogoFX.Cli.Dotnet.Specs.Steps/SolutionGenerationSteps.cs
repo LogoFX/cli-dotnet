@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
 using LogoFX.Cli.Dotnet.Specs.Tests.Infra;
 using TechTalk.SpecFlow;
@@ -22,47 +24,39 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             _processManagementService = processManagementService;
         }
 
-        [When(@"I install the '(.*)' template for location '(.*)' via dotnet Cli")]
-        public void WhenIInstallTheTemplateViaDotnetCli(string name, string location)
+        [When(@"I install the template for location '(.*)' via batch file")]
+        public void WhenIInstallTheTemplateForLocationViaBatchFile(string location)
         {
-            //should uninstall the tool first
-            var uninstallProcessId = _processManagementService.Start("dotnet",
-                $"../../utils/UninstallTemplate/bin/uninstalltemplate.dll -s {name}");
-            Task.Delay(5000).Wait();
-            uninstallProcessId.KillProcessAndChildren();
-            var processId = _processManagementService.Start("dotnet", $"new -i ../../templates/{location}");
-            Task.Delay(3000).Wait();
-            processId.KillProcessAndChildren();
+            var execInfo = _processManagementService.Start("../../devops/install-template", location, 30000);
+            execInfo.ShouldBeSuccessful();
         }
 
         [Then(@"The template for '(.*)' is installed with the following parameters")]
         public void ThenTheTemplateForIsInstalledWithTheFollowingParameters(string shortName, Table table)
         {
             var expectedResult = table.CreateSet<TemplateAssertionData>().Single();
-            var tempFileName = "output.txt";
-            var processId = _processManagementService.Start("dotnet", $"new {shortName} -l > {tempFileName}");
-            Task.Delay(3000).Wait();
-            processId.KillProcessAndChildren();
-            var lines = File.ReadAllLines(tempFileName);
+            var execInfo = _processManagementService.Start("dotnet", $"new {shortName} -l");
+            execInfo.ShouldBeSuccessful();
+            var lines = execInfo.OutputStrings;
             var dashLine = lines[1];
             var infoLine = lines[2];
-            const int InitStart = -1;
-            const int InitLength = 0;
-            int start = InitStart;
-            int length = InitLength;
+            const int initStart = -1;
+            const int initLength = 0;
+            int start = initStart;
+            int length = initLength;
             var words = new List<string>();
             for (int i = 0; i < dashLine.Length; i++)
             {
                 if (dashLine[i] == ' ')
                 {
-                    if (length == InitLength)
+                    if (length == initLength)
                     {
                         continue;
                     }
                 }
                 if (dashLine[i] == '-')
                 {
-                    if (start == InitStart)
+                    if (start == initStart)
                     {
                         start = i;
                     }
@@ -71,8 +65,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
                         continue;
                 }
                 words.Add(infoLine[new Range(new Index(start),new Index(start + length))].Trim());
-                start = InitStart;
-                length = InitLength;
+                start = initStart;
+                length = initLength;
             }
 
             var actualDescription = words[0];
@@ -84,8 +78,47 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             actualLanguages.Should().Be(expectedResult.Languages);
             actualTags.Should().Be(expectedResult.Tags);
         }
+
+        [When(@"I create a folder named '(.*)'")]
+        public void WhenICreateAFolderNamed(string folderName)
+        {
+            var tempPath = Path.GetTempPath();
+            var path = Path.Combine(tempPath, folderName);
+
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
+
+            Directory.CreateDirectory(path);
+            Directory.Exists(path).Should().BeTrue();
+        }
+
+        [When(@"I generate the code in folder named '(.*)' using '(.*)' template with the default options")]
+        public void WhenIGenerateTheCodeInFolderNamedUsingTemplateWithTheDefaultOptions(string folderName, string shortName)
+        {
+            var tempPath = Path.GetTempPath();
+            var path = Path.Combine(tempPath, folderName);
+
+            var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), $"new {shortName}", 30000);
+            execInfo.ShouldBeSuccessful();
+        }
+
+        [Then(@"The folder '(.*)' contains working LogoFX template-based solution")]
+        public void ThenTheFolderContainsWorkingLogoFXTemplate_BasedSolution(string folderName)
+        {
+            var tempPath = Path.GetTempPath();
+            var path = Path.Combine(tempPath, folderName);
+
+            var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), $"build", 30000);
+            execInfo.ShouldBeSuccessful();
+
+            execInfo.OutputStrings.Should().ContainMatch("Build succeeded.");
+        }
     }
 
+    [UsedImplicitly]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     class TemplateAssertionData
     {
         public string Description { get; set; }
