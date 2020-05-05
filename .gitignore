@@ -351,3 +351,4 @@ MigrationBackup/
 
 # Unclear 
 .DS_Store
+/generated
