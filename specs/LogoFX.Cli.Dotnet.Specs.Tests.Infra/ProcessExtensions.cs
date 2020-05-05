@@ -28,7 +28,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
             ManagementObjectSearcher searcher = new ManagementObjectSearcher
                 ("Select * From Win32_Process Where ParentProcessID=" + pid);
             ManagementObjectCollection moc = searcher.Get();
-            foreach (ManagementObject mo in moc)
+            foreach (var mo in moc)
             {
                 KillProcessAndChildren(Convert.ToInt32(mo["ProcessID"]));
             }

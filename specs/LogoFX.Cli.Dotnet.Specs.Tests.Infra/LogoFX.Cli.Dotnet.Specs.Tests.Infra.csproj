@@ -14,6 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
     <PackageReference Include="Solid.Practices.Modularity" Version="2.2.0" />
     <PackageReference Include="System.Management" Version="4.6.0" />
