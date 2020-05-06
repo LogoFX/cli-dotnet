@@ -12,7 +12,7 @@
         Height="450" 
         Width="800">
     
-    <Grid Margin="8">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32" />
             <RowDefinition Height="*" />
@@ -23,6 +23,7 @@
                 VerticalAlignment="Center"
                 Width="100"
                 Height="24"
+                Margin="0,0,8,0"
                 Content="Exit">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
@@ -31,6 +32,6 @@
             </i:Interaction.Triggers>
         </Button>
 
-        <ContentControl Grid.Row="1" Margin="8" x:Name="ActiveItem" />
+        <ContentControl Grid.Row="1" x:Name="ActiveItem" />
     </Grid>
 </Window>

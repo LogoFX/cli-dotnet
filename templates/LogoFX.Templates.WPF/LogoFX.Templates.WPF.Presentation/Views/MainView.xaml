@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:LogoFX.Templates.WPF.Presentation.Shell.ViewModels"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
              d:DesignHeight="450"
@@ -14,13 +15,27 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+        <Grid Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <ListBox x:Name="Items" Margin="8,0,8,0" Grid.Column="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewModels:SampleItemViewModel}">
+                        <Grid>
+                            <ContentControl Margin="4,4,4,0" cal:View.Model="{Binding}" cal:View.Context="Display" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
-            <ListBox x:Name="Items" />
+            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+
+            </Border>
+
+            <GridSplitter Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="8" />
         </Grid>
 
         <Grid Visibility="{Binding Path=IsBusy, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
