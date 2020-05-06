@@ -4,10 +4,10 @@ Command-line interface for generating LogoFX-based desktop .NET apps via `dotnet
 ## Install template
 
 ```
-call install-template-logofx-wpf.cmd
+call ./devops/install-template-logofx-wpf.cmd
 ```
 
-This command will install new template with name `logofx-wpf` (in `template.json`).
+This command will install new template with short name `logofx-wpf` (in `template.json`).
   
 ## Create project from the installed template
 
