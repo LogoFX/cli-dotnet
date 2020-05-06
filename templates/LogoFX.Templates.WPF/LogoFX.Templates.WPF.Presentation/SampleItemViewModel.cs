@@ -6,10 +6,10 @@ using LogoFX.Templates.WPF.Presentation.Contracts;
 namespace LogoFX.Templates.WPF.Presentation.Shell
 {
     [UsedImplicitly]
-    public sealed class WarehouseItemViewModel : ObjectViewModel<IWarehouseItem>, IWarehouseItemViewModel
+    public sealed class SampleItemViewModel : ObjectViewModel<ISampleItem>, ISampleItemViewModel
     {
-        public WarehouseItemViewModel(
-            IWarehouseItem model) : base(model)
+        public SampleItemViewModel(
+            ISampleItem model) : base(model)
         {
         }
     }

@@ -14,7 +14,7 @@ namespace LogoFX.Templates.WPF.Model.Mappers
 
         private void CreateCameraMaps()
         {
-            CreateDomainObjectMap<WarehouseItemDto, IWarehouseItem, WarehouseItem>();
+            CreateDomainObjectMap<SampleItemDto, ISampleItem, SampleItem>();
         }
 
         private void CreateDomainObjectMap<TDto, TContract, TModel>()

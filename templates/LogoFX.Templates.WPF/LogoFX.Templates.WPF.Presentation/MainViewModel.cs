@@ -21,16 +21,16 @@ namespace LogoFX.Templates.WPF.Presentation.Shell
             _dataService = dataService;
         }
 
-        private WrappingCollection.WithSelection _warehouseItems;
-        public WrappingCollection.WithSelection Items => _warehouseItems ??= CreateWarehouseItems();
+        private WrappingCollection.WithSelection _items;
+        public WrappingCollection.WithSelection Items => _items ??= CreateItems();
 
-        private WrappingCollection.WithSelection CreateWarehouseItems()
+        private WrappingCollection.WithSelection CreateItems()
         {
             var wc = new WrappingCollection.WithSelection
             {
-                FactoryMethod = o => _viewModelCreatorService.CreateViewModel<IWarehouseItem, WarehouseItemViewModel>(
-                    (IWarehouseItem)o)
-            }.WithSource(_dataService.WarehouseItems);
+                FactoryMethod = o =>
+                    _viewModelCreatorService.CreateViewModel<ISampleItem, SampleItemViewModel>((ISampleItem) o)
+            }.WithSource(_dataService.Items);
 
             return wc;
         }
@@ -38,7 +38,7 @@ namespace LogoFX.Templates.WPF.Presentation.Shell
         protected override async void OnInitialize()
         {
             base.OnInitialize();
-            await _dataService.GetWarehouseItems();
+            await _dataService.GetItems();
         }
 
     }
