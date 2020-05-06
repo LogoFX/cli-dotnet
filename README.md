@@ -20,3 +20,5 @@ The solution will be created in current folder with name of this folder. For set
 ```
 dotnet new logofx-wpf -n <new-solution-name>
 ```
+
+<img src=https://ci.appveyor.com/api/projects/status/github/logofx/cli-dotnet>
