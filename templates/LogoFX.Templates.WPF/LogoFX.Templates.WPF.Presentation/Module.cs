@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using LogoFX.Templates.WPF.Presentation.Contracts;
+using LogoFX.Templates.WPF.Presentation.Shell.ViewModels;
 using Solid.Practices.IoC;
 using Solid.Practices.Modularity;
 

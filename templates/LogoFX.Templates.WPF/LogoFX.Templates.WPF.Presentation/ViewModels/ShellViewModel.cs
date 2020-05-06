@@ -6,7 +6,7 @@ using LogoFX.Client.Mvvm.Commanding;
 using LogoFX.Client.Mvvm.ViewModel.Services;
 using LogoFX.Templates.WPF.Presentation.Contracts;
 
-namespace LogoFX.Templates.WPF.Presentation.Shell
+namespace LogoFX.Templates.WPF.Presentation.Shell.ViewModels
 {
     [UsedImplicitly]
     public class ShellViewModel : Conductor<INotifyPropertyChanged>.Collection.OneActive, IShellViewModel
