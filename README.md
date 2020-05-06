@@ -1,6 +1,12 @@
 # cli-dotnet
 Command-line interface for generating LogoFX-based desktop .NET apps via `dotnet` tool
 
+## Creating nuget package for further installation
+
+```
+dotnet pack
+```
+
 ## Install template
 
 ```
