@@ -26,7 +26,10 @@ namespace LogoFX.Templates.WPF.Presentation.Shell.ViewModels
 
         private WrappingCollection.WithSelection CreateItems()
         {
-            var wc = new WrappingCollection.WithSelection
+            WrappingCollection.WithSelection wc = null;
+
+            // ReSharper disable once AccessToModifiedClosure
+            wc = new WrappingCollection.WithSelection(o => wc?.SelectedItem == null)
             {
                 FactoryMethod = o =>
                     _viewModelCreatorService.CreateViewModel<ISampleItem, SampleItemViewModel>((ISampleItem) o)

@@ -21,7 +21,15 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             
-            <ListBox x:Name="Items" Margin="8,0,8,0" Grid.Column="0">
+            <ListBox x:Name="Items"
+                     Margin="8,0,8,0"
+                     Grid.Column="0">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                        <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                        <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModels:SampleItemViewModel}">
                         <Grid>
@@ -31,8 +39,8 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1">
-
+            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1" Padding="8">
+                <ContentControl cal:View.Model="{Binding Path=Items.SelectedItem, Mode=OneWay}" cal:View.Context="Edit" />
             </Border>
 
             <GridSplitter Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="8" />
