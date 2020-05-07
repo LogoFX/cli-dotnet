@@ -11,7 +11,7 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
-cd ..\bin\Debug
+cd ..\output
 dotnet new -i %package_file_name%
 
 if %ERRORLEVEL% NEQ 0 ( 

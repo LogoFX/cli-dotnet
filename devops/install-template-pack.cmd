@@ -10,5 +10,19 @@ if %ERRORLEVEL% NEQ 0 (
 
 call install-package.cmd %package_name% %package_version%
 
+cd ..
+
+if exist output (
+	rmdir output /s /q
+)
+
+if exist bin (
+	rmdir bin /s /q
+)
+
+if exist obj (
+	rmdir obj /s /q
+)
+
 :EXIT
 EXIT /B %ERRORLEVEL%
