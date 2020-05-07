@@ -6,7 +6,19 @@ echo %package_file_name%
 
 REM Uninstall package
 dotnet .\utils\UninstallTemplate.dll -d %1
+
+if %ERRORLEVEL% NEQ 0 ( 
+	goto EXIT
+)
+
 cd ..\bin\Debug
 dotnet new -i %package_file_name%
 
+if %ERRORLEVEL% NEQ 0 ( 
+	goto EXIT
+)
+
 cd ..\..\devops
+
+:EXIT
+EXIT /B %ERRORLEVEL%

@@ -4,6 +4,11 @@ set package_version=0.2.0-rc1
 
 call pack-templates.cmd
 
-cd .\devops
+if %ERRORLEVEL% NEQ 0 ( 
+	goto EXIT
+)
 
 call install-package.cmd %package_name% %package_version%
+
+:EXIT
+EXIT /B %ERRORLEVEL%
