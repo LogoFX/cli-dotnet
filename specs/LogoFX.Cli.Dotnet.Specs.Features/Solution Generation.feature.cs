@@ -82,13 +82,13 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Install template")]
+        [Xunit.SkippableFactAttribute(DisplayName="Install template pack")]
         [Xunit.TraitAttribute("FeatureTitle", "Solution Generation")]
-        [Xunit.TraitAttribute("Description", "Install template")]
-        public virtual void InstallTemplate()
+        [Xunit.TraitAttribute("Description", "Install template pack")]
+        public virtual void InstallTemplatePack()
         {
             string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Install template", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Install template pack", null, ((string[])(null)));
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -110,7 +110,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 7
- testRunner.When("I install the template for location \'LogoFX.Templates.WPF\' via batch file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I install the template pack \'LogoFX.Templates\' from local package", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                             "Description",
@@ -157,7 +157,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 13
- testRunner.When("I install the template for location \'LogoFX.Templates.WPF\' via batch file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I install the template pack \'LogoFX.Templates\' from local package", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 14
  testRunner.And("I create a folder named \'Generation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
