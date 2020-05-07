@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "LogoUI",
+  "classifications": [ "LogoFX", "Model" ], 
+  "name": "LogoFX Model Entity",
+  "identity": "LogoFX.Model.Entity",         
+  "groupIdentity":"LogoFX.Model",
+  "shortName": "logofx-model",
+  "tags": {
+    "language": "C#",
+    "type":"item"
+  },
+  "sourceName": "LogoFX.Templates.Model.Entity",
+  "preferNameDirectory": true
+}

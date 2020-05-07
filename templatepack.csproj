@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageType>Template</PackageType>
+    <PackageVersion>0.2.0-rc1</PackageVersion>
+    <PackageId>LogoFX.Templates</PackageId>
+    <Title>LogoFX Templates</Title>
+    <Authors>Dmitry Bublik, Gennady Verdel, David Kossoglyad</Authors>
+	<Owners>Gennady Verdel, David Kossoglyad</Owners>
+    <Description>Templates to use when creating a LogoFX-based application</Description>
+    <PackageTags>dotnet-new;templates;logofx</PackageTags>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>content</ContentTargetFolders>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="generated\**\*" Exclude="generated\**\bin\**;generated\**\obj\**;generated\**\.vs\**" />
+    <Compile Remove="**\*" />
+  </ItemGroup>
+
+</Project>
