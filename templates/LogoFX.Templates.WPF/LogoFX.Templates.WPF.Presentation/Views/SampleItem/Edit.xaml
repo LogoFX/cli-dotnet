@@ -29,7 +29,7 @@
                  Grid.Column="1"
                  Margin="5,0,0,0"
                  VerticalAlignment="Center"
-                 Text="{Binding Path=Model.DisplayName, Mode=OneWay}">
+                 Text="{Binding Path=Model.DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=500}">
         </TextBox>
 
         <!--Value-->
@@ -41,7 +41,7 @@
                  Grid.Column="1"
                  Margin="5,0,0,0"
                  VerticalAlignment="Center"
-                 Text="{Binding Path=Model.Value, Mode=OneWay}">
+                 Text="{Binding Path=Model.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=500}">
         </TextBox>
 
         <!--Error Info-->
