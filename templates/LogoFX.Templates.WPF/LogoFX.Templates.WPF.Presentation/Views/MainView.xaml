@@ -46,8 +46,12 @@
             <GridSplitter Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="8" />
         </Grid>
 
-        <Grid Visibility="{Binding Path=IsBusy, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+        <Grid Visibility="{Binding Path=Items.SelectedItem.IsBusy, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Background="Black" Opacity="0.4" />
             <ProgressBar Height="24" 
+                         MaxWidth="200"
+                         Margin="8,0,8,0"
                          AutomationProperties.AutomationId="Main_Progress"
                          HorizontalAlignment="Stretch"
                          VerticalAlignment="Center" 

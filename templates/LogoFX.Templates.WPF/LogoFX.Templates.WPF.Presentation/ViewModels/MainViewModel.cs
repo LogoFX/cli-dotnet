@@ -1,6 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using Caliburn.Micro;
+using JetBrains.Annotations;
 using LogoFX.Client.Mvvm.ViewModel;
-using LogoFX.Client.Mvvm.ViewModel.Extensions;
 using LogoFX.Client.Mvvm.ViewModel.Services;
 using LogoFX.Templates.WPF.Model.Contracts;
 using LogoFX.Templates.WPF.Presentation.Contracts;
@@ -8,7 +8,7 @@ using LogoFX.Templates.WPF.Presentation.Contracts;
 namespace LogoFX.Templates.WPF.Presentation.Shell.ViewModels
 {
     [UsedImplicitly]
-    public sealed class MainViewModel : BusyScreen, IMainViewModel
+    public sealed class MainViewModel : Screen, IMainViewModel
     {
         private readonly IViewModelCreatorService _viewModelCreatorService;
         private readonly IDataService _dataService;

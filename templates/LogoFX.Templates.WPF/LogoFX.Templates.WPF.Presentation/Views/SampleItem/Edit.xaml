@@ -4,51 +4,97 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:viewModels="clr-namespace:LogoFX.Templates.WPF.Presentation.Shell.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:commanding="clr-namespace:LogoFX.Client.Mvvm.Commanding;assembly=LogoFX.Client.Mvvm.Commanding.Platform"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance viewModels:SampleItemViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="32" />
-            <RowDefinition Height="32" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="32" />
         </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32" />
+                <RowDefinition Height="32" />
+                <RowDefinition Height="32" />
+            </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <!--Name-->
-        <TextBlock Grid.Row="0"
-                   Grid.Column="0"
-                   VerticalAlignment="Center"
-                   Text="Name" />
-        <TextBox AutomationProperties.AutomationId="ItemDisplayNameTextBox"
-                 Grid.Row="0"
-                 Grid.Column="1"
-                 Margin="5,0,0,0"
-                 VerticalAlignment="Center"
-                 Text="{Binding Path=Model.DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=500}">
-        </TextBox>
+            <!--Name-->
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Text="Name" />
+            <TextBox AutomationProperties.AutomationId="ItemDisplayNameTextBox"
+                     Grid.Row="0"
+                     Grid.Column="1"
+                     Margin="5,0,0,0"
+                     VerticalAlignment="Center"
+                     Text="{Binding Path=Model.DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=500}">
+            </TextBox>
 
-        <!--Value-->
-        <TextBlock Grid.Row="1"
-                   Grid.Column="0"
-                   VerticalAlignment="Center"
-                   Text="Value" />
-        <TextBox Grid.Row="1"
-                 Grid.Column="1"
-                 Margin="5,0,0,0"
-                 VerticalAlignment="Center"
-                 Text="{Binding Path=Model.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=500}">
-        </TextBox>
+            <!--Value-->
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Text="Value" />
+            <TextBox Grid.Row="1"
+                     Grid.Column="1"
+                     Margin="5,0,0,0"
+                     VerticalAlignment="Center"
+                     Text="{Binding Path=Model.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=500}">
+            </TextBox>
 
-        <!--Error Info-->
-        <TextBlock Grid.Row="2"
-                   Grid.Column="1"
-                   VerticalAlignment="Center"
-                   Foreground="Red"
-                   Text="{Binding Path=Model.Error, Mode=OneWay}" />
+            <!--Error Info-->
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Foreground="Red"
+                       Text="{Binding Path=Model.Error, Mode=OneWay}" />
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+
+            <Button Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Width="100"
+                    Height="24"
+                    Margin="8,0,0,0"
+                    Content="Save">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <commanding:ExecuteCommandAction Command="{Binding Path=ApplyCommand, Mode=OneTime}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+
+            <Button Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Width="100"
+                    Height="24"
+                    Margin="8,0,0,0"
+                    Content="Discard">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <commanding:ExecuteCommandAction Command="{Binding Path=CancelChangesCommand, Mode=OneTime}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
     </Grid>
 </UserControl>
