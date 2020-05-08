@@ -2,8 +2,8 @@
 
 namespace LogoFX.Templates.WPF.Presentation.Contracts
 {
-    public interface IWarehouseItemViewModel
+    public interface ISampleItemViewModel
     {
-        IWarehouseItem Model { get; }
+        ISampleItem Model { get; }
     }
 }

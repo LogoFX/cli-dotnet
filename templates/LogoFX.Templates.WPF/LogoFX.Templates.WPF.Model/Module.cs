@@ -25,7 +25,7 @@ namespace LogoFX.Templates.WPF.Model
             var mapper = config.CreateMapper();
             dependencyRegistrator
                 .AddInstance(mapper)
-                .AddSingleton<WarehouseMapper>();
+                .AddSingleton<SampleMapper>();
         }
     }
 }

@@ -5,24 +5,24 @@ using LogoFX.Templates.WPF.Data.Contracts.Providers;
 
 namespace LogoFX.Templates.WPF.Data.Real.Providers
 {
-    internal sealed class WarehouseProvider : IWarehouseProvider
+    internal sealed class SampleProvider : ISampleProvider
     {
-        public IEnumerable<WarehouseItemDto> GetWarehouseItems()
+        public IEnumerable<SampleItemDto> GetItems()
         {
             throw new NotImplementedException();
         }
 
-        public bool DeleteWarehouseItem(Guid id)
+        public bool DeleteItem(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public bool UpdateWarehouseItem(WarehouseItemDto dto)
+        public bool UpdateItem(SampleItemDto dto)
         {
             throw new NotImplementedException();
         }
 
-        public void CreateWarehouseItem(WarehouseItemDto dto)
+        public void CreateItem(SampleItemDto dto)
         {
             throw new NotImplementedException();
         }

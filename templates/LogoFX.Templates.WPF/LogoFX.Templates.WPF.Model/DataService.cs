@@ -13,53 +13,53 @@ namespace LogoFX.Templates.WPF.Model
     [UsedImplicitly]
     internal sealed class DataService : NotifyPropertyChangedBase<DataService>, IDataService
     {
-        private readonly IWarehouseProvider _warehouseProvider;
-        private readonly WarehouseMapper _warehouseMapper;
+        private readonly ISampleProvider _sampleProvider;
+        private readonly SampleMapper _sampleMapper;
 
-        private readonly RangeObservableCollection<IWarehouseItem> _warehouseItems =
-            new RangeObservableCollection<IWarehouseItem>();
+        private readonly RangeObservableCollection<ISampleItem> _items =
+            new RangeObservableCollection<ISampleItem>();
 
-        public DataService(IWarehouseProvider warehouseProvider, WarehouseMapper warehouseMapper)
+        public DataService(ISampleProvider sampleProvider, SampleMapper sampleMapper)
         {
-            _warehouseProvider = warehouseProvider;
-            _warehouseMapper = warehouseMapper;
+            _sampleProvider = sampleProvider;
+            _sampleMapper = sampleMapper;
         }
 
-        IEnumerable<IWarehouseItem> IDataService.WarehouseItems => _warehouseItems;
+        IEnumerable<ISampleItem> IDataService.Items => _items;
 
-        Task IDataService.GetWarehouseItems() => MethodRunner.RunAsync(Method);
+        Task IDataService.GetItems() => MethodRunner.RunAsync(Method);
 
         private void Method()
         {
-            var warehouseItems = _warehouseProvider.GetWarehouseItems().Select(_warehouseMapper.MapToWarehouseItem);
-            _warehouseItems.Clear();
-            _warehouseItems.AddRange(warehouseItems);
+            var items = _sampleProvider.GetItems().Select(_sampleMapper.MapToSampleItem);
+            _items.Clear();
+            _items.AddRange(items);
         }
 
-        Task<IWarehouseItem> IDataService.NewWarehouseItem() => MethodRunner.RunWithResultAsync<IWarehouseItem>(() =>
-            new WarehouseItem("New Kind", 0d, 1)
+        Task<ISampleItem> IDataService.NewItem() => MethodRunner.RunWithResultAsync<ISampleItem>(() =>
+            new SampleItem("New Item", 1)
             {
                 IsNew = true
             });
 
-        public Task SaveWarehouseItem(IWarehouseItem item) => MethodRunner.RunAsync(() =>
+        public Task SaveItem(ISampleItem item) => MethodRunner.RunAsync(() =>
         {
-            var dto = _warehouseMapper.MapToWarehouseDto(item);
+            var dto = _sampleMapper.MapToSampleItemDto(item);
 
             if (item.IsNew)
             {
-                _warehouseProvider.CreateWarehouseItem(dto);
+                _sampleProvider.CreateItem(dto);
             }
             else
             {
-                _warehouseProvider.UpdateWarehouseItem(dto);
+                _sampleProvider.UpdateItem(dto);
             }
         });
 
-        Task IDataService.DeleteWarehouseItem(IWarehouseItem item) => MethodRunner.RunAsync(() =>
+        Task IDataService.DeleteItem(ISampleItem item) => MethodRunner.RunAsync(() =>
         {
-            _warehouseProvider.DeleteWarehouseItem(item.Id);
-            _warehouseItems.Remove(item);
+            _sampleProvider.DeleteItem(item.Id);
+            _items.Remove(item);
         });
     }
 }

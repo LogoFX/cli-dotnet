@@ -15,58 +15,53 @@ namespace LogoFX.Templates.WPF.Data.Fake.Providers
         public void RegisterModule(IDependencyRegistrator dependencyRegistrator)
         {
             dependencyRegistrator
-                .AddInstance(InitializeWarehouseContainer())
-                .AddSingleton<IWarehouseProvider, FakeWarehouseProvider>();
+                .AddInstance(InitializeSampleContainer())
+                .AddSingleton<ISampleProvider, FakeSampleProvider>();
 
-            dependencyRegistrator.RegisterInstance(WarehouseProviderBuilder.CreateBuilder());
+            dependencyRegistrator.RegisterInstance(SampleProviderBuilder.CreateBuilder());
         }
 
-        private static IWarehouseContainer InitializeWarehouseContainer()
+        private static ISampleContainer InitializeSampleContainer()
         {
-            var warehouseContainer = new WarehouseContainer();
-            warehouseContainer.UpdateWarehouseItems(new[]
+            var sampleContainer = new SampleContainer();
+            sampleContainer.UpdateItems(new[]
             {
-                new WarehouseItemDto
+                new SampleItemDto
                 {
                     Id = Guid.NewGuid(),
-                    Kind = "PC",
-                    Price = 25.43,
-                    Quantity = 8
+                    DisplayName = "PC",
+                    Value = 8
                 },
 
-                new WarehouseItemDto
+                new SampleItemDto
                 {
                     Id = Guid.NewGuid(),
-                    Kind = "Acme",
-                    Price = 10,
-                    Quantity = 10
+                    DisplayName = "Acme",
+                    Value = 10
                 },
 
-                new WarehouseItemDto
+                new SampleItemDto
                 {
                     Id = Guid.NewGuid(),
-                    Kind = "Bacme",
-                    Price = 20,
-                    Quantity = 3
+                    DisplayName = "Bacme",
+                    Value = 3
                 },
 
-                new WarehouseItemDto
+                new SampleItemDto
                 {
                     Id = Guid.NewGuid(),
-                    Kind = "Exceed",
-                    Price = 0.4,
-                    Quantity = 100
+                    DisplayName = "Exceed",
+                    Value = 100
                 },
 
-                new WarehouseItemDto
+                new SampleItemDto
                 {
                     Id = Guid.NewGuid(),
-                    Kind = "Acme2",
-                    Price = 1,
-                    Quantity = 10
+                    DisplayName = "Acme2",
+                    Value = 10
                 }
             });
-            return warehouseContainer;
+            return sampleContainer;
         }
     }
 }

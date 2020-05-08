@@ -5,14 +5,14 @@ namespace LogoFX.Templates.WPF.Model.Contracts
 {
     public interface IDataService
     {
-        IEnumerable<IWarehouseItem> WarehouseItems { get; }
+        IEnumerable<ISampleItem> Items { get; }
 
-        Task GetWarehouseItems();
+        Task GetItems();
 
-        Task<IWarehouseItem> NewWarehouseItem();
+        Task<ISampleItem> NewItem();
 
-        Task SaveWarehouseItem(IWarehouseItem item);
+        Task SaveItem(ISampleItem item);
 
-        Task DeleteWarehouseItem(IWarehouseItem item);
+        Task DeleteItem(ISampleItem item);
     }
 }

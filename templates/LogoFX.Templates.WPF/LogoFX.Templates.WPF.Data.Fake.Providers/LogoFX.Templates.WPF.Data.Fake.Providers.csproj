@@ -13,6 +13,10 @@
     <DefineConstants>TRACE;DEBUG;FAKE</DefineConstants>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\Bin\Release</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Attest.Fake.Builders" Version="2.1.0-rc1" />
     <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
