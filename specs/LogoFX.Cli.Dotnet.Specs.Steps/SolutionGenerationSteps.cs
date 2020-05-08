@@ -23,10 +23,11 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             _processManagementService = processManagementService;
         }
 
-        [When(@"I install the template for location '(.*)' via batch file")]
-        public void WhenIInstallTheTemplateForLocationViaBatchFile(string location)
+        [When(@"I install the template pack '(.*)' from local package")]
+        public void WhenIInstallTheTemplatePackFromLocalPackage(string templatePackName)
         {
-            var execInfo = _processManagementService.Start("../../devops/install-template", location, 30000);
+            //TODO: Use template pack name
+            var execInfo = _processManagementService.Start("../../devops/install-template-pack",string.Empty, 30000);
             execInfo.ShouldBeSuccessful();
         }
 

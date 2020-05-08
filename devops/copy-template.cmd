@@ -1,4 +1,5 @@
 REM %1 - Template Solution Name
+REM %2 - Flag to Use Common
 
 set temp=generated
 set common1=Common.Bootstrapping\Common.Bootstrapping.csproj
@@ -19,7 +20,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 REM Copy solution folder
 
-if EXIST %1 (
+if exist %1 (
 	rmdir %1 /s /q
 )
 md %1
@@ -32,6 +33,10 @@ xcopy /e /i /y /h ..\templates\%1 .\%1 /exclude:..\devops\excludefiles.txt
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT
+)
+
+if not "%2" == "--use-common" (
+	GOTO EXIT
 )
 
 REM Copy 'Common' projects
@@ -73,21 +78,7 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
-REM Install template
-cd ..\..
-dotnet ..\devops\utils\UninstallTemplate.dll -d %1
-
-if %ERRORLEVEL% NEQ 0 ( 
-	goto EXIT
-)
-
-dotnet new -i %1
-
-if %ERRORLEVEL% NEQ 0 ( 
-	goto EXIT
-)
-
-cd ..\devops
+cd ..\..\..\devops
 
 :EXIT
 EXIT /B %ERRORLEVEL%
