@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageType>Template</PackageType>
-    <PackageVersion>0.2.0-rc2</PackageVersion>
+    <PackageVersion>0.2.0-rc3</PackageVersion>
     <PackageId>LogoFX.Templates</PackageId>
     <Title>LogoFX Templates</Title>
     <Authors>Dmitry Bublik, Gennady Verdel, David Kossoglyad</Authors>
