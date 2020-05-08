@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using LogoFX.Templates.WPF.Model.Contracts;
+using LogoFX.Templates.WPF.Model.Validation;
 
 namespace LogoFX.Templates.WPF.Model
 {    
@@ -22,6 +23,7 @@ namespace LogoFX.Templates.WPF.Model
         }
 
         private int _value;
+        [NumberValidation(Minimum = 1, ErrorMessage = "Value must be positive.")]
         public int Value
         {
             get => _value;
