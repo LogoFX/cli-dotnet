@@ -10,6 +10,7 @@
     "language": "C#",
     "type":"item"
   },
-  "sourceName": "LogoFX.Templates.Model.Entity",
-  "preferNameDirectory": true
+  "guids": [
+    "29C2033B-03D9-4099-95E4-0FEB76B4ACAA"
+  ]
 }
