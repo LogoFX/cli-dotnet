@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LogoFX.Templates.Model.Contracts\LogoFX.Templates.Model.Contracts.csproj" />
+    <ProjectReference Include="..\LogoFX.Templates.WPF.Model.Contracts\LogoFX.Templates.WPF.Model.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
