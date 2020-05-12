@@ -20,4 +20,6 @@ steps:
     & $env:temp\dotnet-install.ps1 -Architecture x64 -Version $env:CORE_SDK_VERSION -InstallDir "$env:ProgramFiles\dotnet"
   displayName: 'dotnet restore specs'
 - script: dotnet build specs\LogoFX.Cli.Dotnet.Specs.sln --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+  displayName: 'Building code using $(buildConfiguration) configuration'
+- script: dotnet test specs\LogoFX.Cli.Dotnet.Specs.slnn --configuration $(buildConfiguration)
+  displayName: 'Testing code using $(buildConfiguration) configuratuion'
