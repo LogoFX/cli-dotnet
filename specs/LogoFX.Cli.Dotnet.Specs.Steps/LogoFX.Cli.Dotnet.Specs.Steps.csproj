@@ -20,7 +20,7 @@
     <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
     <PackageReference Include="Solid.Common.Core" Version="2.2.0" />
     <PackageReference Include="Solid.IoC.Adapters.BoDi" Version="2.2.0" />
-    <PackageReference Include="SpecFlow" Version="3.1.97" />
+    <PackageReference Include="SpecFlow" Version="3.3.16-beta" />
   </ItemGroup>
 
   <ItemGroup>
