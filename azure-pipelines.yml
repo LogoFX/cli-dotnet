@@ -21,5 +21,10 @@ steps:
   displayName: 'Installing .NET 5 Preview SDK'
 - script: dotnet build specs\LogoFX.Cli.Dotnet.Specs.sln --configuration $(buildConfiguration)
   displayName: 'Building code using $(buildConfiguration) configuration'
-- script: dotnet test specs\LogoFX.Cli.Dotnet.Specs.sln --configuration $(buildConfiguration)
+- script: dotnet test specs\LogoFX.Cli.Dotnet.Specs.sln --configuration $(buildConfiguration) --logger trx
   displayName: 'Testing code using $(buildConfiguration) configuratuion'
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
