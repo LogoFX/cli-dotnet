@@ -109,18 +109,14 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
         {
             var tempPath = Path.GetTempPath();
             var path = Path.Combine(tempPath, folderName);
+            var configs = new[] {"DebugWithFake", "Release"};
 
-            const string config =
-#if DEBUG
-                "DebugWithFake";
-#else
-                "Release";
-#endif
-
-            var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), $"build -c {config}", 30000);
-            execInfo.ShouldBeSuccessful();
-
-            execInfo.OutputStrings.Should().ContainMatch("Build succeeded.");
+            foreach (var config in configs)
+            {
+                var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), $"build -c {config}", 30000);
+                execInfo.ShouldBeSuccessful();
+                execInfo.OutputStrings.Should().ContainMatch("Build succeeded.");
+            }
         }
     }
 
