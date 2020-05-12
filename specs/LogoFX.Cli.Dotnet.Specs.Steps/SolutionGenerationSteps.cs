@@ -113,9 +113,32 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
 
             foreach (var config in configs)
             {
-                var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), $"build -c {config}", 30000);
+                var execInfo =
+                    _processManagementService.Start(Path.Combine(path, "dotnet"), $"build -c {config}", 30000);
                 execInfo.ShouldBeSuccessful();
                 execInfo.OutputStrings.Should().ContainMatch("Build succeeded.");
+            }
+
+            var projectFolders = new[]
+            {
+                "Common.Bootstrapping",
+                "Common.Data.Fake.Setup",
+                $"{folderName}.Data.Contracts.Dto",
+                $"{folderName}.Data.Contracts.Providers",
+                $"{folderName}.Data.Fake.Containers",
+                $"{folderName}.Data.Fake.Containers.Contracts",
+                $"{folderName}.Data.Fake.ProviderBuilders",
+                $"{folderName}.Data.Fake.Providers",
+                $"{folderName}.Data.Real.Providers",
+                $"{folderName}.Launcher",
+                $"{folderName}.Model",
+                $"{folderName}.Model.Contracts",
+                $"{folderName}.Presentation",
+                $"{folderName}.Presentation.Contracts"
+            };
+            foreach (var projectFolder in projectFolders)
+            {
+                Directory.Exists(Path.Combine(path, projectFolder)).Should().BeTrue();
             }
         }
     }
