@@ -6,6 +6,7 @@
   "identity": "LogoFX.Model.Entity",         
   "groupIdentity":"LogoFX.Model",
   "shortName": "logofx-model",
+  "sourceName": "SampleModel",
   "tags": {
     "language": "C#",
     "type":"item"
