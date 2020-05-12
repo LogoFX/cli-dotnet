@@ -18,7 +18,7 @@ steps:
     Write-Host "Installing .NET Core SDK $env:CORE_SDK_VERSION"
     Invoke-WebRequest -Uri 'https://dot.net/v1/dotnet-install.ps1' -UseBasicParsing -OutFile "$env:temp\dotnet-install.ps1"
     & $env:temp\dotnet-install.ps1 -Architecture x64 -Version $env:CORE_SDK_VERSION -InstallDir "$env:ProgramFiles\dotnet"
-  displayName: 'dotnet restore specs'
+  displayName: 'Installing .NET 5 Preview SDK'
 - script: dotnet build specs\LogoFX.Cli.Dotnet.Specs.sln --configuration $(buildConfiguration)
   displayName: 'Building code using $(buildConfiguration) configuration'
 - script: dotnet test specs\LogoFX.Cli.Dotnet.Specs.sln --configuration $(buildConfiguration)
