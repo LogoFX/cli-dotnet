@@ -21,4 +21,8 @@ The solution will be created in current folder with name of this folder. For set
 dotnet new logofx-wpf -n <new-solution-name>
 ```
 
+## Azure Devops CI Status
+[![Build Status](https://dev.azure.com/LogoFX/cli-dotnet/_apis/build/status/LogoFX.cli-dotnet?branchName=master)](https://dev.azure.com/LogoFX/cli-dotnet/_build/latest?definitionId=1&branchName=master)
+
+## Appveyor CI Status
 <img src=https://ci.appveyor.com/api/projects/status/github/logofx/cli-dotnet>
