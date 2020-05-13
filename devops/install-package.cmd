@@ -18,7 +18,7 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
-cd ..\..\devops
+cd ..\devops
 
 :EXIT
 EXIT /B %ERRORLEVEL%
