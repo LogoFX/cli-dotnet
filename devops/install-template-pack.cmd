@@ -25,5 +25,7 @@ if exist obj (
 	rmdir obj /s /q
 )
 
+cd devops
+
 :EXIT
 EXIT /B %ERRORLEVEL%
