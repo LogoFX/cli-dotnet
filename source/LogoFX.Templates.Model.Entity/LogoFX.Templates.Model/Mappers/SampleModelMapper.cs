@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using LogoFX.Templates.WPF.Data.Contracts.Dto;
-using LogoFX.Templates.WPF.Model.Contracts;
+using LogoFX.Templates.Data.Contracts.Dto;
+using LogoFX.Templates.Model.Contracts;
 
-namespace LogoFX.Templates.WPF.Model.Mappers
+namespace LogoFX.Templates.Model.Mappers
 {
     internal sealed class SampleModelMapper
     {
