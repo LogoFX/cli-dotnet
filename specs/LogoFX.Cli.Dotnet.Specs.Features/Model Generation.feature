@@ -14,6 +14,5 @@ Scenario Outline: Generate model entity
 
 	Examples:
 	| solutionNameOption |
-	| -s                 |
-	| --solutionName     |
-
+	| -sn                |
+	| --solution-name    |
