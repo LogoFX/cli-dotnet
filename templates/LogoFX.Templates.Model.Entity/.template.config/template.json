@@ -12,7 +12,8 @@
     "type":"item"
   },
   "symbols":{
-     "solutionName": {
+     "solution-name": {
+	   "shortName": "sn",
 	   "type": "parameter",
 	   "dataType": "string",
 	   "description": "Solution name",

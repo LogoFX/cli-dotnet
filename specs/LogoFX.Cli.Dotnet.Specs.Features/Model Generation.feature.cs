@@ -85,8 +85,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
         [Xunit.SkippableTheoryAttribute(DisplayName="Generate model entity")]
         [Xunit.TraitAttribute("FeatureTitle", "Model Generation")]
         [Xunit.TraitAttribute("Description", "Generate model entity")]
-        [Xunit.InlineDataAttribute("-s", new string[0])]
-        [Xunit.InlineDataAttribute("--solutionName", new string[0])]
+        [Xunit.InlineDataAttribute("-sn", new string[0])]
+        [Xunit.InlineDataAttribute("--solution-name", new string[0])]
         public virtual void GenerateModelEntity(string solutionNameOption, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
