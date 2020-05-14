@@ -41,8 +41,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Model Generation", "\tIn order to provide tools to developers who want to add model layer objects\r\n\tAs" +
-                    " ann app developer\r\n\tI want to be able to install and use the correspondent temp" +
-                    "late via existing dotnet means", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    " an app developer\r\n\tI want to be able to install and use the correspondent templ" +
+                    "ate via existing dotnet means", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -82,13 +82,15 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Generate model entity")]
+        [Xunit.SkippableTheoryAttribute(DisplayName="Generate model entity")]
         [Xunit.TraitAttribute("FeatureTitle", "Model Generation")]
         [Xunit.TraitAttribute("Description", "Generate model entity")]
-        public virtual void GenerateModelEntity()
+        [Xunit.InlineDataAttribute("-s", new string[0])]
+        [Xunit.InlineDataAttribute("--solutionName", new string[0])]
+        public virtual void GenerateModelEntity(string solutionNameOption, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate model entity", null, ((string[])(null)));
+            string[] tagsOfScenario = exampleTags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate model entity", null, exampleTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -122,7 +124,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "-n",
                             "Sample"});
                 table1.AddRow(new string[] {
-                            "--solutionName",
+                            string.Format("{0}", solutionNameOption),
                             "Test"});
 #line 9
  testRunner.And("I generate the code in folder named \'Generation\' using \'logofx-model\' template wi" +
