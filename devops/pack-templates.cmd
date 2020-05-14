@@ -4,7 +4,7 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
-call copy-template.cmd LogoFX.Templates.Model.Entity
+call copy-template-source.cmd LogoFX.Templates.Model.Entity
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT
