@@ -9,10 +9,10 @@ namespace LogoFX.Templates.WPF.Model.Mappers
     {
         public MappingProfile()
         {
-            CreateCameraMaps();
+            CreateSampleItemMaps();
         }
 
-        private void CreateCameraMaps()
+        private void CreateSampleItemMaps()
         {
             CreateDomainObjectMap<SampleItemDto, ISampleItem, SampleItem>();
         }

@@ -1,4 +1,4 @@
-﻿namespace LogoFX.Templates.WPF.Model.Contracts
+﻿namespace LogoFX.Templates.Model.Contracts
 {
     public interface ISampleModel
     {

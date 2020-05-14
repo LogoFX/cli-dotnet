@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.WPF.Data.Contracts.Dto", "LogoFX.Templates.WPF.Data.Contracts.Dto\LogoFX.Templates.WPF.Data.Contracts.Dto.csproj", "{047974CE-5A9E-4EFF-8B2F-18AD990AAB42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Data.Contracts.Dto", "LogoFX.Templates.Data.Contracts.Dto\LogoFX.Templates.Data.Contracts.Dto.csproj", "{047974CE-5A9E-4EFF-8B2F-18AD990AAB42}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.WPF.Model.Contracts", "LogoFX.Templates.WPF.Model.Contracts\LogoFX.Templates.WPF.Model.Contracts.csproj", "{42BCDA3A-9EDB-47FE-AE58-07B4C5AAB88A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Model.Contracts", "LogoFX.Templates.Model.Contracts\LogoFX.Templates.Model.Contracts.csproj", "{42BCDA3A-9EDB-47FE-AE58-07B4C5AAB88A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.WPF.Model", "LogoFX.Templates.WPF.Model\LogoFX.Templates.WPF.Model.csproj", "{3F61C97C-AF2E-49CD-B598-1D2CB6C20C70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Model", "LogoFX.Templates.Model\LogoFX.Templates.Model.csproj", "{3F61C97C-AF2E-49CD-B598-1D2CB6C20C70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -18,8 +18,8 @@
 	   "dataType": "string",
 	   "description": "Solution name",
 	   "isRequired": true,
-       "replaces": "LogoFX.Templates.WPF",
-	   "fileRename": "LogoFX.Templates.WPF"
+       "replaces": "LogoFX.Templates",
+	   "fileRename": "LogoFX.Templates"
     },
   },
   "guids": [
