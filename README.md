@@ -4,18 +4,18 @@ Command-line interface for generating LogoFX-based desktop .NET apps via `dotnet
 ## Install templates pack
 
 ```
-call ./devops/install-templates-pack.cmd
+./devops/install-templates-pack.cmd
 ```
 
 This command will install all `LogoFX` templates
   
-## Create project from the installed template
+## Create solution from the installed template
 
 ```
 dotnet new logofx-wpf
 ```
 
-The solution will be created in current folder with name of this folder. For set custom solution name use `-n` switch.
+The solution will be created in current folder with name of this folder. Use `-n` option to set custom solution name
 
 ```
 dotnet new logofx-wpf -n <new-solution-name>
@@ -31,7 +31,7 @@ dotnet new logofx-model -sn <solution name> -n <model name>
 
 This command adds `<model name>` model to `<solution name>.Model` project; `I<model name>` contract to `<solution name>.Model.Contracts` project; `<model name>Dto` dto to `<solution name>.Data.Contracts.Dto` project.
 
-Then you need to modify `Mappers\MappingProfile` and `Modlule` (in `… .Model` project) for setup mapping between the DTO and the model. 
+Then you need to modify `Mappers\MappingProfile` and `Module` (in `… .Model` project) for setup mapping between the DTO and the model. 
 
 In `MappingProfile` add code as in example:
 
@@ -43,7 +43,7 @@ Where `…` is entity name specified in the parameter `-n`.
 
 In `Module` add code `.AddSingleton<…Mapper>()` to `dependencyRegistrator`, where `…` is entity name specified in the parameter `-n`.
 
-### Expample
+### Example
 
 We created the solution `MyApp` (by command `dotnet new logofx-wpf -n MyApp`). Then we need to add entity `MyModel` to this solution. In solution folder run command: `dotnet new logofx-model -sn MyApp -n MyModel`. Then open file `Module.cs` in `MyApp.Model` project. Default content of this file is:
 
