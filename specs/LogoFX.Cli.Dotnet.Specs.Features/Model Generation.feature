@@ -6,5 +6,8 @@
 Scenario: Generate model entity
 	When I install the template pack 'LogoFX.Templates' from local package
 	And I create a folder named 'Generation'
-	And I generate the code in folder named 'Generation' using 'logofx-model' template with the default options
-	Then The folder 'Generation' contains generated model entity objects
+	And I generate the code in folder named 'Generation' using 'logofx-model' template with the following options
+	| Name           | Value  |
+	| -n             | Sample |
+	| --solutionName | Test   |
+	Then The folder 'Generation' contains generated model entity objects for solution name 'Test'

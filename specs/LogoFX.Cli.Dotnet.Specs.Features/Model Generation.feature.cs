@@ -115,12 +115,22 @@ this.ScenarioInitialize(scenarioInfo);
 #line 8
  testRunner.And("I create a folder named \'Generation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Name",
+                            "Value"});
+                table1.AddRow(new string[] {
+                            "-n",
+                            "Sample"});
+                table1.AddRow(new string[] {
+                            "--solutionName",
+                            "Test"});
 #line 9
  testRunner.And("I generate the code in folder named \'Generation\' using \'logofx-model\' template wi" +
-                        "th the default options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                        "th the following options", ((string)(null)), table1, "And ");
 #line hidden
-#line 10
- testRunner.Then("The folder \'Generation\' contains generated model entity objects", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 13
+ testRunner.Then("The folder \'Generation\' contains generated model entity objects for solution name" +
+                        " \'Test\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
