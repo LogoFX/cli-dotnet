@@ -1,6 +1,6 @@
 REM Modify the code
 
-dotnet .\utils\ModifyTool.dll .\LogoFX.Templates.Model --entity SampleModel > c:\temp\jopa.txt
+dotnet .\utils\ModifyTool.dll .\LogoFX.Templates.Model --entity SampleModel
 
 REM Delete utils
 

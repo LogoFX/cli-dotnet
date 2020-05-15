@@ -50,7 +50,8 @@ namespace ModifyTool
             var stList = method.Body.Statements.Replace(st, newSt);
             var body = method.Body.WithStatements(stList);
             var newMethod = method.WithBody(body);
-            var newClass = moduleClass.Members.Replace(method, newMethod);
+            var members = moduleClass.Members.Replace(method, newMethod);
+            var newClass = moduleClass.WithMembers(members);
             node = node.ReplaceNode(moduleClass, newClass);
             File.WriteAllText(moduleFilePath, node.ToFullString());
         }
