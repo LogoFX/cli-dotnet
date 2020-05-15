@@ -12,13 +12,32 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             var tempPath = Path.GetTempPath();
             var path = Path.Combine(tempPath, folderName);
 
-            var subFolders = new[]
-            {
-                $"{solutionName}.Data.Contracts.Dto",
-                $"{solutionName}.Model",
-                $"{solutionName}.Model.Contracts"
+            //TODO: Improve building process to avoid duplication
+            var structure = new GeneratedFolder(tempPath, folderName)
+                {
+                    Folders = new []
+                    {
+                        new GeneratedFolder(path, $"{solutionName}.Data.Contracts.Dto")
+                            {
+                                Files = new []{new GeneratedFile(Path.Combine(path, $"{solutionName}.Data.Contracts.Dto"), "SampleDto.cs", @"namespace Test.Data.Contracts.Dto
+{
+    public class SampleDto
+    {
+
+    }
+}") }
+                        }
+                    }
             };
-            path.AssertSubFolders(subFolders);
+
+            structure.AssertGeneratedCode();
+            //var subFolders = new[]
+            //{
+            //    $"{solutionName}.Data.Contracts.Dto",
+            //    $"{solutionName}.Model",
+            //    $"{solutionName}.Model.Contracts"
+            //};
+            //path.AssertSubFolders(subFolders);
         }
     }
 }
