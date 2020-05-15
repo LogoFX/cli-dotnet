@@ -1,3 +1,9 @@
+call generate-utils.cmd
+
+if %ERRORLEVEL% NEQ 0 ( 
+	goto EXIT
+)
+
 call copy-template.cmd LogoFX.Templates.WPF --use-common
 
 if %ERRORLEVEL% NEQ 0 ( 

@@ -1,7 +1,18 @@
 set temp=generated
 set utils=utils
 
-cd ..\%temp%
+REM Prepare 'Generated' folder
+
+cd ..
+if not exist %temp% (
+	md %temp%
+)
+
+cd %temp%
+
+if %ERRORLEVEL% NEQ 0 ( 
+	goto EXIT
+)
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT
