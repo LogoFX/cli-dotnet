@@ -20,5 +20,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 cd ..\devops
 
+call generate-utils.cmd %1
+
 :EXIT
 exit /b %ERRORLEVEL%

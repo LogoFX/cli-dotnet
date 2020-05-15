@@ -14,12 +14,56 @@ namespace ModifyTool
         private const string RegisterModuleMethodName = "RegisterModule";
         private const string MapperSuffix = "Mapper";
         private const string RegistrationMethodName = "AddSingleton";
+        
+        private const string MappersFolderName = "Mappers";
+        private const string MappingProfileFileName = "MappingProfile.cs";
+        private const string MappingProfileClassName = "MappingProfile";
 
         private readonly string _projectFolder;
 
         public Engine(string projectFolder)
         {
             _projectFolder = Path.GetFullPath(projectFolder);
+        }
+
+        public void CreateMapping(string entityName)
+        {
+            var filePath = Path.Combine(Path.Combine(_projectFolder, MappersFolderName), MappingProfileFileName);
+            var text = File.ReadAllText(filePath);
+            var tree = CSharpSyntaxTree.ParseText(text);
+            var node = tree.GetRoot();
+            var @class = node.DescendantNodes()
+                .OfType<ClassDeclarationSyntax>()
+                .Single(x => x.Identifier.Text == MappingProfileClassName);
+
+            var methodName = $"Create{entityName}Maps";
+
+            var foundMember = @class.Members
+                .OfType<MethodDeclarationSyntax>()
+                .Any(x => x.Identifier.Text == methodName);
+
+            if (foundMember)
+            {
+                return;
+            }
+
+            var statementMember = SyntaxFactory.GenericName("CreateDomainObjectMap");
+            statementMember = statementMember.AddTypeArgumentListArguments(
+                SyntaxFactory.ParseTypeName($"{entityName}Dto"),
+                SyntaxFactory.ParseTypeName($"I{entityName}"),
+                SyntaxFactory.ParseTypeName($"{entityName}"));
+            var statement = SyntaxFactory.InvocationExpression(statementMember);
+
+            var method = SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)), methodName);
+            method = method.AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword));
+            method = method.WithBody(SyntaxFactory.Block(SyntaxFactory.ExpressionStatement(statement)));
+
+            var ctorIndex = @class.Members.IndexOf(x => x is ConstructorDeclarationSyntax);
+            var members = @class.Members.Insert(ctorIndex + 1, method);
+            var newClass = @class.WithMembers(members);
+
+            node = node.ReplaceNode(@class, newClass);
+            File.WriteAllText(filePath, node.NormalizeWhitespace().ToFullString());
         }
 
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]

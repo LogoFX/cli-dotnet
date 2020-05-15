@@ -15,10 +15,13 @@ namespace ModifyTool
                 return 1;
             }
 
+            var entityName = args[2];
+
             var engine = new Engine(args[0]);
             try
             {
-                engine.RegisterMappers(args[2]);
+                engine.CreateMapping(entityName);
+                engine.RegisterMappers(entityName);
             }
             catch (Exception err)
             {

@@ -14,10 +14,6 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
-if %ERRORLEVEL% NEQ 0 ( 
-	goto EXIT
-)
-
 if exist %utils% (
 	rmdir %utils% /s /q
 )
@@ -29,7 +25,7 @@ if %ERRORLEVEL% NEQ 0 (
 cd ..\utils
 
 cd ModifyTool
-dotnet publish -c release -o ..\..\%temp%\%utils%
+dotnet publish -c release -o ..\..\%temp%\%1\%utils%
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT
