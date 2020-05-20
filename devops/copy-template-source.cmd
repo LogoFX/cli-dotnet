@@ -5,10 +5,12 @@ set targetDir=generated
 
 cd ..\%targetDir%
 if exist %templateDir% (
+	echo Removing %templateDir%
 	rmdir %templateDir%
 )
 
-if %ERRORLEVEL% NEQ 0 ( 
+if %ERRORLEVEL% NEQ 0 (
+	echo Error removing %templateDir%
 	goto EXIT
 )
 

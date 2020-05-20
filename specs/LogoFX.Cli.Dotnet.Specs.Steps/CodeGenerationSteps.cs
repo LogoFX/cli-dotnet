@@ -32,7 +32,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
 
             var optionsLine = options == null ? null : string.Join(" ", options?.Select(k => $"{k.Name}  {k.Value}"));
             var args = $"new {shortName} {optionsLine}";
-            var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), args, 30000);
+            var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), args, Consts.ProcessExecutionTimeout);
             execInfo.ShouldBeSuccessful();
         }
 

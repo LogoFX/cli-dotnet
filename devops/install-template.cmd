@@ -20,8 +20,15 @@ if %ERRORLEVEL% NEQ 0 (
 REM Copy solution folder
 
 if EXIST %1 (
+	echo Removing %1
 	rmdir %1 /s /q
 )
+
+if %ERRORLEVEL% NEQ 0 (
+	echo Error removing %1
+	goto EXIT
+)
+
 md %1
 
 if %ERRORLEVEL% NEQ 0 ( 

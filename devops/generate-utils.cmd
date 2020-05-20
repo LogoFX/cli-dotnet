@@ -15,10 +15,12 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 if exist %utils% (
+	echo Removing %utils%
 	rmdir %utils% /s /q
 )
 
-if %ERRORLEVEL% NEQ 0 ( 
+if %ERRORLEVEL% NEQ 0 (
+	echo Error removing %utils%
 	goto EXIT
 )
 
