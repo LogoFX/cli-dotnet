@@ -74,7 +74,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
 
                 if (!process.HasExited)
                 {
-                    process.Kill();
+                    process.KillProcessAndChildren();
                 }
 
                 var result = new ExecutionInfo
