@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 
@@ -17,36 +16,49 @@ namespace UninstallTemplate
             Directory
         }
 
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             if (args.Length < 2)
             {
                 ShowUsage();
-                return;
+                return 1;
             }
 
             var kind = GetTemplateNameKind(args[0]);
             if (kind == TemplateNameKind.None)
             {
                 ShowUsage();
-                return;
+                return 1;
             }
 
             var name = string.Join(' ', args.Skip(1));
             var lines = LaunchApp("dotnet new -u");
 
+            if (lines == null)
+            {
+                return -1;
+            }
+
             var uninstallString = FindUninstallString(lines, name, kind);
 
             if (string.IsNullOrEmpty(uninstallString))
             {
-                return;
+                return -1;
             }
 
             lines = LaunchApp(uninstallString);
+            
+            if (lines == null)
+            {
+                return -1;
+            }
+
             foreach (var line in lines)
             {
                 Console.WriteLine(line);
             }
+
+            return 0;
         }
 
         private static int GetIndents(string line)
@@ -212,16 +224,52 @@ namespace UninstallTemplate
                     CreateNoWindow = true,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
+                    RedirectStandardError = true
                 }
             };
 
-            var lines = new List<string>();
-
             process.Start();
-            while (!process.StandardOutput.EndOfStream)
+
+            var lines = new List<string>();
+            process.OutputDataReceived += (sender, e) =>
             {
-                var line = process.StandardOutput.ReadLine();
-                lines.Add(line);
+                if (e.Data == null)
+                {
+                    return;
+                }
+                lines.Add(e.Data);
+                Debug.WriteLine("output>>" + e.Data);
+                Console.WriteLine(e.Data);
+            };
+            process.BeginOutputReadLine();
+
+            var isError = false;
+            process.ErrorDataReceived += (sender, e) =>
+            {
+                if (e.Data == null)
+                {
+                    return;
+                }
+                isError = true;
+                Debug.WriteLine("error>>" + e.Data);
+                Console.WriteLine(e.Data);
+            };
+
+            process.BeginErrorReadLine();
+
+            process.WaitForExit(30000);
+
+            if (!process.HasExited)
+            {
+                isError = true;
+                process.Kill();
+            }
+
+            process.Close();
+
+            if (isError)
+            {
+                return null;
             }
 
             return lines.ToArray();
