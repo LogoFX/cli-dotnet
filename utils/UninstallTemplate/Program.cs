@@ -43,7 +43,7 @@ namespace UninstallTemplate
 
             if (string.IsNullOrEmpty(uninstallString))
             {
-                return -1;
+                return 0;
             }
 
             lines = LaunchApp(uninstallString);
@@ -173,7 +173,7 @@ namespace UninstallTemplate
                     bool found = false;
                     foreach (var template in templates)
                     {
-                        ExtractName(template, out var name1, out var shortName, out var lang);
+                        ExtractName(template, out var name1, out var shortName, out _);
                         string cmpName;
                         switch (kind)
                         {
