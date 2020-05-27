@@ -35,7 +35,7 @@ namespace ModifyTool
         private static void ShowUsage()
         {
             Console.WriteLine("Usage:");
-            Console.WriteLine("    ModifyTool <project folder> --entity <entity name>");
+            Console.WriteLine("    ModifyTool <solution folder> --entity <entity name>");
         }
     }
 }
