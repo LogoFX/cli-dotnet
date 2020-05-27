@@ -20,16 +20,7 @@
 	   "isRequired": true,
        "replaces": "LogoFX.Templates",
 	   "fileRename": "LogoFX.Templates"
-    },
-     "base-entity": {
-	   "shortName": "be",
-	   "type": "parameter",
-	   "dataType": "string",
-	   "description": "Add inheritance for newly created model",
-	   "isRequired": false,
-	   "defaultValue": "AppModel",
-       "replaces": "AppModel",
-    },
+    }
   },
   "guids": [
     "29C2033B-03D9-4099-95E4-0FEB76B4ACAA"

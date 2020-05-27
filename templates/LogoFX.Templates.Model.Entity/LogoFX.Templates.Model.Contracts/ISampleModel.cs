@@ -1,6 +1,8 @@
-﻿namespace LogoFX.Templates.Model.Contracts
+﻿using LogoFX.Client.Mvvm.Model.Contracts;
+
+namespace LogoFX.Templates.Model.Contracts
 {
-    public interface ISampleModel
+    public interface ISampleModel : IModel<string>
     {
         
     }
