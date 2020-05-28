@@ -83,6 +83,7 @@ namespace ModifyTool
 
             var members = @class.Members.Insert(ctorIndex + 1, method);
             var ctorDecl = (ConstructorDeclarationSyntax) members[ctorIndex];
+            // ReSharper disable once PossibleNullReferenceException
             var body = ctorDecl.Body.AddStatements(
                 SyntaxFactory.ExpressionStatement(
                     SyntaxFactory.InvocationExpression(
