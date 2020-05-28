@@ -14,7 +14,7 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
-xcopy /e /i /y ..\%sourceDir%\%templateDir% .\%templateDir% /exclude:..\devops\excludefiles.txt+..\devops\excludeprojects.txt 
+xcopy /e /i /y /h ..\%sourceDir%\%templateDir% .\%templateDir% /exclude:..\devops\excludefiles.txt+..\devops\excludeprojects.txt 
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT
