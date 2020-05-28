@@ -7,6 +7,13 @@
   "groupIdentity":"LogoFX.Model",
   "shortName": "logofx-model",
   "sourceName": "SampleModel",
+  "sources": [
+    {
+      "copyOnly": [
+        "**/utils/**"
+      ]
+    }
+  ],
   "tags": {
     "language": "C#",
     "type":"item"
