@@ -19,13 +19,6 @@ namespace UninstallTemplate
             Directory
         }
 
-        private static class ReturnCode
-        {
-            public const int Successful = 0;
-            public const int IncorrectFunction = 1;
-            public const int Error = -1;
-        }
-
         private static int Main(string[] args)
         {
             if (args.Length < 2)

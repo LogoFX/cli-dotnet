@@ -2,10 +2,15 @@ REM install-template-pack.cmd
 
 set path=%path%;%cd%
 
-REM TODO: read from csproj or set during pack process
-set package_name=LogoFX.Templates
-REM TODO: read from csproj or set during pack process
-set package_version=0.2.0-rc3
+utils\GetProjValue ..\templatepack.csproj PackageId > tmp.txt
+set /P package_name=<tmp.txt
+utils\GetProjValue ..\templatepack.csproj PackageVersion > tmp.txt
+set /P package_version=<tmp.txt
+del tmp.txt
+
+if %ERRORLEVEL% NEQ 0 ( 
+	goto EXIT
+)
 
 call pack-templates.cmd
 
