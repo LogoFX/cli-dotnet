@@ -1,38 +1,11 @@
-REM %1 - Template Solution Name
-REM %2 - Flag to Use Common
+REM copy-template-logofx-wpf.cmd 
 
-set generated=generated
+set source=LogoFX.Templates.WPF
 set common1=Common.Bootstrapping\Common.Bootstrapping.csproj
 set common2=Common.Data.Fake.Setup\Common.Data.Fake.Setup.csproj
+set exclude=/exclude:..\devops\exclude-common.txt
 
-REM Prepare 'Generated' folder
-
-cd ..
-if not exist %generated% (
-	md %generated%
-)
-
-cd %generated%
-
-if %ERRORLEVEL% NEQ 0 ( 
-	goto EXIT
-)
-
-REM Copy solution folder
-
-if exist %1 (
-	rmdir %1 /s /q
-)
-if %ERRORLEVEL% NEQ 0 ( 
-	goto EXIT
-)
-
-md %1
-if %ERRORLEVEL% NEQ 0 ( 
-	goto EXIT
-)
-
-xcopy /e /i /y /h ..\templates\%1 .\%1 /exclude:..\devops\exclude-common.txt
+call copy-folder %source% %exclude%
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT
@@ -40,11 +13,8 @@ if %ERRORLEVEL% NEQ 0 (
 
 REM Copy 'Common' projects
 
-if not "%2" == "--use-common" (
-	GOTO EXIT
-)
-
-xcopy /e /i /y ..\common .\%1 /exclude:..\devops\exclude-common.txt
+cd ..\generated
+xcopy /e /i /y ..\common .\%source% %exclude%
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT
@@ -52,7 +22,12 @@ if %ERRORLEVEL% NEQ 0 (
 
 REM Remove 'Common' project references
 
-cd %1\%1.Launcher
+cd %source%\%source%.Launcher
+
+if %ERRORLEVEL% NEQ 0 ( 
+	goto EXIT
+)
+
 dotnet remove reference ..\..\..\common\%common1% ..\..\..\common\%common2%
 
 if %ERRORLEVEL% NEQ 0 ( 
@@ -74,7 +49,7 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
-cd %1.Launcher
+cd %source%.Launcher
 dotnet add reference ..\%common1% ..\%common2%
 
 if %ERRORLEVEL% NEQ 0 ( 
@@ -84,4 +59,5 @@ if %ERRORLEVEL% NEQ 0 (
 cd ..\..\..\devops
 
 :EXIT
+REM /copy-template-logofx-wpf.cmd 
 EXIT /B %ERRORLEVEL%

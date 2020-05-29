@@ -1,3 +1,5 @@
+REM generate-utils.cmd 
+
 set generated=generated
 set utils=utils
 
@@ -15,12 +17,10 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 if exist %utils% (
-	echo Removing %utils%
-	rmdir %utils% /s /q
+	call remove-folder %utils%
 )
 
 if %ERRORLEVEL% NEQ 0 (
-	echo Error removing %utils%
 	goto EXIT
 )
 
@@ -36,4 +36,5 @@ if %ERRORLEVEL% NEQ 0 (
 cd ..\..\devops
 
 :EXIT
+REM /generate-utils.cmd 
 EXIT /B %ERRORLEVEL%

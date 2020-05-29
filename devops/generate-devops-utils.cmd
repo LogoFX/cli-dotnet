@@ -3,7 +3,7 @@ REM Publish UninstallTemplate to \devops\utils folder
 set utils=utils
 
 if exist %utils% (
-	rmdir %utils% /s /q
+	call remove-folder %utils%
 )
 
 if %ERRORLEVEL% NEQ 0 ( 

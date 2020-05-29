@@ -1,10 +1,12 @@
-call copy-template.cmd LogoFX.Templates.WPF --use-common
+REM pack-templates.cmd 
+
+call copy-template-logofx-wpf.cmd
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT
 )
 
-call copy-template-source.cmd LogoFX.Templates.Model.Entity
+call copy-template-logofx-model.cmd
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT
@@ -20,4 +22,5 @@ if %ERRORLEVEL% NEQ 0 (
 cd devops
 
 :EXIT
+REM /pack-templates.cmd 
 EXIT /B %ERRORLEVEL%

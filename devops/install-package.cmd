@@ -1,3 +1,5 @@
+REM install-package.cmd 
+
 REM %1 - Package name
 REM %2 - Package version
 REM TODO: read from csproj or set during pack process
@@ -21,4 +23,5 @@ if %ERRORLEVEL% NEQ 0 (
 cd ..\devops
 
 :EXIT
+REM /install-package.cmd 
 EXIT /B %ERRORLEVEL%

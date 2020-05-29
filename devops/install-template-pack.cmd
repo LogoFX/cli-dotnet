@@ -1,3 +1,7 @@
+REM install-template-pack.cmd 
+
+set path=%path%;%cd%
+
 REM TODO: read from csproj or set during pack process
 set package_name=LogoFX.Templates
 REM TODO: read from csproj or set during pack process
@@ -14,7 +18,7 @@ call install-package.cmd %package_name% %package_version%
 cd ..
 
 if exist generated (
-	rmdir generated /s /q
+	call remove-folder generated
 )
 
 if %ERRORLEVEL% NEQ 0 (
@@ -22,7 +26,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 if exist output (
-	rmdir output /s /q
+	call remove-folder output
 )
 
 if %ERRORLEVEL% NEQ 0 (
@@ -30,7 +34,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 if exist bin (
-	rmdir bin /s /q
+	call remove-folder bin
 )
 
 if %ERRORLEVEL% NEQ 0 (
@@ -38,7 +42,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 if exist obj (
-	rmdir obj /s /q
+	call remove-folder obj
 )
 
 if %ERRORLEVEL% NEQ 0 (
@@ -48,4 +52,5 @@ if %ERRORLEVEL% NEQ 0 (
 cd devops
 
 :EXIT
+REM /install-template-pack.cmd 
 EXIT /B %ERRORLEVEL%
