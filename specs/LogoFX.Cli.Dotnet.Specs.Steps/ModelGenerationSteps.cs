@@ -11,9 +11,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             string solutionName)
         {
             var tempPath = Path.GetTempPath();
-            var path = Path.Combine(tempPath, folderName);
 
-            //TODO: Improve building process to avoid duplication
             var structure = new GeneratedFolder(tempPath, folderName)
                 .WithFolder($"{solutionName}.Data.Contracts.Dto",
                     r =>
