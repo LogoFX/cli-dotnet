@@ -10,7 +10,7 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
-cd ..\
+cd ..
 dotnet pack -o output
 
 if %ERRORLEVEL% NEQ 0 ( 

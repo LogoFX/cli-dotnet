@@ -1,14 +1,14 @@
-set temp=generated
+set generated=generated
 set utils=utils
 
 REM Prepare 'Generated' folder
 
 cd ..
-if not exist %temp% (
-	md %temp%
+if not exist %generated% (
+	md %generated%
 )
 
-cd %temp%
+cd %generated%
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT
@@ -27,7 +27,7 @@ if %ERRORLEVEL% NEQ 0 (
 cd ..\utils
 
 cd ModifyTool
-dotnet publish -c release -o ..\..\%temp%\%1\%utils%
+dotnet publish -c release -o ..\..\%generated%\%1\%utils%
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT

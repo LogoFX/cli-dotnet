@@ -1,18 +1,18 @@
 REM %1 - Template Solution Name
 REM %2 - Flag to Use Common
 
-set temp=generated
+set generated=generated
 set common1=Common.Bootstrapping\Common.Bootstrapping.csproj
 set common2=Common.Data.Fake.Setup\Common.Data.Fake.Setup.csproj
 
 REM Prepare 'Generated' folder
 
 cd ..
-if not exist %temp% (
-	md %temp%
+if not exist %generated% (
+	md %generated%
 )
 
-cd %temp%
+cd %generated%
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT
@@ -21,11 +21,9 @@ if %ERRORLEVEL% NEQ 0 (
 REM Copy solution folder
 
 if exist %1 (
-	echo Removing %1
 	rmdir %1 /s /q
 )
 if %ERRORLEVEL% NEQ 0 ( 
-	echo Error removing %1
 	goto EXIT
 )
 
@@ -40,11 +38,11 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
+REM Copy 'Common' projects
+
 if not "%2" == "--use-common" (
 	GOTO EXIT
 )
-
-REM Copy 'Common' projects
 
 xcopy /e /i /y ..\common .\%1 /exclude:..\devops\exclude-common.txt
 
