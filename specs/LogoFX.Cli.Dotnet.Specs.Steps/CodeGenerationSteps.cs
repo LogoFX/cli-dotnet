@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Common.Infra;
 using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
 using LogoFX.Cli.Dotnet.Specs.Tests.Infra;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
-using Common.Infra;
 
 namespace LogoFX.Cli.Dotnet.Specs.Steps
 {
