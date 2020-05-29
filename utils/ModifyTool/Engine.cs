@@ -20,6 +20,8 @@ namespace ModifyTool
         private const string MappingProfileFileName = "MappingProfile.cs";
         private const string MappingProfileClassName = "MappingProfile";
 
+        private const string ModelSuffix = "Model";
+
         private readonly string _solutionFolder;
 
         public Engine(string solutionFolder)
@@ -29,7 +31,7 @@ namespace ModifyTool
 
         private string GetProjectFolder()
         {
-            return $"{_solutionFolder}.Model";
+            return $"{_solutionFolder}.{ModelSuffix}";
         }
 
         public void CreateMapping(string entityName)
@@ -148,9 +150,11 @@ namespace ModifyTool
 
         private void ReplaceInFile(string filePath, string solutionName)
         {
+            const string namespaceKey = "namespace";
+
             var lines = File.ReadAllText(filePath);
-            var index1 = lines.IndexOf("namespace", StringComparison.Ordinal) + "namespace".Length;
-            var index2 = lines.IndexOf(".Model", index1, StringComparison.Ordinal);
+            var index1 = lines.IndexOf(namespaceKey, StringComparison.Ordinal) + namespaceKey.Length;
+            var index2 = lines.IndexOf($".{ModelSuffix}", index1, StringComparison.Ordinal);
             var oldSolutionName = lines.Substring(index1, index2 - index1).Trim();
             lines = lines.Replace(oldSolutionName, solutionName);
             File.WriteAllText(filePath, lines);
@@ -176,29 +180,26 @@ namespace ModifyTool
             return statement;
         }
 
-        private bool CheckExpression(CSharpSyntaxNode expression, NameSyntax name)
+        private static bool CheckExpression(CSharpSyntaxNode expression, SyntaxNode name)
         {
-            if (expression is NameSyntax ns)
+            while (true)
             {
-                return SyntaxFactory.AreEquivalent(ns, name);
+                switch (expression)
+                {
+                    case NameSyntax ns:
+                        return SyntaxFactory.AreEquivalent(ns, name);
+                    case ExpressionStatementSyntax ess:
+                        expression = ess.Expression;
+                        continue;
+                    case InvocationExpressionSyntax ies:
+                        expression = ies.Expression;
+                        continue;
+                    case MemberAccessExpressionSyntax maes:
+                        return CheckExpression(maes.Name, name) || CheckExpression(maes.Expression, name);
+                    default:
+                        return false;
+                }
             }
-
-            if (expression is ExpressionStatementSyntax ess)
-            {
-                return CheckExpression(ess.Expression, name);
-            }
-
-            if (expression is InvocationExpressionSyntax ies)
-            {
-                return CheckExpression(ies.Expression, name);
-            }
-
-            if (expression is MemberAccessExpressionSyntax maes)
-            {
-                return CheckExpression(maes.Name, name) || CheckExpression(maes.Expression, name);
-            }
-
-            return false;
         }
 
         private bool CheckExpression(CSharpSyntaxNode expression, SyntaxToken name)

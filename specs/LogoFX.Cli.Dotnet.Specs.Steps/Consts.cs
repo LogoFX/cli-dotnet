@@ -2,6 +2,6 @@
 {
     internal static class Consts
     {
-        public static int ProcessExecutionTimeout => 60000;
+        public static int ProcessExecutionTimeout => 40000;
     }
 }

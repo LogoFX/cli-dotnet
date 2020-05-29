@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
+using LogoFX.Cli.Dotnet.Specs.Steps;
+using LogoFX.Cli.Dotnet.Specs.Tests.Infra;
 
 namespace UninstallTemplate
 {
-    class Program
+    [UsedImplicitly]
+    internal sealed class Program
     {
         private enum TemplateNameKind
         {
@@ -16,19 +20,26 @@ namespace UninstallTemplate
             Directory
         }
 
-        static int Main(string[] args)
+        private static class ReturnCode
+        {
+            public const int Successful = 0;
+            public const int IncorrectFunction = 1;
+            public const int Error = -1;
+        }
+
+        private static int Main(string[] args)
         {
             if (args.Length < 2)
             {
                 ShowUsage();
-                return 1;
+                return ReturnCode.IncorrectFunction;
             }
 
             var kind = GetTemplateNameKind(args[0]);
             if (kind == TemplateNameKind.None)
             {
                 ShowUsage();
-                return 1;
+                return ReturnCode.IncorrectFunction;
             }
 
             var name = string.Join(' ', args.Skip(1));
@@ -36,21 +47,21 @@ namespace UninstallTemplate
 
             if (lines == null)
             {
-                return -1;
+                return ReturnCode.Error;
             }
 
             var uninstallString = FindUninstallString(lines, name, kind);
 
             if (string.IsNullOrEmpty(uninstallString))
             {
-                return 0;
+                return ReturnCode.Successful;
             }
 
             lines = LaunchApp(uninstallString);
             
             if (lines == null)
             {
-                return -1;
+                return ReturnCode.Error;
             }
 
             foreach (var line in lines)
@@ -58,7 +69,7 @@ namespace UninstallTemplate
                 Console.WriteLine(line);
             }
 
-            return 0;
+            return ReturnCode.Successful;
         }
 
         private static int GetIndents(string line)
@@ -257,12 +268,12 @@ namespace UninstallTemplate
 
             process.BeginErrorReadLine();
 
-            process.WaitForExit(30000);
+            process.WaitForExit(Consts.ProcessExecutionTimeout);
 
             if (!process.HasExited)
             {
                 isError = true;
-                process.Kill();
+                process.KillProcessAndChildren();
             }
 
             process.Close();

@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "ModifyTool": {
-      "commandName": "Project",
-      "commandLineArgs": "d:\\Temp\\MyApp.Client\\MyApp.Client --entity NewModel"
-    }
-  }
-}
