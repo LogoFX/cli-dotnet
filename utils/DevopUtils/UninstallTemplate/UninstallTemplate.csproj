@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\common\Common.Infra\Common.Infra.csproj" />
+    <ProjectReference Include="..\..\..\common\Common.Infra\Common.Infra.csproj" />
   </ItemGroup>
 
 </Project>

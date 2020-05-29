@@ -10,7 +10,7 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
-cd ..\utils\UninstallTemplate
+cd ..\utils\DevopUtils
 
 dotnet publish -c release -o ..\..\devops\%utils%
 
