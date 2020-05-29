@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v3.1": {
       "UninstallTemplate/1.0.0": {
         "dependencies": {
+          "Common.Infra": "1.0.0",
           "JetBrains.Annotations": "2020.1.0",
           "System.Management": "4.7.0"
         },
@@ -65,7 +66,15 @@
           "System.Security.Principal.Windows": "4.7.0"
         }
       },
-      "System.Security.Principal.Windows/4.7.0": {}
+      "System.Security.Principal.Windows/4.7.0": {},
+      "Common.Infra/1.0.0": {
+        "dependencies": {
+          "System.Management": "4.7.0"
+        },
+        "runtime": {
+          "Common.Infra.dll": {}
+        }
+      }
     }
   },
   "libraries": {
@@ -122,6 +131,11 @@
       "sha512": "sha512-ojD0PX0XhneCsUbAZVKdb7h/70vyYMDYs85lwEI+LngEONe/17A0cFaRFqZU+sOEidcVswYWikYOQ9PPfjlbtQ==",
       "path": "system.security.principal.windows/4.7.0",
       "hashPath": "system.security.principal.windows.4.7.0.nupkg.sha512"
+    },
+    "Common.Infra/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

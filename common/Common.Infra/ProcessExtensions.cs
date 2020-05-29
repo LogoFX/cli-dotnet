@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Management;
 
-namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
+namespace Common.Infra
 {
     public static class ProcessExtensions
     {
@@ -30,7 +30,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
             ManagementObjectCollection moc = searcher.Get();
             foreach (var mo in moc)
             {
-                KillProcessAndChildren(Convert.ToInt32(mo["ProcessID"]));
+                Convert.ToInt32(mo["ProcessID"]).KillProcessAndChildren();
             }
 
             try

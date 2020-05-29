@@ -11,13 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\specs\LogoFX.Cli.Dotnet.Specs.Steps\Consts.cs" Link="Consts.cs" />
-    <Compile Include="..\..\specs\LogoFX.Cli.Dotnet.Specs.Tests.Infra\ProcessExtensions.cs" Link="ProcessExtensions.cs" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
+    <PackageReference Include="System.Management" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
-    <PackageReference Include="System.Management" Version="4.7.0" />
+    <ProjectReference Include="..\..\common\Common.Infra\Common.Infra.csproj" />
   </ItemGroup>
 
 </Project>

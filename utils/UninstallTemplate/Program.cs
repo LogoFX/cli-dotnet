@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Common.Infra;
 using JetBrains.Annotations;
-using LogoFX.Cli.Dotnet.Specs.Steps;
-using LogoFX.Cli.Dotnet.Specs.Tests.Infra;
 
 namespace UninstallTemplate
 {

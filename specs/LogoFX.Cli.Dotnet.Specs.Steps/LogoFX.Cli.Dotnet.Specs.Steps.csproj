@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\common\Common.Infra\Common.Infra.csproj" />
     <ProjectReference Include="..\LogoFX.Cli.Dotnet.Specs.Launcher\LogoFX.Cli.Dotnet.Specs.Launcher.csproj" />
     <ProjectReference Include="..\LogoFX.Cli.Dotnet.Specs.Tests.Contracts\LogoFX.Cli.Dotnet.Specs.Tests.Contracts.csproj" />
     <ProjectReference Include="..\LogoFX.Cli.Dotnet.Specs.Tests.Infra\LogoFX.Cli.Dotnet.Specs.Tests.Infra.csproj" />

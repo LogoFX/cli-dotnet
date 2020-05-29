@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Infra;
 using FluentAssertions;
 using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
 using LogoFX.Cli.Dotnet.Specs.Tests.Infra;

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using JetBrains.Annotations;
 using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
+using Common.Infra;
 
 namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
 {

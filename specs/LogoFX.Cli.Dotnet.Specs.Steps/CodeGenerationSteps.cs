@@ -5,6 +5,7 @@ using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
 using LogoFX.Cli.Dotnet.Specs.Tests.Infra;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
+using Common.Infra;
 
 namespace LogoFX.Cli.Dotnet.Specs.Steps
 {
@@ -30,7 +31,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             var tempPath = Path.GetTempPath();
             var path = Path.Combine(tempPath, folderName);
 
-            var optionsLine = options == null ? null : string.Join(" ", options?.Select(k => $"{k.Name}  {k.Value}"));
+            var optionsLine = options == null ? null : string.Join(" ", options.Select(k => $"{k.Name}  {k.Value}"));
             var args = $"new {shortName} {optionsLine}";
             var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), args, Consts.ProcessExecutionTimeout);
             execInfo.ShouldBeSuccessful();
