@@ -2,7 +2,7 @@
 
 namespace LogoFX.Templates.Model
 {
-    public class SampleModel : AppModel, ISampleModel
+    public class AppModel : IAppModel
     {
         
     }

@@ -10,7 +10,7 @@ namespace LogoFX.Templates.Model.Mappers
 
         public SampleModelMapper(IMapper mapper) => _mapper = mapper;
 
-        public ISampleModel MapToCameraValue(SampleModelDto sampleModelDto) =>
+        public ISampleModel MapToSampleModelValue(SampleModelDto sampleModelDto) =>
             _mapper.Map<ISampleModel>(sampleModelDto);
     }
 }

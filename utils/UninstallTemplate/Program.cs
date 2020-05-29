@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
+using LogoFX.Cli.Dotnet.Specs.Steps;
+using LogoFX.Cli.Dotnet.Specs.Tests.Infra;
 
 namespace UninstallTemplate
 {
-    class Program
+    [UsedImplicitly]
+    internal sealed class Program
     {
         private enum TemplateNameKind
         {
@@ -17,36 +20,56 @@ namespace UninstallTemplate
             Directory
         }
 
-        static void Main(string[] args)
+        private static class ReturnCode
+        {
+            public const int Successful = 0;
+            public const int IncorrectFunction = 1;
+            public const int Error = -1;
+        }
+
+        private static int Main(string[] args)
         {
             if (args.Length < 2)
             {
                 ShowUsage();
-                return;
+                return ReturnCode.IncorrectFunction;
             }
 
             var kind = GetTemplateNameKind(args[0]);
             if (kind == TemplateNameKind.None)
             {
                 ShowUsage();
-                return;
+                return ReturnCode.IncorrectFunction;
             }
 
             var name = string.Join(' ', args.Skip(1));
             var lines = LaunchApp("dotnet new -u");
 
+            if (lines == null)
+            {
+                return ReturnCode.Error;
+            }
+
             var uninstallString = FindUninstallString(lines, name, kind);
 
             if (string.IsNullOrEmpty(uninstallString))
             {
-                return;
+                return ReturnCode.Successful;
             }
 
             lines = LaunchApp(uninstallString);
+            
+            if (lines == null)
+            {
+                return ReturnCode.Error;
+            }
+
             foreach (var line in lines)
             {
                 Console.WriteLine(line);
             }
+
+            return ReturnCode.Successful;
         }
 
         private static int GetIndents(string line)
@@ -161,7 +184,7 @@ namespace UninstallTemplate
                     bool found = false;
                     foreach (var template in templates)
                     {
-                        ExtractName(template, out var name1, out var shortName, out var lang);
+                        ExtractName(template, out var name1, out var shortName, out _);
                         string cmpName;
                         switch (kind)
                         {
@@ -212,16 +235,52 @@ namespace UninstallTemplate
                     CreateNoWindow = true,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
+                    RedirectStandardError = true
                 }
             };
 
-            var lines = new List<string>();
-
             process.Start();
-            while (!process.StandardOutput.EndOfStream)
+
+            var lines = new List<string>();
+            process.OutputDataReceived += (sender, e) =>
             {
-                var line = process.StandardOutput.ReadLine();
-                lines.Add(line);
+                if (e.Data == null)
+                {
+                    return;
+                }
+                lines.Add(e.Data);
+                Debug.WriteLine("output>>" + e.Data);
+                Console.WriteLine(e.Data);
+            };
+            process.BeginOutputReadLine();
+
+            var isError = false;
+            process.ErrorDataReceived += (sender, e) =>
+            {
+                if (e.Data == null)
+                {
+                    return;
+                }
+                isError = true;
+                Debug.WriteLine("error>>" + e.Data);
+                Console.WriteLine(e.Data);
+            };
+
+            process.BeginErrorReadLine();
+
+            process.WaitForExit(Consts.ProcessExecutionTimeout);
+
+            if (!process.HasExited)
+            {
+                isError = true;
+                process.KillProcessAndChildren();
+            }
+
+            process.Close();
+
+            if (isError)
+            {
+                return null;
             }
 
             return lines.ToArray();

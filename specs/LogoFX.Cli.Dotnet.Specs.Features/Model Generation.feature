@@ -10,6 +10,7 @@ Scenario Outline: Generate model entity in an empty folder
 	| Name                 | Value  |
 	| -n                   | Sample |
 	| <solutionNameOption> | Test   |
+	| --allow-scripts      | yes    |
 	Then The folder 'Generation' contains generated model entity objects for solution name 'Test'
 
 	Examples:
@@ -25,6 +26,7 @@ Scenario Outline: Generate model entity in existing solution
 	| Name                 | Value  |
 	| -n                   | Sample |
 	| <solutionNameOption> | Test   |
+	| --allow-scripts      | yes    |
 	Then The folder 'Generation' contains working LogoFX template-based solution
 	And The folder 'Generation' contains generated model entity objects for solution name 'Test'
 

@@ -23,7 +23,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
         public void WhenIInstallTheTemplatePackFromLocalPackage(string templatePackName)
         {
             //TODO: Use template pack name
-            var execInfo = _processManagementService.Start("../../devops/install-template-pack", string.Empty, 30000);
+            var execInfo = _processManagementService.Start("../../devops/install-template-pack", string.Empty, Consts.ProcessExecutionTimeout);
             execInfo.ShouldBeSuccessful();
         }
 

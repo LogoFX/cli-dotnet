@@ -29,7 +29,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             foreach (var config in configs)
             {
                 var execInfo =
-                    _processManagementService.Start(Path.Combine(path, "dotnet"), $"build -c {config}", 30000);
+                    _processManagementService.Start(Path.Combine(path, "dotnet"), $"build -c {config}", Consts.ProcessExecutionTimeout);
                 execInfo.ShouldBeSuccessful();
                 execInfo.OutputStrings.Should().ContainMatch("Build succeeded.");
             }

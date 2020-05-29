@@ -7,6 +7,13 @@
   "groupIdentity":"LogoFX.Model",
   "shortName": "logofx-model",
   "sourceName": "SampleModel",
+  "sources": [
+    {
+      "copyOnly": [
+        "**/utils/**"
+      ]
+    }
+  ],
   "tags": {
     "language": "C#",
     "type":"item"
@@ -20,9 +27,23 @@
 	   "isRequired": true,
        "replaces": "LogoFX.Templates",
 	   "fileRename": "LogoFX.Templates"
-    },
+    }
   },
   "guids": [
     "29C2033B-03D9-4099-95E4-0FEB76B4ACAA"
-  ]
+  ],
+  "postActions": [
+    {
+      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+      "args": {
+        "executable": "setup.cmd",
+        "args": ""
+      },
+      "manualInstructions": [{ 
+         "text": "Run 'setup.cmd'" 
+       }],
+      "continueOnError": false,
+      "description ": "setups the project by calling setup.cmd"
+    }
+  ]  
 }

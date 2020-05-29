@@ -20,15 +20,22 @@ if %ERRORLEVEL% NEQ 0 (
 REM Copy solution folder
 
 if EXIST %1 (
+	echo Removing %1
 	rmdir %1 /s /q
 )
+
+if %ERRORLEVEL% NEQ 0 (
+	echo Error removing %1
+	goto EXIT
+)
+
 md %1
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT
 )
 
-xcopy /e /i /y /h ..\templates\%1 .\%1 /exclude:..\devops\excludefiles.txt
+xcopy /e /i /y /h ..\templates\%1 .\%1 /exclude:..\devops\exclude-common.txt
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT
@@ -36,7 +43,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 REM Copy 'Common' projects
 
-xcopy /e /i /y ..\common .\%1 /exclude:..\devops\excludefiles.txt
+xcopy /e /i /y ..\common .\%1 /exclude:..\devops\exclude-common.txt
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT

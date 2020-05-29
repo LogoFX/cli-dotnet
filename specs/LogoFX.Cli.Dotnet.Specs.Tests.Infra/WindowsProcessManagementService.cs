@@ -72,6 +72,11 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
                     process.WaitForExit();
                 }
 
+                if (!process.HasExited)
+                {
+                    process.KillProcessAndChildren();
+                }
+
                 var result = new ExecutionInfo
                 {
                     ProcessId = process.Id,

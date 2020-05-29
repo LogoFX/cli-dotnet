@@ -5,20 +5,24 @@ set targetDir=generated
 
 cd ..\%targetDir%
 if exist %templateDir% (
+	echo Removing %templateDir%
 	rmdir %templateDir%
 )
 
-if %ERRORLEVEL% NEQ 0 ( 
+if %ERRORLEVEL% NEQ 0 (
+	echo Error removing %templateDir%
 	goto EXIT
 )
 
-xcopy /e /i /y ..\%sourceDir%\%templateDir% .\%templateDir% /exclude:..\devops\excludefiles.txt+..\devops\excludeprojects.txt 
+xcopy /e /i /y /h ..\%sourceDir%\%templateDir% .\%templateDir% /exclude:..\devops\exclude-common.txt+..\devops\exclude-for-model.txt 
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT
 )
 
 cd ..\devops
+
+call generate-utils.cmd %1
 
 :EXIT
 exit /b %ERRORLEVEL%
