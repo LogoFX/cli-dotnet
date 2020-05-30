@@ -5,6 +5,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
 {
     internal static class AssertionHelper
     {
+        public const string Any = "*";
+
         internal static void AssertGeneratedCode(this GeneratedFolder structure)
         {
             Directory.Exists(Path.Combine(structure.RootPath, structure.Name)).Should().BeTrue();
@@ -17,8 +19,11 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             {
                 var filePath = Path.Combine(file.RootPath, file.Name);
                 File.Exists(filePath).Should().BeTrue();
-                var contents = File.ReadAllText(filePath);
-                contents.Should().BeEquivalentTo(file.Contents);
+                if (file.Contents != Any)
+                {
+                    var contents = File.ReadAllText(filePath);
+                    contents.Should().BeEquivalentTo(file.Contents);
+                }
             }
         }
     }

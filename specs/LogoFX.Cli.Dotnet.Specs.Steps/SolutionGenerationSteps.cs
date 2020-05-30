@@ -48,7 +48,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
                 .WithFolder($"{folderName}.Model")
                 .WithFolder($"{folderName}.Model.Contracts")
                 .WithFolder($"{folderName}.Presentation")
-                .WithFolder($"{folderName}.Presentation.Contracts");
+                .WithFolder($"{folderName}.Presentation.Contracts")
+                .WithFile($"{folderName}.sln", AssertionHelper.Any);
             generatedFolder.AssertGeneratedCode();
         }
     }
