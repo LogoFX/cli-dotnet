@@ -36,7 +36,43 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             }
 
             var generatedFolder = new GeneratedFolder(tempPath, folderName)
-                .WithFolder("Common.Bootstrapping")
+                .WithFolder("Common.Bootstrapping", r => r.WithFile("Common.Bootstrapping.csproj", @"<Project Sdk=""Microsoft.NET.Sdk"">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+    
+  <PropertyGroup Condition=""'$(Configuration)|$(Platform)'=='Debug|AnyCPU'"">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug</OutputPath>
+    <DefineConstants />
+    <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>obj\Debug</IntermediateOutputPath>
+    <NoWarn />
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=""'$(Configuration)|$(Platform)'=='Release|AnyCPU'"">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Release</OutputPath>
+    <DefineConstants>NETCOREAPP;NETCOREAPP2_0</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn />
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include=""McMaster.NETCore.Plugins"" Version=""1.2.0"" />
+    <PackageReference Include=""Microsoft.Extensions.DependencyInjection.Abstractions"" Version=""3.1.3"" />
+    <PackageReference Include=""Solid.Practices.Composition.Core"" Version=""2.2.0"" />
+  </ItemGroup>
+
+</Project>
+"))
                 .WithFolder("Common.Data.Fake.Setup")
                 .WithFolder($"{folderName}.Data.Contracts.Dto")
                 .WithFolder($"{folderName}.Data.Contracts.Providers")
