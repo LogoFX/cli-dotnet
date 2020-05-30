@@ -35,24 +35,21 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
                 execInfo.OutputStrings.Should().ContainMatch("Build succeeded.");
             }
 
-            var projectFolders = new[]
-            {
-                "Common.Bootstrapping",
-                "Common.Data.Fake.Setup",
-                $"{folderName}.Data.Contracts.Dto",
-                $"{folderName}.Data.Contracts.Providers",
-                $"{folderName}.Data.Fake.Containers",
-                $"{folderName}.Data.Fake.Containers.Contracts",
-                $"{folderName}.Data.Fake.ProviderBuilders",
-                $"{folderName}.Data.Fake.Providers",
-                $"{folderName}.Data.Real.Providers",
-                $"{folderName}.Launcher",
-                $"{folderName}.Model",
-                $"{folderName}.Model.Contracts",
-                $"{folderName}.Presentation",
-                $"{folderName}.Presentation.Contracts"
-            };
-            path.AssertSubFolders(projectFolders);
+            var generatedFolder = new GeneratedFolder(tempPath, folderName)
+                .WithFolder("Common.Bootstrapping")
+                .WithFolder("Common.Data.Fake.Setup")
+                .WithFolder($"{folderName}.Data.Contracts.Dto")
+                .WithFolder($"{folderName}.Data.Contracts.Providers")
+                .WithFolder($"{folderName}.Data.Fake.Containers")
+                .WithFolder($"{folderName}.Data.Fake.ProviderBuilders")
+                .WithFolder($"{folderName}.Data.Fake.Providers")
+                .WithFolder($"{folderName}.Data.Real.Providers")
+                .WithFolder($"{folderName}.Launcher")
+                .WithFolder($"{folderName}.Model")
+                .WithFolder($"{folderName}.Model.Contracts")
+                .WithFolder($"{folderName}.Presentation")
+                .WithFolder($"{folderName}.Presentation.Contracts");
+            generatedFolder.AssertGeneratedCode();
         }
     }
 
