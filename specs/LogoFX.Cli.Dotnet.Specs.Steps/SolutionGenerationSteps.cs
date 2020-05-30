@@ -72,6 +72,46 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
   </ItemGroup>
 
 </Project>
+").WithFile("DynamicAssemblyLoader.cs", @"using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using McMaster.NETCore.Plugins;
+
+namespace Common.Bootstrapping
+{
+    internal static class DynamicAssemblyLoader
+    {
+        internal static IEnumerable<Assembly> Get(IEnumerable<string> files)
+        {
+            return files.Select(r =>
+                PluginLoader.CreateFromAssemblyFile(Path.Combine(Directory.GetCurrentDirectory(), r),
+                        config => config.PreferSharedTypes = true)
+                    .LoadDefaultAssembly()).ToArray();
+        }
+    }
+}").WithFile("Extensions.cs", @"using Microsoft.Extensions.DependencyInjection;
+using Solid.Core;
+using Solid.Practices.Composition;
+
+namespace Common.Bootstrapping
+{
+    public static class ServiceCollectionExtensions
+    {
+        public static void UseDynamicLoad(this IServiceCollection serviceCollection)
+        {
+            AssemblyLoader.LoadAssembliesFromPaths = DynamicAssemblyLoader.Get;
+        }
+    }
+
+    public static class BootstrappingExtensions
+    {
+        public static void UseDynamicLoad(this IInitializable initializable)
+        {
+            AssemblyLoader.LoadAssembliesFromPaths = DynamicAssemblyLoader.Get;
+        }
+    }
+}
 "))
                 .WithFolder("Common.Data.Fake.Setup")
                 .WithFolder($"{folderName}.Data.Contracts.Dto")
