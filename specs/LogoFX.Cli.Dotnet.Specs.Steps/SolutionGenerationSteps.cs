@@ -132,7 +132,18 @@ namespace Common.Data.Fake.Setup
     }
 }
 "))
-                .WithFolder($"{folderName}.Data.Contracts.Dto")
+                //TODO: Consider adding csproj as well
+                .WithFolder($"{folderName}.Data.Contracts.Dto", r => r.WithFile("SampleItemDto.cs", @"using System;
+
+namespace Generation.Data.Contracts.Dto
+{    
+    public sealed class SampleItemDto
+    {
+        public Guid Id { get; set; }
+        public string DisplayName { get; set; }
+        public int Value { get; set; }
+    }
+}"))
                 .WithFolder($"{folderName}.Data.Contracts.Providers")
                 .WithFolder($"{folderName}.Data.Fake.Containers")
                 .WithFolder($"{folderName}.Data.Fake.ProviderBuilders")
