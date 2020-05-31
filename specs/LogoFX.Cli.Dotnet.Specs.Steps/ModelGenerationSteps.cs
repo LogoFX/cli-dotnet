@@ -117,8 +117,8 @@ namespace {solutionName}.Model.Mappers
 
         public {entityName}Mapper(IMapper mapper) => _mapper = mapper;
 
-        public I{entityName} MapTo{entityName}Value({entityName}Dto {Decapitalize(entityName)}ModelDto) =>
-            _mapper.Map<I{entityName}>({Decapitalize(entityName)}ModelDto);
+        public I{entityName} MapTo{entityName}Value({entityName}Dto dto) =>
+            _mapper.Map<I{entityName}>(dto);
     }}
 }}")));
             structure.AssertGeneratedCode();
