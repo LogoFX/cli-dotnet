@@ -531,7 +531,61 @@ namespace {folderName}.Launcher
                 .UseViewModelFactory();
     }}
 }}"))
-                           .WithFolder($"{folderName}.Model")
+                           .WithFolder($"{folderName}.Model", r => r
+                    .WithFolder("Mappers", s =>
+                        s.WithFile("MappingProfile.cs", $@"using System;
+using AutoMapper;
+using {folderName}.Data.Contracts.Dto;
+using {folderName}.Model.Contracts;
+
+namespace {folderName}.Model.Mappers
+{{
+    internal sealed class MappingProfile : Profile
+    {{
+        public MappingProfile()
+        {{
+            CreateSampleItemMaps();
+        }}
+
+        private void CreateSampleItemMaps()
+        {{
+            CreateDomainObjectMap<SampleItemDto, ISampleItem, SampleItem>();
+        }}
+
+        private void CreateDomainObjectMap<TDto, TContract, TModel>()
+            where TModel : TContract
+            where TContract : class => CreateDomainObjectMap(typeof(TDto), typeof(TContract), typeof(TModel));
+
+        private void CreateDomainObjectMap(Type dtoType, Type contractType, Type modelType)
+        {{
+            CreateMap(dtoType, contractType).As(modelType);
+            CreateMap(dtoType, modelType);
+            CreateMap(contractType, dtoType);
+            CreateMap(modelType, dtoType);
+        }}
+    }}
+}}").WithFile("SampleMapper.cs", $@"using AutoMapper;
+using JetBrains.Annotations;
+using {folderName}.Data.Contracts.Dto;
+using {folderName}.Model.Contracts;
+
+namespace {folderName}.Model.Mappers
+{{
+    [UsedImplicitly]
+    internal sealed class SampleMapper
+    {{
+        private readonly IMapper _mapper;
+
+        public SampleMapper(IMapper mapper) => _mapper = mapper;
+
+        public ISampleItem MapToSampleItem(SampleItemDto sampleItemDto) => 
+            _mapper.Map<ISampleItem>(sampleItemDto);
+
+        public SampleItemDto MapToSampleItemDto(ISampleItem sampleItem) =>
+            _mapper.Map<SampleItemDto>(sampleItem);
+
+    }}
+}}")))
                            .WithFolder($"{folderName}.Model.Contracts")
                            .WithFolder($"{folderName}.Presentation")
                            .WithFolder($"{folderName}.Presentation.Contracts")
