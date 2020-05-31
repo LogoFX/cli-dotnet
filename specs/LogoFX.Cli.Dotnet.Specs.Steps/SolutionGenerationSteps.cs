@@ -430,12 +430,112 @@ namespace {folderName}.Data.Real.Providers
                 Assembly.GetExecutingAssembly());
     }}
 }}"))
-                .WithFolder($"{folderName}.Launcher")
-                .WithFolder($"{folderName}.Model")
-                .WithFolder($"{folderName}.Model.Contracts")
-                .WithFolder($"{folderName}.Presentation")
-                .WithFolder($"{folderName}.Presentation.Contracts")
-                .WithFile($"{folderName}.sln", AssertionHelper.Any);
+                //TODO: Consider adding csproj as well
+                .WithFolder($"{folderName}.Launcher", r =>r.WithFile("App.xaml", $@"<Application x:Class=""{folderName}.Launcher.App""
+             xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+             xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"" />
+").WithFile("App.xaml.cs", $@"using Common.Bootstrapping;
+using LogoFX.Client.Bootstrapping;
+using LogoFX.Client.Mvvm.Commanding;
+using Solid.Core;
+
+namespace {folderName}.Launcher
+{{
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App 
+    {{
+        public App()
+        {{
+            var bootstrapper = new AppBootstrapper();
+            bootstrapper.UseDynamicLoad();
+            bootstrapper
+                .UseResolver()
+                .UseCommanding()
+                .UseShared();
+            
+            ((IInitializable)bootstrapper).Initialize();
+        }}
+    }}
+}}
+").WithFile("AppBootstrapper.cs", $@"using System;
+using LogoFX.Client.Bootstrapping;
+using LogoFX.Client.Bootstrapping.Adapters.SimpleContainer;
+using {folderName}.Presentation.Contracts;
+using Solid.Practices.Composition;
+
+namespace {folderName}.Launcher
+{{
+    public sealed class AppBootstrapper : BootstrapperContainerBase<ExtendedSimpleContainerAdapter>
+        .WithRootObjectAsContract<IShellViewModel>
+    {{
+        private static readonly ExtendedSimpleContainerAdapter _container = new ExtendedSimpleContainerAdapter();
+
+        public AppBootstrapper()
+            : base(_container)
+        {{
+        }}
+
+        public override CompositionOptions CompositionOptions => new CompositionOptions
+        {{
+            Prefixes = new[] {{
+                ""Common.Data"",
+                ""{folderName}.Data"",
+                ""{folderName}.Model"",
+                ""{folderName}.Presentation"",
+            }}
+        }};
+
+        protected override void OnExit(object sender, EventArgs e)
+        {{
+            base.OnExit(sender, e);
+            _container?.Dispose();
+        }}
+    }}
+}}").WithFile("AssemblyLoader.cs", $@"using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using McMaster.NETCore.Plugins;
+
+namespace {folderName}.Launcher
+{{
+    public static class AssemblyLoader
+    {{
+        public static IEnumerable<Assembly> Get(IEnumerable<string> paths)
+        {{
+            return paths.Select(path =>
+                PluginLoader.CreateFromAssemblyFile(assemblyFile:
+                    Path.Combine(Directory.GetCurrentDirectory(), path),
+                    t => t.PreferSharedTypes = true
+                ).LoadDefaultAssembly());
+        }}
+    }}
+}}").WithFile("BootstrapperExtensions.cs", $@"using LogoFX.Client.Mvvm.ViewModel.Services;
+using LogoFX.Client.Mvvm.ViewModelFactory.SimpleContainer;
+using Solid.Bootstrapping;
+using Solid.Core;
+using Solid.Extensibility;
+using Solid.Practices.Composition.Contracts;
+
+namespace {folderName}.Launcher
+{{
+    public static class BootstrapperExtensions
+    {{
+        public static IInitializable UseShared<TBootstrapper>(
+            this TBootstrapper bootstrapper)
+            where TBootstrapper : class, IExtensible<TBootstrapper>, IHaveRegistrator, ICompositionModulesProvider, IInitializable =>
+            bootstrapper
+                .UseViewModelCreatorService()
+                .UseViewModelFactory();
+    }}
+}}"))
+                           .WithFolder($"{folderName}.Model")
+                           .WithFolder($"{folderName}.Model.Contracts")
+                           .WithFolder($"{folderName}.Presentation")
+                           .WithFolder($"{folderName}.Presentation.Contracts")
+                           .WithFile($"{folderName}.sln", AssertionHelper.Any);
             generatedFolder.AssertGeneratedCode();
         }
     }
