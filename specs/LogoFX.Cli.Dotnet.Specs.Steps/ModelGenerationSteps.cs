@@ -106,11 +106,13 @@ namespace {solutionName}.Model.Mappers
         }}
     }}
 }}").WithFile($"{entityName}Mapper.cs", $@"using AutoMapper;
+using JetBrains.Annotations;
 using {solutionName}.Data.Contracts.Dto;
 using {solutionName}.Model.Contracts;
 
 namespace {solutionName}.Model.Mappers
 {{
+    [UsedImplicitly]
     internal sealed class {entityName}Mapper
     {{
         private readonly IMapper _mapper;
