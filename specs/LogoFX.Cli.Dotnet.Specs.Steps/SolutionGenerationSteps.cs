@@ -168,7 +168,37 @@ namespace {folderName}.Data.Contracts.Providers
     }}
 }}
 "))
-                .WithFolder($"{folderName}.Data.Fake.Containers")
+                //TODO: Consider adding csproj as well
+                .WithFolder($"{folderName}.Data.Fake.Containers", r=> r.WithFile("SampleContainer.cs", $@"using System.Collections.Generic;
+using {folderName}.Data.Contracts.Dto;
+using {folderName}.Data.Fake.Containers.Contracts;
+
+namespace {folderName}.Data.Fake.Containers
+{{
+    public interface ISampleContainer : IDataContainer
+    {{
+        IEnumerable<SampleItemDto> Items {{ get; }}
+    }}
+
+    public sealed class SampleContainer : ISampleContainer
+    {{
+        private readonly List<SampleItemDto> _items = new List<SampleItemDto>();
+        public IEnumerable<SampleItemDto> Items => _items;
+
+        public void UpdateItems(IEnumerable<SampleItemDto> items)
+        {{
+            _items.Clear();
+            _items.AddRange(items);
+        }}
+    }}   
+}}
+"))
+                .WithFolder($"{folderName}.Data.Fake.Containers.Contracts", r=> r.WithFile("IDataContainer.cs", $@"namespace {folderName}.Data.Fake.Containers.Contracts
+{{
+    public interface IDataContainer
+    {{
+    }}
+}}"))
                 .WithFolder($"{folderName}.Data.Fake.ProviderBuilders")
                 .WithFolder($"{folderName}.Data.Fake.Providers")
                 .WithFolder($"{folderName}.Data.Real.Providers")
