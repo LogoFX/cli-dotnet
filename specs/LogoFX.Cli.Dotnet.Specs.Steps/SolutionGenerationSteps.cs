@@ -383,7 +383,53 @@ namespace {folderName}.Data.Fake.Providers
         }}
     }}
 }}"))
-                .WithFolder($"{folderName}.Data.Real.Providers")
+                //TODO: Consider adding csproj as well
+                .WithFolder($"{folderName}.Data.Real.Providers", r => r.WithFile("SampleProvider.cs", $@"using System;
+using System.Collections.Generic;
+using {folderName}.Data.Contracts.Dto;
+using {folderName}.Data.Contracts.Providers;
+
+namespace {folderName}.Data.Real.Providers
+{{
+    internal sealed class SampleProvider : ISampleProvider
+    {{
+        public IEnumerable<SampleItemDto> GetItems()
+        {{
+            throw new NotImplementedException();
+        }}
+
+        public bool DeleteItem(Guid id)
+        {{
+            throw new NotImplementedException();
+        }}
+
+        public bool UpdateItem(SampleItemDto dto)
+        {{
+            throw new NotImplementedException();
+        }}
+
+        public void CreateItem(SampleItemDto dto)
+        {{
+            throw new NotImplementedException();
+        }}
+    }}
+}}").WithFile("Module.cs", $@"using System.Reflection;
+using JetBrains.Annotations;
+using {folderName}.Data.Contracts.Providers;
+using Solid.Practices.IoC;
+using Solid.Practices.Modularity;
+
+namespace {folderName}.Data.Real.Providers
+{{
+    [UsedImplicitly]
+    internal sealed class Module : ICompositionModule<IDependencyRegistrator>
+    {{
+        public void RegisterModule(IDependencyRegistrator dependencyRegistrator) => dependencyRegistrator
+            .RegisterAutomagically(
+                Assembly.LoadFrom(AssemblyInfo.AssemblyName),
+                Assembly.GetExecutingAssembly());
+    }}
+}}"))
                 .WithFolder($"{folderName}.Launcher")
                 .WithFolder($"{folderName}.Model")
                 .WithFolder($"{folderName}.Model.Contracts")
