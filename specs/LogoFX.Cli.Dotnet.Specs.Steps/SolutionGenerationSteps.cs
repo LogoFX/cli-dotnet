@@ -266,7 +266,123 @@ namespace {folderName}.Data.Fake.ProviderBuilders
         }}
     }}
 }}"))
-                .WithFolder($"{folderName}.Data.Fake.Providers")
+                //TODO: Consider adding csproj as well
+                .WithFolder($"{folderName}.Data.Fake.Providers", r => r.WithFile("FakeSampleProvider.cs", $@"using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Attest.Fake.Builders;
+using JetBrains.Annotations;
+using {folderName}.Data.Contracts.Dto;
+using {folderName}.Data.Contracts.Providers;
+using {folderName}.Data.Fake.Containers;
+using {folderName}.Data.Fake.ProviderBuilders;
+
+namespace {folderName}.Data.Fake.Providers
+{{
+    [UsedImplicitly]
+    internal sealed class FakeSampleProvider : FakeProviderBase<SampleProviderBuilder, ISampleProvider>, ISampleProvider
+    {{
+        private readonly Random _random = new Random();
+
+        public FakeSampleProvider(
+            SampleProviderBuilder sampleProviderBuilder,
+            ISampleContainer sampleContainer)
+            : base(sampleProviderBuilder)
+        {{
+            sampleProviderBuilder.WithItems(sampleContainer.Items);
+        }}
+
+        IEnumerable<SampleItemDto> ISampleProvider.GetItems() => GetService(r =>
+        {{
+            Task.Delay(_random.Next(2000)).Wait();
+            return r;
+        }}).GetItems();
+
+        bool ISampleProvider.DeleteItem(Guid id) => GetService(r =>
+        {{
+            Task.Delay(_random.Next(2000)).Wait();
+            return r;
+        }}).DeleteItem(id);
+
+        bool ISampleProvider.UpdateItem(SampleItemDto dto) => GetService(r =>
+        {{
+            Task.Delay(_random.Next(2000)).Wait();
+            return r;
+        }}).UpdateItem(dto);
+
+        void ISampleProvider.CreateItem(SampleItemDto dto) => GetService(r =>
+        {{
+            Task.Delay(_random.Next(2000)).Wait();
+            return r;
+        }}).CreateItem(dto);
+    }}
+}}").WithFile("Module.cs", $@"using System;
+using JetBrains.Annotations;
+using {folderName}.Data.Contracts.Dto;
+using {folderName}.Data.Contracts.Providers;
+using {folderName}.Data.Fake.Containers;
+using {folderName}.Data.Fake.ProviderBuilders;
+using Solid.Practices.IoC;
+using Solid.Practices.Modularity;
+
+namespace {folderName}.Data.Fake.Providers
+{{
+    [UsedImplicitly]
+    internal sealed class Module : ICompositionModule<IDependencyRegistrator>
+    {{
+        public void RegisterModule(IDependencyRegistrator dependencyRegistrator)
+        {{
+            dependencyRegistrator
+                .AddInstance(InitializeSampleContainer())
+                .AddSingleton<ISampleProvider, FakeSampleProvider>();
+
+            dependencyRegistrator.RegisterInstance(SampleProviderBuilder.CreateBuilder());
+        }}
+
+        private static ISampleContainer InitializeSampleContainer()
+        {{
+            var sampleContainer = new SampleContainer();
+            sampleContainer.UpdateItems(new[]
+            {{
+                new SampleItemDto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""PC"",
+                    Value = 8
+                }},
+
+                new SampleItemDto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""Acme"",
+                    Value = 10
+                }},
+
+                new SampleItemDto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""Bacme"",
+                    Value = 3
+                }},
+
+                new SampleItemDto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""Exceed"",
+                    Value = 100
+                }},
+
+                new SampleItemDto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""Acme2"",
+                    Value = 10
+                }}
+            }});
+            return sampleContainer;
+        }}
+    }}
+}}"))
                 .WithFolder($"{folderName}.Data.Real.Providers")
                 .WithFolder($"{folderName}.Launcher")
                 .WithFolder($"{folderName}.Model")
