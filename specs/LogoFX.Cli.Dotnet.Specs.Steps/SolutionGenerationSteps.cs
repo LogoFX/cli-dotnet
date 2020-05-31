@@ -113,7 +113,25 @@ namespace Common.Bootstrapping
     }
 }
 "))
-                .WithFolder("Common.Data.Fake.Setup")
+                //TODO: Consider adding csproj as well
+                .WithFolder("Common.Data.Fake.Setup", r=> r.WithFile("Module.cs", @"using Attest.Fake.Core;
+using Attest.Fake.Moq;
+using JetBrains.Annotations;
+using Solid.Practices.Modularity;
+
+namespace Common.Data.Fake.Setup
+{
+    [UsedImplicitly]
+    public sealed class Module : IPlainCompositionModule
+    {
+        public void RegisterModule()
+        {
+            FakeFactoryContext.Current = new FakeFactory();
+            ConstraintFactoryContext.Current = new ConstraintFactory();
+        }
+    }
+}
+"))
                 .WithFolder($"{folderName}.Data.Contracts.Dto")
                 .WithFolder($"{folderName}.Data.Contracts.Providers")
                 .WithFolder($"{folderName}.Data.Fake.Containers")
