@@ -133,18 +133,41 @@ namespace Common.Data.Fake.Setup
 }
 "))
                 //TODO: Consider adding csproj as well
-                .WithFolder($"{folderName}.Data.Contracts.Dto", r => r.WithFile("SampleItemDto.cs", @"using System;
+                .WithFolder($"{folderName}.Data.Contracts.Dto", r => r.WithFile("SampleItemDto.cs", $@"using System;
 
-namespace Generation.Data.Contracts.Dto
-{    
+namespace {folderName}.Data.Contracts.Dto
+{{    
     public sealed class SampleItemDto
-    {
-        public Guid Id { get; set; }
-        public string DisplayName { get; set; }
-        public int Value { get; set; }
-    }
-}"))
-                .WithFolder($"{folderName}.Data.Contracts.Providers")
+    {{
+        public Guid Id {{ get; set; }}
+        public string DisplayName {{ get; set; }}
+        public int Value {{ get; set; }}
+    }}
+}}"))
+                //TODO: Consider adding csproj as well
+                .WithFolder($"{folderName}.Data.Contracts.Providers", r => r.WithFile("AssemblyInfo.cs", $@"using System.Reflection;
+
+namespace {folderName}.Data.Contracts.Providers
+{{
+    public static class AssemblyInfo
+    {{
+        public static string AssemblyName {{ get; }} = $""{{Assembly.GetExecutingAssembly().GetName().Name}}.dll"";
+    }}
+}}").WithFile("ISampleProvider.cs", $@"using System;
+using System.Collections.Generic;
+using {folderName}.Data.Contracts.Dto;
+
+namespace {folderName}.Data.Contracts.Providers
+{{
+    public interface ISampleProvider
+    {{
+        IEnumerable<SampleItemDto> GetItems();
+        bool DeleteItem(Guid id);
+        bool UpdateItem(SampleItemDto dto);
+        void CreateItem(SampleItemDto dto);
+    }}
+}}
+"))
                 .WithFolder($"{folderName}.Data.Fake.Containers")
                 .WithFolder($"{folderName}.Data.Fake.ProviderBuilders")
                 .WithFolder($"{folderName}.Data.Fake.Providers")
