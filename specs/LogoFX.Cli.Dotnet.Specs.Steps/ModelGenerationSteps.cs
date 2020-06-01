@@ -64,8 +64,9 @@ namespace {solutionName}.Model
             }});
             var mapper = config.CreateMapper();
             dependencyRegistrator
-                .AddInstance(mapper)
-                {(entityName=="Sample"?string.Empty:".AddSingleton<SampleMapper>()")}.AddSingleton<{entityName}Mapper>();
+                .AddInstance(mapper){(entityName=="Sample"?string.Empty:@"
+                .AddSingleton<SampleMapper>()")}
+                .AddSingleton<{entityName}Mapper>();
         }}
     }}
 }}
