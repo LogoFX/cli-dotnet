@@ -86,8 +86,10 @@ namespace Common.Bootstrapping
 
         internal static GeneratedFolder WithDataFakeSetup(this GeneratedFolder folder)
         {
-            //TODO: Consider adding csproj as well
-            return folder.WithFolder("Common.Data.Fake.Setup", r => r.WithFile("Module.cs", @"using Attest.Fake.Core;
+            return folder.WithFolder("Common.Data.Fake.Setup", 
+                r => 
+                r.WithFile("Common.Data.Fake.Setup.csproj", AssertionHelper.Any)
+                .WithFile("Module.cs", @"using Attest.Fake.Core;
 using Attest.Fake.Moq;
 using JetBrains.Annotations;
 using Solid.Practices.Modularity;
@@ -109,7 +111,9 @@ namespace Common.Data.Fake.Setup
 
         internal static GeneratedFolder WithDataContractsDto(this GeneratedFolder folder)
         {
-            return folder.WithFolder($"{folder.Name}.Data.Contracts.Dto", r => r.WithFile("SampleItemDto.cs",
+            return folder.WithFolder($"{folder.Name}.Data.Contracts.Dto", r =>
+                    r.WithFile($"{folder.Name}.Data.Contracts.Dto.csproj", AssertionHelper.Any)
+                    .WithFile("SampleItemDto.cs",
                 $@"using System;
 
 namespace {folder.Name}.Data.Contracts.Dto
@@ -125,8 +129,10 @@ namespace {folder.Name}.Data.Contracts.Dto
 
         internal static GeneratedFolder WithDataContractsProviders(this GeneratedFolder folder)
         {
-            return folder //TODO: Consider adding csproj as well
-                .WithFolder($"{folder.Name}.Data.Contracts.Providers", r => r.WithFile("AssemblyInfo.cs",
+            return folder
+                .WithFolder($"{folder.Name}.Data.Contracts.Providers", r =>
+            r.WithFile($"{folder.Name}.Data.Contracts.Providers.csproj", AssertionHelper.Any)
+                    .WithFile("AssemblyInfo.cs",
                     $@"using System.Reflection;
 
 namespace {folder.Name}.Data.Contracts.Providers
@@ -154,8 +160,10 @@ namespace {folder.Name}.Data.Contracts.Providers
 
         internal static GeneratedFolder WithDataFakeContainers(this GeneratedFolder folder)
         {
-            return folder //TODO: Consider adding csproj as well
-                .WithFolder($"{folder.Name}.Data.Fake.Containers", r => r.WithFile("SampleContainer.cs",
+            return folder
+                .WithFolder($"{folder.Name}.Data.Fake.Containers", r => 
+                    r.WithFile($"{folder.Name}.Data.Fake.Containers.csproj", AssertionHelper.Any)
+                        .WithFile("SampleContainer.cs",
                     $@"using System.Collections.Generic;
 using {folder.Name}.Data.Contracts.Dto;
 using {folder.Name}.Data.Fake.Containers.Contracts;
@@ -184,8 +192,10 @@ namespace {folder.Name}.Data.Fake.Containers
 
         internal static GeneratedFolder WithDataFakeContainersContracts(this GeneratedFolder folder)
         {
-            return folder //TODO: Consider adding csproj as well
-                .WithFolder($"{folder.Name}.Data.Fake.Containers.Contracts", r => r.WithFile("IDataContainer.cs",
+            return folder
+                .WithFolder($"{folder.Name}.Data.Fake.Containers.Contracts", r => 
+                    r.WithFile($"{folder.Name}.Data.Fake.Containers.Contracts.csproj", AssertionHelper.Any)
+                        .WithFile("IDataContainer.cs",
                     $@"namespace {folder.Name}.Data.Fake.Containers.Contracts
 {{
     public interface IDataContainer
@@ -196,8 +206,10 @@ namespace {folder.Name}.Data.Fake.Containers
 
         internal static GeneratedFolder WithDataFakeProviderBuilders(this GeneratedFolder folder)
         {
-            return folder //TODO: Consider adding csproj as well
-                .WithFolder($"{folder.Name}.Data.Fake.ProviderBuilders", r => r.WithFile("SampleProviderBuilder.cs",
+            return folder
+                .WithFolder($"{folder.Name}.Data.Fake.ProviderBuilders", r => 
+                    r.WithFile($"{folder.Name}.Data.Fake.ProviderBuilders.csproj", AssertionHelper.Any)
+                        .WithFile("SampleProviderBuilder.cs",
                     $@"using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -267,8 +279,10 @@ namespace {folder.Name}.Data.Fake.ProviderBuilders
 
         internal static GeneratedFolder WithDataFakeProviders(this GeneratedFolder folder)
         {
-            return folder //TODO: Consider adding csproj as well
-                .WithFolder($"{folder.Name}.Data.Fake.Providers", r => r.WithFile("FakeSampleProvider.cs",
+            return folder
+                .WithFolder($"{folder.Name}.Data.Fake.Providers", r => 
+                    r.WithFile($"{folder.Name}.Data.Fake.Providers.csproj", AssertionHelper.Any)
+                        .WithFile("FakeSampleProvider.cs",
                     $@"using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -389,8 +403,10 @@ namespace {folder.Name}.Data.Fake.Providers
 
         internal static GeneratedFolder WithDataRealProviders(this GeneratedFolder folder)
         {
-            return folder //TODO: Consider adding csproj as well
-                .WithFolder($"{folder.Name}.Data.Real.Providers", r => r.WithFile("SampleProvider.cs", $@"using System;
+            return folder
+                .WithFolder($"{folder.Name}.Data.Real.Providers", r => 
+                    r.WithFile($"{folder.Name}.Data.Real.Providers.csproj", AssertionHelper.Any)
+                        .WithFile("SampleProvider.cs", $@"using System;
 using System.Collections.Generic;
 using {folder.Name}.Data.Contracts.Dto;
 using {folder.Name}.Data.Contracts.Providers;
@@ -440,58 +456,115 @@ namespace {folder.Name}.Data.Real.Providers
 
         internal static GeneratedFolder WithLauncher(this GeneratedFolder folder)
         {
-            return folder //TODO: Consider adding csproj as well
-                .WithFolder($"{folder.Name}.Data.Real.Providers", r => r.WithFile("SampleProvider.cs", $@"using System;
-using System.Collections.Generic;
-using {folder.Name}.Data.Contracts.Dto;
-using {folder.Name}.Data.Contracts.Providers;
+            return folder
+                .WithFolder($"{folder.Name}.Launcher", r =>
+                    r.WithFile($"{folder.Name}.Launcher.csproj", AssertionHelper.Any)
+                        .WithFile("App.xaml", $@"<Application x:Class=""{folder.Name}.Launcher.App""
+             xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+             xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"" />
+").WithFile("App.xaml.cs", $@"using Common.Bootstrapping;
+using LogoFX.Client.Bootstrapping;
+using LogoFX.Client.Mvvm.Commanding;
+using Solid.Core;
 
-namespace {folder.Name}.Data.Real.Providers
+namespace {folder.Name}.Launcher
 {{
-    internal sealed class SampleProvider : ISampleProvider
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App 
     {{
-        public IEnumerable<SampleItemDto> GetItems()
+        public App()
         {{
-            throw new NotImplementedException();
-        }}
-
-        public bool DeleteItem(Guid id)
-        {{
-            throw new NotImplementedException();
-        }}
-
-        public bool UpdateItem(SampleItemDto dto)
-        {{
-            throw new NotImplementedException();
-        }}
-
-        public void CreateItem(SampleItemDto dto)
-        {{
-            throw new NotImplementedException();
+            var bootstrapper = new AppBootstrapper();
+            bootstrapper.UseDynamicLoad();
+            bootstrapper
+                .UseResolver()
+                .UseCommanding()
+                .UseShared();
+            
+            ((IInitializable)bootstrapper).Initialize();
         }}
     }}
-}}").WithFile("Module.cs", $@"using System.Reflection;
-using JetBrains.Annotations;
-using {folder.Name}.Data.Contracts.Providers;
-using Solid.Practices.IoC;
-using Solid.Practices.Modularity;
+}}
+").WithFile("AppBootstrapper.cs", $@"using System;
+using LogoFX.Client.Bootstrapping;
+using LogoFX.Client.Bootstrapping.Adapters.SimpleContainer;
+using {folder.Name}.Presentation.Contracts;
+using Solid.Practices.Composition;
 
-namespace {folder.Name}.Data.Real.Providers
+namespace {folder.Name}.Launcher
 {{
-    [UsedImplicitly]
-    internal sealed class Module : ICompositionModule<IDependencyRegistrator>
+    public sealed class AppBootstrapper : BootstrapperContainerBase<ExtendedSimpleContainerAdapter>
+        .WithRootObjectAsContract<IShellViewModel>
     {{
-        public void RegisterModule(IDependencyRegistrator dependencyRegistrator) => dependencyRegistrator
-            .RegisterAutomagically(
-                Assembly.LoadFrom(AssemblyInfo.AssemblyName),
-                Assembly.GetExecutingAssembly());
+        private static readonly ExtendedSimpleContainerAdapter _container = new ExtendedSimpleContainerAdapter();
+
+        public AppBootstrapper()
+            : base(_container)
+        {{
+        }}
+
+        public override CompositionOptions CompositionOptions => new CompositionOptions
+        {{
+            Prefixes = new[] {{
+                ""Common.Data"",
+                ""{folder.Name}.Data"",
+                ""{folder.Name}.Model"",
+                ""{folder.Name}.Presentation"",
+            }}
+        }};
+
+        protected override void OnExit(object sender, EventArgs e)
+        {{
+            base.OnExit(sender, e);
+            _container?.Dispose();
+        }}
+    }}
+}}").WithFile("AssemblyLoader.cs", $@"using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using McMaster.NETCore.Plugins;
+
+namespace {folder.Name}.Launcher
+{{
+    public static class AssemblyLoader
+    {{
+        public static IEnumerable<Assembly> Get(IEnumerable<string> paths)
+        {{
+            return paths.Select(path =>
+                PluginLoader.CreateFromAssemblyFile(assemblyFile:
+                    Path.Combine(Directory.GetCurrentDirectory(), path),
+                    t => t.PreferSharedTypes = true
+                ).LoadDefaultAssembly());
+        }}
+    }}
+}}").WithFile("BootstrapperExtensions.cs", $@"using LogoFX.Client.Mvvm.ViewModel.Services;
+using LogoFX.Client.Mvvm.ViewModelFactory.SimpleContainer;
+using Solid.Bootstrapping;
+using Solid.Core;
+using Solid.Extensibility;
+using Solid.Practices.Composition.Contracts;
+
+namespace {folder.Name}.Launcher
+{{
+    public static class BootstrapperExtensions
+    {{
+        public static IInitializable UseShared<TBootstrapper>(
+            this TBootstrapper bootstrapper)
+            where TBootstrapper : class, IExtensible<TBootstrapper>, IHaveRegistrator, ICompositionModulesProvider, IInitializable =>
+            bootstrapper
+                .UseViewModelCreatorService()
+                .UseViewModelFactory();
     }}
 }}"));
         }
 
         internal static GeneratedFolder WithModel(this GeneratedFolder folder)
         {
-            return folder.WithFolder($"{folder.Name}.Model", r => r
+            return folder.WithFolder($"{folder.Name}.Model", r => 
+                r.WithFile($"{folder.Name}.Model.csproj", AssertionHelper.Any)
                 .WithFolder("Mappers", s =>
                     s.WithFile("MappingProfile.cs", $@"using System;
 using AutoMapper;
@@ -737,7 +810,9 @@ namespace {folder.Name}.Model
 
         internal static GeneratedFolder WithModelContracts(this GeneratedFolder folder)
         {
-            return folder.WithFolder($"{folder.Name}.Model.Contracts", r => r.WithFile("AssemblyInfo.cs",
+            return folder.WithFolder($"{folder.Name}.Model.Contracts", r => 
+                r.WithFile($"{folder.Name}.Model.Contracts.csproj", AssertionHelper.Any)
+                    .WithFile("AssemblyInfo.cs",
                 @"using System.Reflection;
 
 namespace Generation.Model.Contracts
