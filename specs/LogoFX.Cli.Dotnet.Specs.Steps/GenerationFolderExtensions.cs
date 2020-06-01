@@ -86,10 +86,10 @@ namespace Common.Bootstrapping
 
         internal static GeneratedFolder WithDataFakeSetup(this GeneratedFolder folder)
         {
-            return folder.WithFolder("Common.Data.Fake.Setup", 
-                r => 
-                r.WithFile("Common.Data.Fake.Setup.csproj", AssertionHelper.Any)
-                .WithFile("Module.cs", @"using Attest.Fake.Core;
+            return folder.WithFolder("Common.Data.Fake.Setup",
+                r =>
+                    r.WithFile("Common.Data.Fake.Setup.csproj", AssertionHelper.Any)
+                        .WithFile("Module.cs", @"using Attest.Fake.Core;
 using Attest.Fake.Moq;
 using JetBrains.Annotations;
 using Solid.Practices.Modularity;
@@ -112,9 +112,9 @@ namespace Common.Data.Fake.Setup
         internal static GeneratedFolder WithDataContractsDto(this GeneratedFolder folder)
         {
             return folder.WithFolder($"{folder.Name}.Data.Contracts.Dto", r =>
-                    r.WithFile($"{folder.Name}.Data.Contracts.Dto.csproj", AssertionHelper.Any)
+                r.WithFile($"{folder.Name}.Data.Contracts.Dto.csproj", AssertionHelper.Any)
                     .WithFile("SampleItemDto.cs",
-                $@"using System;
+                        $@"using System;
 
 namespace {folder.Name}.Data.Contracts.Dto
 {{    
@@ -131,9 +131,9 @@ namespace {folder.Name}.Data.Contracts.Dto
         {
             return folder
                 .WithFolder($"{folder.Name}.Data.Contracts.Providers", r =>
-            r.WithFile($"{folder.Name}.Data.Contracts.Providers.csproj", AssertionHelper.Any)
-                    .WithFile("AssemblyInfo.cs",
-                    $@"using System.Reflection;
+                    r.WithFile($"{folder.Name}.Data.Contracts.Providers.csproj", AssertionHelper.Any)
+                        .WithFile("AssemblyInfo.cs",
+                            $@"using System.Reflection;
 
 namespace {folder.Name}.Data.Contracts.Providers
 {{
@@ -161,10 +161,10 @@ namespace {folder.Name}.Data.Contracts.Providers
         internal static GeneratedFolder WithDataFakeContainers(this GeneratedFolder folder)
         {
             return folder
-                .WithFolder($"{folder.Name}.Data.Fake.Containers", r => 
+                .WithFolder($"{folder.Name}.Data.Fake.Containers", r =>
                     r.WithFile($"{folder.Name}.Data.Fake.Containers.csproj", AssertionHelper.Any)
                         .WithFile("SampleContainer.cs",
-                    $@"using System.Collections.Generic;
+                            $@"using System.Collections.Generic;
 using {folder.Name}.Data.Contracts.Dto;
 using {folder.Name}.Data.Fake.Containers.Contracts;
 
@@ -193,10 +193,10 @@ namespace {folder.Name}.Data.Fake.Containers
         internal static GeneratedFolder WithDataFakeContainersContracts(this GeneratedFolder folder)
         {
             return folder
-                .WithFolder($"{folder.Name}.Data.Fake.Containers.Contracts", r => 
+                .WithFolder($"{folder.Name}.Data.Fake.Containers.Contracts", r =>
                     r.WithFile($"{folder.Name}.Data.Fake.Containers.Contracts.csproj", AssertionHelper.Any)
                         .WithFile("IDataContainer.cs",
-                    $@"namespace {folder.Name}.Data.Fake.Containers.Contracts
+                            $@"namespace {folder.Name}.Data.Fake.Containers.Contracts
 {{
     public interface IDataContainer
     {{
@@ -207,10 +207,10 @@ namespace {folder.Name}.Data.Fake.Containers
         internal static GeneratedFolder WithDataFakeProviderBuilders(this GeneratedFolder folder)
         {
             return folder
-                .WithFolder($"{folder.Name}.Data.Fake.ProviderBuilders", r => 
+                .WithFolder($"{folder.Name}.Data.Fake.ProviderBuilders", r =>
                     r.WithFile($"{folder.Name}.Data.Fake.ProviderBuilders.csproj", AssertionHelper.Any)
                         .WithFile("SampleProviderBuilder.cs",
-                    $@"using System;
+                            $@"using System;
 using System.Collections.Generic;
 using System.Linq;
 using Attest.Fake.Builders;
@@ -280,10 +280,10 @@ namespace {folder.Name}.Data.Fake.ProviderBuilders
         internal static GeneratedFolder WithDataFakeProviders(this GeneratedFolder folder)
         {
             return folder
-                .WithFolder($"{folder.Name}.Data.Fake.Providers", r => 
+                .WithFolder($"{folder.Name}.Data.Fake.Providers", r =>
                     r.WithFile($"{folder.Name}.Data.Fake.Providers.csproj", AssertionHelper.Any)
                         .WithFile("FakeSampleProvider.cs",
-                    $@"using System;
+                            $@"using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Attest.Fake.Builders;
@@ -404,7 +404,7 @@ namespace {folder.Name}.Data.Fake.Providers
         internal static GeneratedFolder WithDataRealProviders(this GeneratedFolder folder)
         {
             return folder
-                .WithFolder($"{folder.Name}.Data.Real.Providers", r => 
+                .WithFolder($"{folder.Name}.Data.Real.Providers", r =>
                     r.WithFile($"{folder.Name}.Data.Real.Providers.csproj", AssertionHelper.Any)
                         .WithFile("SampleProvider.cs", $@"using System;
 using System.Collections.Generic;
@@ -563,10 +563,10 @@ namespace {folder.Name}.Launcher
 
         internal static GeneratedFolder WithModel(this GeneratedFolder folder)
         {
-            return folder.WithFolder($"{folder.Name}.Model", r => 
+            return folder.WithFolder($"{folder.Name}.Model", r =>
                 r.WithFile($"{folder.Name}.Model.csproj", AssertionHelper.Any)
-                .WithFolder("Mappers", s =>
-                    s.WithFile("MappingProfile.cs", $@"using System;
+                    .WithFolder("Mappers", s =>
+                        s.WithFile("MappingProfile.cs", $@"using System;
 using AutoMapper;
 using {folder.Name}.Data.Contracts.Dto;
 using {folder.Name}.Model.Contracts;
@@ -810,10 +810,10 @@ namespace {folder.Name}.Model
 
         internal static GeneratedFolder WithModelContracts(this GeneratedFolder folder)
         {
-            return folder.WithFolder($"{folder.Name}.Model.Contracts", r => 
+            return folder.WithFolder($"{folder.Name}.Model.Contracts", r =>
                 r.WithFile($"{folder.Name}.Model.Contracts.csproj", AssertionHelper.Any)
                     .WithFile("AssemblyInfo.cs",
-                @"using System.Reflection;
+                        @"using System.Reflection;
 
 namespace Generation.Model.Contracts
 {
@@ -882,6 +882,157 @@ namespace {folder.Name}.Model.Contracts
         int Value {{ get; set; }}
     }}
 }}"));
+        }
+
+        internal static GeneratedFolder WithPresentation(this GeneratedFolder folder)
+        {
+            return folder.WithFolder($"{folder.Name}.Presentation", r =>
+                r.WithFile($"{folder.Name}.Presentation.Shell.csproj", AssertionHelper.Any)
+                    .WithFile("Module.cs", $@"using JetBrains.Annotations;
+using {folder.Name}.Presentation.Contracts;
+using {folder.Name}.Presentation.Shell.ViewModels;
+using Solid.Practices.IoC;
+using Solid.Practices.Modularity;
+
+namespace {folder.Name}.Presentation.Shell
+{{
+    [UsedImplicitly]
+    internal sealed class Module : ICompositionModule<IDependencyRegistrator>
+    {{
+        void ICompositionModule<IDependencyRegistrator>.RegisterModule(IDependencyRegistrator dependencyRegistrator)
+        {{
+            dependencyRegistrator.AddSingleton<IShellViewModel, ShellViewModel>();
+        }}
+    }}
+}}").WithFolder("ViewModels", s => s.WithFile("MainViewModel.cs", $@"using Caliburn.Micro;
+using JetBrains.Annotations;
+using LogoFX.Client.Mvvm.ViewModel;
+using LogoFX.Client.Mvvm.ViewModel.Services;
+using {folder.Name}.Model.Contracts;
+using {folder.Name}.Presentation.Contracts;
+
+namespace {folder.Name}.Presentation.Shell.ViewModels
+{{
+    [UsedImplicitly]
+    public sealed class MainViewModel : Screen, IMainViewModel
+    {{
+        private readonly IViewModelCreatorService _viewModelCreatorService;
+        private readonly IDataService _dataService;
+
+        public MainViewModel(
+            IViewModelCreatorService viewModelCreatorService,
+            IDataService dataService)
+        {{
+            _viewModelCreatorService = viewModelCreatorService;
+            _dataService = dataService;
+        }}
+
+        private WrappingCollection.WithSelection _items;
+        public WrappingCollection.WithSelection Items => _items ??= CreateItems();
+
+        private WrappingCollection.WithSelection CreateItems()
+        {{
+            WrappingCollection.WithSelection wc = null;
+
+            // ReSharper disable once AccessToModifiedClosure
+            wc = new WrappingCollection.WithSelection(o => wc?.SelectedItem == null)
+            {{
+                FactoryMethod = o =>
+                    _viewModelCreatorService.CreateViewModel<ISampleItem, SampleItemViewModel>((ISampleItem) o)
+            }}.WithSource(_dataService.Items);
+
+            return wc;
+        }}
+
+        protected override async void OnInitialize()
+        {{
+            base.OnInitialize();
+            await _dataService.GetItems();
+        }}
+
+    }}
+}}").WithFile("SampleItemViewModel.cs", $@"using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using JetBrains.Annotations;
+using LogoFX.Client.Mvvm.ViewModel.Extensions;
+using {folder.Name}.Model.Contracts;
+using {folder.Name}.Presentation.Contracts;
+
+namespace {folder.Name}.Presentation.Shell.ViewModels
+{{
+    [UsedImplicitly]
+    public sealed class SampleItemViewModel : EditableObjectViewModel<ISampleItem>, ISampleItemViewModel
+    {{
+        public SampleItemViewModel(
+            ISampleItem model) : base(model)
+        {{
+        }}
+
+        protected override async Task<bool> SaveMethod(ISampleItem model)
+        {{
+            IsBusy = true;
+
+            try
+            {{
+                //Delay imitation
+                await Task.Delay(4000);
+                return true;
+            }}
+            catch (Exception err)
+            {{
+                Debug.WriteLine(err.Message);
+                return false;
+            }}
+            finally
+            {{
+                IsBusy = false;
+            }}
+        }}
+    }}
+}}").WithFile("ShellViewModel.cs", $@"using System.ComponentModel;
+using System.Windows.Input;
+using Caliburn.Micro;
+using JetBrains.Annotations;
+using LogoFX.Client.Mvvm.Commanding;
+using LogoFX.Client.Mvvm.ViewModel.Services;
+using {folder.Name}.Presentation.Contracts;
+
+namespace {folder.Name}.Presentation.Shell.ViewModels
+{{
+    [UsedImplicitly]
+    public class ShellViewModel : Conductor<INotifyPropertyChanged>.Collection.OneActive, IShellViewModel
+    {{
+        private readonly IViewModelCreatorService _viewModelCreatorService;
+
+        public ShellViewModel(IViewModelCreatorService viewModelCreatorService)
+        {{
+            _viewModelCreatorService = viewModelCreatorService;
+        }}
+        
+        private ICommand _closeCommand;
+
+        public ICommand CloseCommand => _closeCommand ??= ActionCommand
+            .When(() => true)
+            .Do(() =>
+            {{
+                TryClose();
+            }});
+
+
+        protected override void OnActivate()
+        {{
+            base.OnActivate();
+
+            ActivateItem(_viewModelCreatorService.CreateViewModel<MainViewModel>());
+        }}
+    }}
+}}")).WithFolder("Views", s =>
+                        s.WithFile("MainView.xaml", AssertionHelper.Any)
+                            .WithFile("ShellView.xaml", AssertionHelper.Any)
+                    .WithFolder("SampleItem",
+                        t => t.WithFile("Display.xaml", AssertionHelper.Any)
+                            .WithFile("Edit.xaml", AssertionHelper.Any))));
         }
     }
 }
