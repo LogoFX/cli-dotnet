@@ -30,25 +30,28 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             foreach (var config in configs)
             {
                 var execInfo =
-                    _processManagementService.Start(Path.Combine(path, "dotnet"), $"build -c {config}", Consts.ProcessExecutionTimeout);
+                    _processManagementService.Start(Path.Combine(path, "dotnet"), $"build -c {config}",
+                        Consts.ProcessExecutionTimeout);
                 execInfo.ShouldBeSuccessful();
                 execInfo.OutputStrings.Should().ContainMatch("Build succeeded.");
             }
 
             var generatedFolder = new GeneratedFolder(tempPath, folderName)
-                .WithFolder("Common.Bootstrapping")
-                .WithFolder("Common.Data.Fake.Setup")
-                .WithFolder($"{folderName}.Data.Contracts.Dto")
-                .WithFolder($"{folderName}.Data.Contracts.Providers")
-                .WithFolder($"{folderName}.Data.Fake.Containers")
-                .WithFolder($"{folderName}.Data.Fake.ProviderBuilders")
-                .WithFolder($"{folderName}.Data.Fake.Providers")
-                .WithFolder($"{folderName}.Data.Real.Providers")
-                .WithFolder($"{folderName}.Launcher")
-                .WithFolder($"{folderName}.Model")
-                .WithFolder($"{folderName}.Model.Contracts")
+                .WithBootstrapping()
+                .WithDataFakeSetup()
+                .WithDataContractsDto()
+                .WithDataContractsProviders()
+                .WithDataFakeContainers()
+                .WithDataFakeContainersContracts()
+                .WithDataFakeProviderBuilders()
+                .WithDataFakeProviders()
+                .WithDataRealProviders()
+                .WithLauncher()
+                .WithModel()
+                .WithModelContracts()
                 .WithFolder($"{folderName}.Presentation")
-                .WithFolder($"{folderName}.Presentation.Contracts");
+                .WithFolder($"{folderName}.Presentation.Contracts")
+                .WithFile($"{folderName}.sln", AssertionHelper.Any);
             generatedFolder.AssertGeneratedCode();
         }
     }
