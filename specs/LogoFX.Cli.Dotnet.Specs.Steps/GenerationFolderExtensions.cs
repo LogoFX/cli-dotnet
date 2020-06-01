@@ -264,5 +264,475 @@ namespace {folder.Name}.Data.Fake.ProviderBuilders
     }}
 }}"));
         }
+
+        internal static GeneratedFolder WithDataFakeProviders(this GeneratedFolder folder)
+        {
+            return folder //TODO: Consider adding csproj as well
+                .WithFolder($"{folder.Name}.Data.Fake.Providers", r => r.WithFile("FakeSampleProvider.cs",
+                    $@"using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Attest.Fake.Builders;
+using JetBrains.Annotations;
+using {folder.Name}.Data.Contracts.Dto;
+using {folder.Name}.Data.Contracts.Providers;
+using {folder.Name}.Data.Fake.Containers;
+using {folder.Name}.Data.Fake.ProviderBuilders;
+
+namespace {folder.Name}.Data.Fake.Providers
+{{
+    [UsedImplicitly]
+    internal sealed class FakeSampleProvider : FakeProviderBase<SampleProviderBuilder, ISampleProvider>, ISampleProvider
+    {{
+        private readonly Random _random = new Random();
+
+        public FakeSampleProvider(
+            SampleProviderBuilder sampleProviderBuilder,
+            ISampleContainer sampleContainer)
+            : base(sampleProviderBuilder)
+        {{
+            sampleProviderBuilder.WithItems(sampleContainer.Items);
+        }}
+
+        IEnumerable<SampleItemDto> ISampleProvider.GetItems() => GetService(r =>
+        {{
+            Task.Delay(_random.Next(2000)).Wait();
+            return r;
+        }}).GetItems();
+
+        bool ISampleProvider.DeleteItem(Guid id) => GetService(r =>
+        {{
+            Task.Delay(_random.Next(2000)).Wait();
+            return r;
+        }}).DeleteItem(id);
+
+        bool ISampleProvider.UpdateItem(SampleItemDto dto) => GetService(r =>
+        {{
+            Task.Delay(_random.Next(2000)).Wait();
+            return r;
+        }}).UpdateItem(dto);
+
+        void ISampleProvider.CreateItem(SampleItemDto dto) => GetService(r =>
+        {{
+            Task.Delay(_random.Next(2000)).Wait();
+            return r;
+        }}).CreateItem(dto);
+    }}
+}}").WithFile("Module.cs", $@"using System;
+using JetBrains.Annotations;
+using {folder.Name}.Data.Contracts.Dto;
+using {folder.Name}.Data.Contracts.Providers;
+using {folder.Name}.Data.Fake.Containers;
+using {folder.Name}.Data.Fake.ProviderBuilders;
+using Solid.Practices.IoC;
+using Solid.Practices.Modularity;
+
+namespace {folder.Name}.Data.Fake.Providers
+{{
+    [UsedImplicitly]
+    internal sealed class Module : ICompositionModule<IDependencyRegistrator>
+    {{
+        public void RegisterModule(IDependencyRegistrator dependencyRegistrator)
+        {{
+            dependencyRegistrator
+                .AddInstance(InitializeSampleContainer())
+                .AddSingleton<ISampleProvider, FakeSampleProvider>();
+
+            dependencyRegistrator.RegisterInstance(SampleProviderBuilder.CreateBuilder());
+        }}
+
+        private static ISampleContainer InitializeSampleContainer()
+        {{
+            var sampleContainer = new SampleContainer();
+            sampleContainer.UpdateItems(new[]
+            {{
+                new SampleItemDto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""PC"",
+                    Value = 8
+                }},
+
+                new SampleItemDto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""Acme"",
+                    Value = 10
+                }},
+
+                new SampleItemDto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""Bacme"",
+                    Value = 3
+                }},
+
+                new SampleItemDto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""Exceed"",
+                    Value = 100
+                }},
+
+                new SampleItemDto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""Acme2"",
+                    Value = 10
+                }}
+            }});
+            return sampleContainer;
+        }}
+    }}
+}}"));
+        }
+
+        internal static GeneratedFolder WithDataRealProviders(this GeneratedFolder folder)
+        {
+            return folder //TODO: Consider adding csproj as well
+                .WithFolder($"{folder.Name}.Data.Real.Providers", r => r.WithFile("SampleProvider.cs", $@"using System;
+using System.Collections.Generic;
+using {folder.Name}.Data.Contracts.Dto;
+using {folder.Name}.Data.Contracts.Providers;
+
+namespace {folder.Name}.Data.Real.Providers
+{{
+    internal sealed class SampleProvider : ISampleProvider
+    {{
+        public IEnumerable<SampleItemDto> GetItems()
+        {{
+            throw new NotImplementedException();
+        }}
+
+        public bool DeleteItem(Guid id)
+        {{
+            throw new NotImplementedException();
+        }}
+
+        public bool UpdateItem(SampleItemDto dto)
+        {{
+            throw new NotImplementedException();
+        }}
+
+        public void CreateItem(SampleItemDto dto)
+        {{
+            throw new NotImplementedException();
+        }}
+    }}
+}}").WithFile("Module.cs", $@"using System.Reflection;
+using JetBrains.Annotations;
+using {folder.Name}.Data.Contracts.Providers;
+using Solid.Practices.IoC;
+using Solid.Practices.Modularity;
+
+namespace {folder.Name}.Data.Real.Providers
+{{
+    [UsedImplicitly]
+    internal sealed class Module : ICompositionModule<IDependencyRegistrator>
+    {{
+        public void RegisterModule(IDependencyRegistrator dependencyRegistrator) => dependencyRegistrator
+            .RegisterAutomagically(
+                Assembly.LoadFrom(AssemblyInfo.AssemblyName),
+                Assembly.GetExecutingAssembly());
+    }}
+}}"));
+        }
+
+        internal static GeneratedFolder WithLauncher(this GeneratedFolder folder)
+        {
+            return folder //TODO: Consider adding csproj as well
+                .WithFolder($"{folder.Name}.Data.Real.Providers", r => r.WithFile("SampleProvider.cs", $@"using System;
+using System.Collections.Generic;
+using {folder.Name}.Data.Contracts.Dto;
+using {folder.Name}.Data.Contracts.Providers;
+
+namespace {folder.Name}.Data.Real.Providers
+{{
+    internal sealed class SampleProvider : ISampleProvider
+    {{
+        public IEnumerable<SampleItemDto> GetItems()
+        {{
+            throw new NotImplementedException();
+        }}
+
+        public bool DeleteItem(Guid id)
+        {{
+            throw new NotImplementedException();
+        }}
+
+        public bool UpdateItem(SampleItemDto dto)
+        {{
+            throw new NotImplementedException();
+        }}
+
+        public void CreateItem(SampleItemDto dto)
+        {{
+            throw new NotImplementedException();
+        }}
+    }}
+}}").WithFile("Module.cs", $@"using System.Reflection;
+using JetBrains.Annotations;
+using {folder.Name}.Data.Contracts.Providers;
+using Solid.Practices.IoC;
+using Solid.Practices.Modularity;
+
+namespace {folder.Name}.Data.Real.Providers
+{{
+    [UsedImplicitly]
+    internal sealed class Module : ICompositionModule<IDependencyRegistrator>
+    {{
+        public void RegisterModule(IDependencyRegistrator dependencyRegistrator) => dependencyRegistrator
+            .RegisterAutomagically(
+                Assembly.LoadFrom(AssemblyInfo.AssemblyName),
+                Assembly.GetExecutingAssembly());
+    }}
+}}"));
+        }
+
+        internal static GeneratedFolder WithModel(this GeneratedFolder folder)
+        {
+            return folder.WithFolder($"{folder.Name}.Model", r => r
+                .WithFolder("Mappers", s =>
+                    s.WithFile("MappingProfile.cs", $@"using System;
+using AutoMapper;
+using {folder.Name}.Data.Contracts.Dto;
+using {folder.Name}.Model.Contracts;
+
+namespace {folder.Name}.Model.Mappers
+{{
+    internal sealed class MappingProfile : Profile
+    {{
+        public MappingProfile()
+        {{
+            CreateSampleItemMaps();
+        }}
+
+        private void CreateSampleItemMaps()
+        {{
+            CreateDomainObjectMap<SampleItemDto, ISampleItem, SampleItem>();
+        }}
+
+        private void CreateDomainObjectMap<TDto, TContract, TModel>()
+            where TModel : TContract
+            where TContract : class => CreateDomainObjectMap(typeof(TDto), typeof(TContract), typeof(TModel));
+
+        private void CreateDomainObjectMap(Type dtoType, Type contractType, Type modelType)
+        {{
+            CreateMap(dtoType, contractType).As(modelType);
+            CreateMap(dtoType, modelType);
+            CreateMap(contractType, dtoType);
+            CreateMap(modelType, dtoType);
+        }}
+    }}
+}}").WithFile("SampleMapper.cs", $@"using AutoMapper;
+using JetBrains.Annotations;
+using {folder.Name}.Data.Contracts.Dto;
+using {folder.Name}.Model.Contracts;
+
+namespace {folder.Name}.Model.Mappers
+{{
+    [UsedImplicitly]
+    internal sealed class SampleMapper
+    {{
+        private readonly IMapper _mapper;
+
+        public SampleMapper(IMapper mapper) => _mapper = mapper;
+
+        public ISampleItem MapToSampleItem(SampleItemDto sampleItemDto) => 
+            _mapper.Map<ISampleItem>(sampleItemDto);
+
+        public SampleItemDto MapToSampleItemDto(ISampleItem sampleItem) =>
+            _mapper.Map<SampleItemDto>(sampleItem);
+
+    }}
+}}")).WithFolder("Validation", s => s.WithFile("NumberValidation.cs", $@"using System.ComponentModel.DataAnnotations;
+
+namespace {folder.Name}.Model.Validation
+{{
+    public sealed class NumberValidation : ValidationAttribute
+    {{
+        public NumberValidation()
+        {{
+            Minimum = int.MinValue;
+            Maximum = int.MaxValue;
+        }}
+
+        public int Minimum {{ get; set; }}
+
+        public int Maximum {{ get; set; }}
+
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {{
+            var number = (int)value;
+
+            if (number < Minimum || number > Maximum)
+            {{
+                return new ValidationResult(ErrorMessage);
+            }}
+
+            return ValidationResult.Success;
+        }}
+    }}
+}}")).WithFile("AppModel.cs", $@"using System;
+using LogoFX.Client.Mvvm.Model;
+using {folder.Name}.Model.Contracts;
+
+
+namespace {folder.Name}.Model
+{{    
+    internal abstract class AppModel : EditableModel<Guid>, IAppModel
+    {{        
+        public bool IsNew {{ get; set; }}
+    }}
+}}
+").WithFile("DataService.cs", $@"using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using JetBrains.Annotations;
+using LogoFX.Client.Core;
+using LogoFX.Core;
+using {folder.Name}.Data.Contracts.Providers;
+using {folder.Name}.Model.Contracts;
+using {folder.Name}.Model.Mappers;
+
+namespace {folder.Name}.Model
+{{
+    [UsedImplicitly]
+    internal sealed class DataService : NotifyPropertyChangedBase<DataService>, IDataService
+    {{
+        private readonly ISampleProvider _sampleProvider;
+        private readonly SampleMapper _sampleMapper;
+
+        private readonly RangeObservableCollection<ISampleItem> _items =
+            new RangeObservableCollection<ISampleItem>();
+
+        public DataService(ISampleProvider sampleProvider, SampleMapper sampleMapper)
+        {{
+            _sampleProvider = sampleProvider;
+            _sampleMapper = sampleMapper;
+        }}
+
+        IEnumerable<ISampleItem> IDataService.Items => _items;
+
+        Task IDataService.GetItems() => MethodRunner.RunAsync(Method);
+
+        private void Method()
+        {{
+            var items = _sampleProvider.GetItems().Select(_sampleMapper.MapToSampleItem);
+            _items.Clear();
+            _items.AddRange(items);
+        }}
+
+        Task<ISampleItem> IDataService.NewItem() => MethodRunner.RunWithResultAsync<ISampleItem>(() =>
+            new SampleItem(""New Item"", 1)
+            {{
+                IsNew = true
+            }});
+
+        public Task SaveItem(ISampleItem item) => MethodRunner.RunAsync(() =>
+        {{
+            var dto = _sampleMapper.MapToSampleItemDto(item);
+
+            if (item.IsNew)
+            {{
+                _sampleProvider.CreateItem(dto);
+            }}
+            else
+            {{
+                _sampleProvider.UpdateItem(dto);
+            }}
+        }});
+
+        Task IDataService.DeleteItem(ISampleItem item) => MethodRunner.RunAsync(() =>
+        {{
+            _sampleProvider.DeleteItem(item.Id);
+            _items.Remove(item);
+        }});
+    }}
+}}").WithFile("MethodRunner.cs", $@"using System;
+using System.Threading.Tasks;
+using Solid.Practices.Scheduling;
+
+namespace {folder.Name}.Model
+{{
+    public static class MethodRunner
+    {{
+        public static async Task RunAsync(Action method) => await TaskRunner.RunAsync(method);
+
+        public static async Task<TResult> RunWithResultAsync<TResult>(Func<TResult> method) =>
+            await TaskRunner.RunAsync(method);
+
+        public static async Task RunAsync(Func<Task> method) =>
+            await await TaskRunner.RunAsync(async () => await method());
+
+        public static async Task<TResult> RunWithResultAsync<TResult>(Func<Task<TResult>> method) =>
+            await await TaskRunner.RunAsync(async () => await method());
+    }}
+}}").WithFile("Module.cs", $@"using System.Reflection;
+using AutoMapper;
+using JetBrains.Annotations;
+using {folder.Name}.Model.Contracts;
+using {folder.Name}.Model.Mappers;
+using Solid.Practices.IoC;
+using Solid.Practices.Modularity;
+
+namespace {folder.Name}.Model
+{{
+    [UsedImplicitly]
+    internal sealed class Module : ICompositionModule<IDependencyRegistrator>
+    {{
+        public void RegisterModule(IDependencyRegistrator dependencyRegistrator)
+        {{
+            dependencyRegistrator
+                .RegisterAutomagically(
+                    Assembly.LoadFrom(AssemblyInfo.AssemblyName),
+                    Assembly.GetExecutingAssembly());
+
+            var config = new MapperConfiguration(cfg =>
+            {{
+                cfg.AddProfile(new MappingProfile());
+            }});
+            var mapper = config.CreateMapper();
+            dependencyRegistrator
+                .AddInstance(mapper)
+                .AddSingleton<SampleMapper>();
+        }}
+    }}
+}}
+").WithFile("SampleItem.cs", $@"using System;
+using JetBrains.Annotations;
+using {folder.Name}.Model.Contracts;
+using {folder.Name}.Model.Validation;
+
+namespace {folder.Name}.Model
+{{    
+    [UsedImplicitly]
+    internal sealed class SampleItem : AppModel, ISampleItem
+    {{
+        public SampleItem(string displayName, int value)
+        {{
+            Id = Guid.NewGuid();
+            _displayName = displayName;
+            _value = value;
+        }}
+
+        private string _displayName;
+        public string DisplayName
+        {{
+            get => _displayName;
+            set => SetProperty(ref _displayName, value);
+        }}
+
+        private int _value;
+        [NumberValidation(Minimum = 1, ErrorMessage = ""Value must be positive."")]
+        public int Value
+        {{
+            get => _value;
+            set => SetProperty(ref _value, value);
+        }}        
+    }}
+}}
+"));
+        }
     }
 }
