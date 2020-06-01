@@ -85,9 +85,9 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
         [Xunit.SkippableTheoryAttribute(DisplayName="Generate model entity in an empty folder")]
         [Xunit.TraitAttribute("FeatureTitle", "Model Generation")]
         [Xunit.TraitAttribute("Description", "Generate model entity in an empty folder")]
-        [Xunit.InlineDataAttribute("-sn", new string[0])]
-        [Xunit.InlineDataAttribute("--solution-name", new string[0])]
-        public virtual void GenerateModelEntityInAnEmptyFolder(string solutionNameOption, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Sample", "-sn", new string[0])]
+        [Xunit.InlineDataAttribute("Another", "--solution-name", new string[0])]
+        public virtual void GenerateModelEntityInAnEmptyFolder(string entityNameValue, string solutionNameOption, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate model entity in an empty folder", null, exampleTags);
@@ -122,7 +122,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "Value"});
                 table1.AddRow(new string[] {
                             "-n",
-                            "Sample"});
+                            string.Format("{0}", entityNameValue)});
                 table1.AddRow(new string[] {
                             string.Format("{0}", solutionNameOption),
                             "Test"});
@@ -134,8 +134,8 @@ this.ScenarioInitialize(scenarioInfo);
                         "th the following options", ((string)(null)), table1, "And ");
 #line hidden
 #line 14
- testRunner.Then("The folder \'Generation\' contains generated model entity objects for solution name" +
-                        " \'Test\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("The folder \'Generation\' contains generated model entity objects for name \'{0}\' fo" +
+                            "r solution name \'Test\'", entityNameValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -200,8 +200,8 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("The folder \'Generation\' contains working LogoFX template-based solution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 31
- testRunner.And("The folder \'Generation\' contains generated model entity objects for solution name" +
-                        " \'Test\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("The folder \'Generation\' contains generated model entity objects for name \'Sample\'" +
+                        " for solution name \'Test\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
