@@ -734,5 +734,79 @@ namespace {folder.Name}.Model
 }}
 "));
         }
+
+        internal static GeneratedFolder WithModelContracts(this GeneratedFolder folder)
+        {
+            return folder.WithFolder($"{folder.Name}.Model.Contracts", r => r.WithFile("AssemblyInfo.cs",
+                @"using System.Reflection;
+
+namespace Generation.Model.Contracts
+{
+    public static class AssemblyInfo
+    {
+        public static string AssemblyName { get; } = $""{Assembly.GetExecutingAssembly().GetName().Name}.dll"";
+    }
+}").WithFile("IAppModel.cs", $@"using System;
+using LogoFX.Client.Mvvm.Model.Contracts;
+
+namespace {folder.Name}.Model.Contracts
+{{    
+    public interface IAppModel : IModel<Guid>, IEditableModel
+    {{
+        /// <summary>
+        /// Designates whether model should be discarded when cancelling changes
+        /// The recommended usage is:
+        /// <code>
+        /// var model = _dataService.CreateModelAsync();
+        /// 
+        /// public async Task &lt;Model&gt; CreateModelAsync()
+        /// {{
+        ///     //... wrap into async call
+        ///     var dto = _provider.Create();
+        ///     var model = Mapper.MapToModel(dto);
+        ///     model.IsNew = true;
+        ///     return model;
+        /// }}
+        /// 
+        /// _dataService.UpdateModelAsync(Model model);
+        /// public async Task UpdateModelAsync(Model model)
+        /// {{
+        ///     //... wrap into async call
+        ///     var dto = Mapper.MapToDto(model);
+        ///     _provider.Update(dto);       
+        ///     model.IsNew = false;
+        /// }}        
+        /// 
+        /// </code>
+        /// </summary>
+        bool IsNew {{ get; set; }}
+    }}
+}}
+").WithFile("IDataService.cs", $@"using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace {folder.Name}.Model.Contracts
+{{
+    public interface IDataService
+    {{
+        IEnumerable<ISampleItem> Items {{ get; }}
+
+        Task GetItems();
+
+        Task<ISampleItem> NewItem();
+
+        Task SaveItem(ISampleItem item);
+
+        Task DeleteItem(ISampleItem item);
+    }}
+}}").WithFile("ISampleItem.cs", $@"namespace {folder.Name}.Model.Contracts
+{{
+    public interface ISampleItem : IAppModel
+    {{
+        string DisplayName {{ get; set; }}   
+        int Value {{ get; set; }}
+    }}
+}}"));
+        }
     }
 }

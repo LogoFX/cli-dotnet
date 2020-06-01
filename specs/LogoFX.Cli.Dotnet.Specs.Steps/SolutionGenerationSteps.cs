@@ -30,7 +30,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             foreach (var config in configs)
             {
                 var execInfo =
-                    _processManagementService.Start(Path.Combine(path, "dotnet"), $"build -c {config}", Consts.ProcessExecutionTimeout);
+                    _processManagementService.Start(Path.Combine(path, "dotnet"), $"build -c {config}",
+                        Consts.ProcessExecutionTimeout);
                 execInfo.ShouldBeSuccessful();
                 execInfo.OutputStrings.Should().ContainMatch("Build succeeded.");
             }
@@ -46,11 +47,11 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
                 .WithDataFakeProviders()
                 .WithDataRealProviders()
                 .WithLauncher()
-                           .WithModel()
-                           .WithFolder($"{folderName}.Model.Contracts")
-                           .WithFolder($"{folderName}.Presentation")
-                           .WithFolder($"{folderName}.Presentation.Contracts")
-                           .WithFile($"{folderName}.sln", AssertionHelper.Any);
+                .WithModel()
+                .WithModelContracts()
+                .WithFolder($"{folderName}.Presentation")
+                .WithFolder($"{folderName}.Presentation.Contracts")
+                .WithFile($"{folderName}.sln", AssertionHelper.Any);
             generatedFolder.AssertGeneratedCode();
         }
     }
