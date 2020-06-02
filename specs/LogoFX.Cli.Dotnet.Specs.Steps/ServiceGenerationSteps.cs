@@ -14,7 +14,24 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             var tempPath = Path.GetTempPath();
 
             var structure = new GeneratedFolder(tempPath, folderName)
-                .WithFolder($"{solutionName}.Model.Contracts",
+                .WithFolder($"{solutionName}.Data.Contracts.Providers",
+                    r => r.WithFile($"I{entityName}DataProvider.cs",
+                        $@"using System.Collections.Generic;
+using {solutionName}.Data.Contracts.Dto;
+
+namespace {solutionName}.Data.Contracts.Providers
+{{
+    public interface I{entityName}DataProvider
+    {{
+        IEnumerable<{entityName}Dto> GetItems();
+        
+        bool DeleteItem(string id);
+        
+        bool UpdateItem({entityName}Dto dto);
+        
+        void CreateItem({entityName}Dto dto);
+    }}
+}}")).WithFolder($"{solutionName}.Model.Contracts",
                     r => r.WithFile($"I{entityName}Service.cs",
                         $@"using System.Collections.Generic;
 using System.Threading.Tasks;
