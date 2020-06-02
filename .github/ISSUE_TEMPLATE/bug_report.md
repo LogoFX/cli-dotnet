@@ -3,8 +3,8 @@ name: Bug report
 about: Create a report to help us improve
 title: "[BUG]"
 labels: bug
-assignees: ''
-project: 'Minimum viable product (v1.0.0)'
+assignees: 'godrose'
+projects: 'Minimum viable product (v1.0.0)'
 
 ---
 
