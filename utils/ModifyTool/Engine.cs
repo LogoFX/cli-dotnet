@@ -175,6 +175,10 @@ namespace ModifyTool
                 SyntaxKind.SimpleMemberAccessExpression,
                 statement.Expression,
                 method);
+            var operatorToken = memberAccessExpression.OperatorToken.WithLeadingTrivia(
+                SyntaxFactory.EndOfLine(Environment.NewLine),
+                SyntaxFactory.Whitespace("                "));
+            memberAccessExpression = memberAccessExpression.WithOperatorToken(operatorToken);
             var invocationExpression = SyntaxFactory.InvocationExpression(memberAccessExpression);
             statement = statement.WithExpression(invocationExpression);
             return statement;
