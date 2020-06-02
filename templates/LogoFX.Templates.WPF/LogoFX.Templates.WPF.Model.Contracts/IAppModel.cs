@@ -1,8 +1,9 @@
-﻿using LogoFX.Client.Mvvm.Model.Contracts;
+﻿using System;
+using LogoFX.Client.Mvvm.Model.Contracts;
 
 namespace LogoFX.Templates.WPF.Model.Contracts
 {    
-    public interface IAppModel : IModel<string>, IEditableModel
+    public interface IAppModel : IModel<Guid>, IEditableModel
     {
         /// <summary>
         /// Designates whether model should be discarded when cancelling changes

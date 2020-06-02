@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using LogoFX.Templates.Data.Contracts.Dto;
 
 namespace LogoFX.Templates.Data.Contracts.Providers
@@ -7,7 +8,7 @@ namespace LogoFX.Templates.Data.Contracts.Providers
     {
         IEnumerable<SampleModelDto> GetItems();
         
-        bool DeleteItem(string id);
+        bool DeleteItem(Guid id);
         
         bool UpdateItem(SampleModelDto dto);
         
