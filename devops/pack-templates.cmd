@@ -12,6 +12,12 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
+call copy-template-logofx-service.cmd
+
+if %ERRORLEVEL% NEQ 0 ( 
+	goto EXIT
+)
+
 cd ..
 dotnet pack -o output
 

@@ -1,0 +1,5 @@
+\LogoFX.Templates.Model\
+.sln
+.csproj
+SampleModel.cs
+ISampleModel.cs
