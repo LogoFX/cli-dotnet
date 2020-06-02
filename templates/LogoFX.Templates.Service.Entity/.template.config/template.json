@@ -6,7 +6,7 @@
   "identity": "LogoFX.Service.Entity",         
   "groupIdentity":"LogoFX.Service",
   "shortName": "logofx-entity-service",
-  "sourceName": "SampleService",
+  "sourceName": "SampleModel",
   "sources": [
     {
       "copyOnly": [
