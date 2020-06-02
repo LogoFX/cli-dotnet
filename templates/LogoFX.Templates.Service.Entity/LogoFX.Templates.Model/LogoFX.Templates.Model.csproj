@@ -4,7 +4,27 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE;TEMPLATE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;TEMPLATE</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
+    <Compile Include="..\..\LogoFX.Templates.WPF\LogoFX.Templates.WPF.Model\AppModel.cs" Link="AppModel.cs" />
+    <Compile Include="..\..\LogoFX.Templates.WPF\LogoFX.Templates.WPF.Model\MethodRunner.cs" Link="MethodRunner.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
+    <PackageReference Include="Solid.Practices.Scheduling" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LogoFX.Templates.Data.Contracts.Providers\LogoFX.Templates.Data.Contracts.Providers.csproj" />
     <ProjectReference Include="..\LogoFX.Templates.Model.Contracts\LogoFX.Templates.Model.Contracts.csproj" />
   </ItemGroup>
 
