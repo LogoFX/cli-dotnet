@@ -1034,5 +1034,32 @@ namespace {folder.Name}.Presentation.Shell.ViewModels
                         t => t.WithFile("Display.xaml", AssertionHelper.Any)
                             .WithFile("Edit.xaml", AssertionHelper.Any))));
         }
+
+        internal static GeneratedFolder WithPresentationContracts(this GeneratedFolder folder)
+        {
+            return folder.WithFolder($"{folder.Name}.Presentation.Contracts", r =>
+                r.WithFile($"{folder.Name}.Presentation.Contracts.csproj", AssertionHelper.Any)
+                    .WithFile("IMainViewModel.cs", $@"namespace {folder.Name}.Presentation.Contracts
+{{
+    public interface IMainViewModel
+    {{
+        
+    }}
+}}").WithFile("ISampleItemViewModel.cs", $@"using {folder.Name}.Model.Contracts;
+
+namespace {folder.Name}.Presentation.Contracts
+{{
+    public interface ISampleItemViewModel
+    {{
+        ISampleItem Model {{ get; }}
+    }}
+}}").WithFile("IShellViewModel.cs", $@"namespace {folder.Name}.Presentation.Contracts
+{{
+    public interface IShellViewModel
+    {{
+        
+    }}
+}}"));
+        }
     }
 }
