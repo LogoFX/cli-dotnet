@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Model", "L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Model.Contracts", "LogoFX.Templates.Model.Contracts\LogoFX.Templates.Model.Contracts.csproj", "{3F02A427-7CDD-4FF6-AA46-EC2AE0808354}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogoFX.Templates.Data.Contracts.Providers", "LogoFX.Templates.Data.Contracts.Providers\LogoFX.Templates.Data.Contracts.Providers.csproj", "{FD452F9C-58E9-406A-9711-B0E3E01C35A1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Data.Contracts.Dto", "..\LogoFX.Templates.Model.Entity\LogoFX.Templates.Data.Contracts.Dto\LogoFX.Templates.Data.Contracts.Dto.csproj", "{FF993CDB-6DFF-4F8A-8C47-7111C491D543}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{3F02A427-7CDD-4FF6-AA46-EC2AE0808354}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F02A427-7CDD-4FF6-AA46-EC2AE0808354}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F02A427-7CDD-4FF6-AA46-EC2AE0808354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD452F9C-58E9-406A-9711-B0E3E01C35A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD452F9C-58E9-406A-9711-B0E3E01C35A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD452F9C-58E9-406A-9711-B0E3E01C35A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD452F9C-58E9-406A-9711-B0E3E01C35A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF993CDB-6DFF-4F8A-8C47-7111C491D543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF993CDB-6DFF-4F8A-8C47-7111C491D543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF993CDB-6DFF-4F8A-8C47-7111C491D543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF993CDB-6DFF-4F8A-8C47-7111C491D543}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
