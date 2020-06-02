@@ -1,9 +1,11 @@
 ﻿using LogoFX.Templates.Model.Contracts;
+#if TEMPLATE
+using LogoFX.Templates.WPF.Model;
+#endif
 
 namespace LogoFX.Templates.Model
 {
-    public class SampleModel : ISampleModel
+    internal class SampleModel : AppModel, ISampleModel
     {
-        
     }
 }
