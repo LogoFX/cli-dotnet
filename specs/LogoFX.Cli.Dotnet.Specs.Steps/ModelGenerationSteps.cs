@@ -124,16 +124,5 @@ namespace {solutionName}.Model.Mappers
 }}")));
             structure.AssertGeneratedCode();
         }
-
-        private string Decapitalize(string str)
-        {
-            if (string.IsNullOrWhiteSpace(str))
-            {
-                return str;
-            }
-
-            var firstChar = char.ToLowerInvariant(str[0]);
-            return str.Length > 1 ? firstChar + str.Substring(1) : firstChar.ToString();
-        }
     }
 }
