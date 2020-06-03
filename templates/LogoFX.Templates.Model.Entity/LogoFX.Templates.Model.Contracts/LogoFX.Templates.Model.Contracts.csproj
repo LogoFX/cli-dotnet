@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;TEMPLATE</DefineConstants>
+    <DefineConstants>TRACE;IN_PROJECT</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

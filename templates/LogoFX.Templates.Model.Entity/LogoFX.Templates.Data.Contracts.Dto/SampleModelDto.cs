@@ -2,6 +2,6 @@
 {
     public class SampleModelDto
     {
-
+        public string Id { get; set; }
     }
 }
