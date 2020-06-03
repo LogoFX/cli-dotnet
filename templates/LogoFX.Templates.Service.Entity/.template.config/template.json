@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "LogoUI",
+  "classifications": [ "LogoFX", "Service" ], 
+  "name": "LogoFX Service Entity",
+  "identity": "LogoFX.Service.Entity",         
+  "groupIdentity":"LogoFX.Service",
+  "shortName": "logofx-entity-service",
+  "sourceName": "SampleModel",
+  "sources": [
+    {
+      "copyOnly": [
+        "**/utils/**"
+      ]
+    }
+  ],
+  "tags": {
+    "language": "C#",
+    "type":"item"
+  },
+  "symbols":{
+     "solution-name": {
+	   "shortName": "sn",
+	   "type": "parameter",
+	   "dataType": "string",
+	   "description": "Solution name",
+	   "isRequired": true,
+       "replaces": "LogoFX.Templates",
+	   "fileRename": "LogoFX.Templates"
+    }
+  },
+  "postActions": [
+    {
+      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+      "args": {
+        "executable": "setup-entity-service.cmd",
+        "args": ""
+      },
+      "manualInstructions": [{ 
+         "text": "Run 'setup-entity-service.cmd'" 
+       }],
+      "continueOnError": false,
+      "description ": "setups the project by calling setup.cmd"
+    }
+  ]  
+}

@@ -20,7 +20,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
 {{
     public class {entityName}Dto
     {{
-
+        public string Id {{ get; set; }}
     }}
 }}")).WithFolder($"{solutionName}.Model.Contracts", r => r.WithFile($"I{entityName}.cs", $@"namespace {solutionName}.Model.Contracts
 {{
@@ -34,7 +34,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
 
 namespace {solutionName}.Model
 {{
-    public class {entityName} : AppModel, I{entityName}
+    internal class {entityName} : AppModel, I{entityName}
     {{
         
     }}
@@ -107,33 +107,24 @@ namespace {solutionName}.Model.Mappers
         }}
     }}
 }}").WithFile($"{entityName}Mapper.cs", $@"using AutoMapper;
+using JetBrains.Annotations;
 using {solutionName}.Data.Contracts.Dto;
 using {solutionName}.Model.Contracts;
 
 namespace {solutionName}.Model.Mappers
 {{
+    [UsedImplicitly]
     internal sealed class {entityName}Mapper
     {{
         private readonly IMapper _mapper;
 
         public {entityName}Mapper(IMapper mapper) => _mapper = mapper;
 
-        public I{entityName} MapTo{entityName}Value({entityName}Dto dto) =>
+        public I{entityName} MapTo{entityName}({entityName}Dto dto) =>
             _mapper.Map<I{entityName}>(dto);
     }}
 }}")));
             structure.AssertGeneratedCode();
-        }
-
-        private string Decapitalize(string str)
-        {
-            if (string.IsNullOrWhiteSpace(str))
-            {
-                return str;
-            }
-
-            var firstChar = char.ToLowerInvariant(str[0]);
-            return str.Length > 1 ? firstChar + str.Substring(1) : firstChar.ToString();
         }
     }
 }

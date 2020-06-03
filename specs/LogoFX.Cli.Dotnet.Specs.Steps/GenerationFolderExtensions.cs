@@ -650,15 +650,13 @@ namespace {folder.Name}.Model.Validation
 using LogoFX.Client.Mvvm.Model;
 using {folder.Name}.Model.Contracts;
 
-
 namespace {folder.Name}.Model
 {{    
     internal abstract class AppModel : EditableModel<Guid>, IAppModel
     {{        
         public bool IsNew {{ get; set; }}
     }}
-}}
-").WithFile("DataService.cs", $@"using System.Collections.Generic;
+}}").WithFile("DataService.cs", $@"using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -687,9 +685,9 @@ namespace {folder.Name}.Model
 
         IEnumerable<ISampleItem> IDataService.Items => _items;
 
-        Task IDataService.GetItems() => MethodRunner.RunAsync(Method);
+        Task IDataService.GetItems() => MethodRunner.RunAsync(GetItems);
 
-        private void Method()
+        private void GetItems()
         {{
             var items = _sampleProvider.GetItems().Select(_sampleMapper.MapToSampleItem);
             _items.Clear();
@@ -702,7 +700,7 @@ namespace {folder.Name}.Model
                 IsNew = true
             }});
 
-        public Task SaveItem(ISampleItem item) => MethodRunner.RunAsync(() =>
+        Task IDataService.SaveItem(ISampleItem item) => MethodRunner.RunAsync(() =>
         {{
             var dto = _sampleMapper.MapToSampleItemDto(item);
 
