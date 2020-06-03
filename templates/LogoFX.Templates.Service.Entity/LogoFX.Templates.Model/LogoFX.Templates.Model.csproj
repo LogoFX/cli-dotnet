@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\LogoFX.Templates.Model.Entity\LogoFX.Templates.Model\SampleModel.cs" Link="SampleModel.cs" />
     <Compile Include="..\..\LogoFX.Templates.WPF\LogoFX.Templates.WPF.Model\AppModel.cs" Link="AppModel.cs" />
     <Compile Include="..\..\LogoFX.Templates.WPF\LogoFX.Templates.WPF.Model\MethodRunner.cs" Link="MethodRunner.cs" />
   </ItemGroup>
