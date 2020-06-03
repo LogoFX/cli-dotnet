@@ -137,8 +137,38 @@ namespace {solutionName}.Data.Fake.Containers
             _items.AddRange(items);
         }}
     }}
-}}"));
+}}")).WithFolder($"{solutionName}.Data.Real.Providers",
+                    r => r.WithFile($"{entityName}DataProvider.cs",
+                        $@"using System;
+using System.Collections.Generic;
+using {solutionName}.Data.Contracts.Dto;
+using {solutionName}.Data.Contracts.Providers;
 
+namespace {solutionName}.Data.Real.Providers
+{{
+    internal sealed class {entityName}DataProvider : I{entityName}DataProvider
+    {{
+        public IEnumerable<{entityName}Dto> GetItems()
+        {{
+            throw new NotImplementedException();
+        }}
+
+        public bool DeleteItem(Guid id)
+        {{
+            throw new NotImplementedException();
+        }}
+
+        public bool UpdateItem({entityName}Dto dto)
+        {{
+            throw new NotImplementedException();
+        }}
+
+        public void CreateItem({entityName}Dto dto)
+        {{
+            throw new NotImplementedException();
+        }}
+    }}
+}}"));
             structure.AssertGeneratedCode();
         }
     }
