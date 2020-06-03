@@ -3,6 +3,7 @@
 	As a framework developer
 	I want to be able to install and use the correspondent template via existing dotnet means
 
+@ignore
 Scenario: Install template pack
 	When I install the template pack 'LogoFX.Templates' from local package
 	Then The template for 'logofx-wpf' is installed with the following parameters
@@ -12,6 +13,7 @@ Scenario: Install template pack
 	| Description         | Short Name   | Languages | Tags         |
 	| LogoFX Model Entity | logofx-model | [C#]      | LogoFX/Model |
 
+@ignore
 Scenario: Generate solution skeleton
 	When I install the template pack 'LogoFX.Templates' from local package
 	And I create a folder named 'Generation'

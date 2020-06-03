@@ -85,11 +85,14 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
         [Xunit.SkippableFactAttribute(DisplayName="Install template pack")]
         [Xunit.TraitAttribute("FeatureTitle", "Solution Generation")]
         [Xunit.TraitAttribute("Description", "Install template pack")]
+        [Xunit.TraitAttribute("Category", "ignore")]
         public virtual void InstallTemplatePack()
         {
-            string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Install template pack", null, ((string[])(null)));
-#line 6
+            string[] tagsOfScenario = new string[] {
+                    "ignore"};
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Install template pack", null, new string[] {
+                        "ignore"});
+#line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -109,7 +112,7 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 7
+#line 8
  testRunner.When("I install the template pack \'LogoFX.Templates\' from local package", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -122,7 +125,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "logofx-wpf",
                             "[C#]",
                             "LogoFX/WPF"});
-#line 8
+#line 9
  testRunner.Then("The template for \'logofx-wpf\' is installed with the following parameters", ((string)(null)), table3, "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
@@ -135,7 +138,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "logofx-model",
                             "[C#]",
                             "LogoFX/Model"});
-#line 11
+#line 12
  testRunner.And("The template for \'logofx-model\' is installed with the following parameters", ((string)(null)), table4, "And ");
 #line hidden
             }
@@ -145,11 +148,14 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.SkippableFactAttribute(DisplayName="Generate solution skeleton")]
         [Xunit.TraitAttribute("FeatureTitle", "Solution Generation")]
         [Xunit.TraitAttribute("Description", "Generate solution skeleton")]
+        [Xunit.TraitAttribute("Category", "ignore")]
         public virtual void GenerateSolutionSkeleton()
         {
-            string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate solution skeleton", null, ((string[])(null)));
-#line 15
+            string[] tagsOfScenario = new string[] {
+                    "ignore"};
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate solution skeleton", null, new string[] {
+                        "ignore"});
+#line 17
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -169,17 +175,17 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 16
+#line 18
  testRunner.When("I install the template pack \'LogoFX.Templates\' from local package", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 17
+#line 19
  testRunner.And("I create a folder named \'Generation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 18
+#line 20
  testRunner.And("I generate the code in folder named \'Generation\' using \'logofx-wpf\' template with" +
                         " the default options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 19
+#line 21
  testRunner.Then("The folder \'Generation\' contains working LogoFX template-based solution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

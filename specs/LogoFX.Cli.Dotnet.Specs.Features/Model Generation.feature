@@ -3,6 +3,7 @@
 	As an app developer
 	I want to be able to install and use the correspondent template via existing dotnet means
 
+@ignore
 Scenario Outline: Generate model entity in an empty folder
 	When I install the template pack 'LogoFX.Templates' from local package
 	And I create a folder named 'Generation'
@@ -17,6 +18,7 @@ Scenario Outline: Generate model entity in an empty folder
 	| entityNameValue | solutionNameOption |
 	| Sample          | -sn                |
 	| Another         | --solution-name    |
+
 
 Scenario Outline: Generate model entity in existing solution
 	When I install the template pack 'LogoFX.Templates' from local package
@@ -33,4 +35,4 @@ Scenario Outline: Generate model entity in existing solution
 	Examples:
 	| solutionNameOption |
 	| -sn                |
-	| --solution-name    |
+	#| --solution-name    |
