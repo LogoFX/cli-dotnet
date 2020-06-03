@@ -113,6 +113,30 @@ namespace {solutionName}.Model
             _items.Remove(item);
         }});
     }}
+}}")).WithFolder($"{solutionName}.Data.Fake.Containers",
+                    r => r.WithFile($"{entityName}Container.cs",
+                        $@"using System.Collections.Generic;
+using {solutionName}.Data.Contracts.Dto;
+using {solutionName}.Data.Fake.Containers.Contracts;
+
+namespace {solutionName}.Data.Fake.Containers
+{{
+    public interface I{entityName}Container : IDataContainer
+    {{
+        IEnumerable<{entityName}Dto> Items {{ get; }}
+    }}
+
+    public sealed class {entityName}Container : I{entityName}Container
+    {{
+        private readonly List<{entityName}Dto> _items = new List<{entityName}Dto>();
+        public IEnumerable<{entityName}Dto> Items => _items;
+
+        public void UpdateItems(IEnumerable<{entityName}Dto> items)
+        {{
+            _items.Clear();
+            _items.AddRange(items);
+        }}
+    }}
 }}"));
 
             structure.AssertGeneratedCode();
