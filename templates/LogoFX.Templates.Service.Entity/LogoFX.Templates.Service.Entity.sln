@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Data.Contr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.WPF.Data.Fake.Containers.Contracts", "..\LogoFX.Templates.WPF\LogoFX.Templates.WPF.Data.Fake.Containers.Contracts\LogoFX.Templates.WPF.Data.Fake.Containers.Contracts.csproj", "{35AC1ED6-56B4-432B-8EB7-3FD643054A25}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.WPF.Data.Fake.Containers", "LogoFX.Templates.Data.Fake.Containers\LogoFX.Templates.WPF.Data.Fake.Containers.csproj", "{0941C9CB-D5B1-4ABC-9B32-27C77DAEC34C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Data.Fake.Containers", "LogoFX.Templates.Data.Fake.Containers\LogoFX.Templates.Data.Fake.Containers.csproj", "{0941C9CB-D5B1-4ABC-9B32-27C77DAEC34C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Data.Real.Providers", "LogoFX.Templates.Data.Real.Providers\LogoFX.Templates.Data.Real.Providers.csproj", "{E70D122F-63A2-4784-945D-9133D3677B03}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Data.Fake.ProviderBuilders", "LogoFX.Templates.Data.Fake.ProviderBuilders\LogoFX.Templates.Data.Fake.ProviderBuilders.csproj", "{DC938B5C-B685-400E-B647-30E43A8C7884}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,14 @@ Global
 		{E70D122F-63A2-4784-945D-9133D3677B03}.DebugWithReal|Any CPU.Build.0 = DebugWithReal|Any CPU
 		{E70D122F-63A2-4784-945D-9133D3677B03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E70D122F-63A2-4784-945D-9133D3677B03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC938B5C-B685-400E-B647-30E43A8C7884}.Debug|Any CPU.ActiveCfg = DebugWithFake|Any CPU
+		{DC938B5C-B685-400E-B647-30E43A8C7884}.Debug|Any CPU.Build.0 = DebugWithFake|Any CPU
+		{DC938B5C-B685-400E-B647-30E43A8C7884}.DebugWithFake|Any CPU.ActiveCfg = DebugWithFake|Any CPU
+		{DC938B5C-B685-400E-B647-30E43A8C7884}.DebugWithFake|Any CPU.Build.0 = DebugWithFake|Any CPU
+		{DC938B5C-B685-400E-B647-30E43A8C7884}.DebugWithReal|Any CPU.ActiveCfg = DebugWithReal|Any CPU
+		{DC938B5C-B685-400E-B647-30E43A8C7884}.DebugWithReal|Any CPU.Build.0 = DebugWithReal|Any CPU
+		{DC938B5C-B685-400E-B647-30E43A8C7884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC938B5C-B685-400E-B647-30E43A8C7884}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -168,6 +168,68 @@ namespace {solutionName}.Data.Real.Providers
             throw new NotImplementedException();
         }}
     }}
+}}")).WithFolder($"{solutionName}.Data.Fake.ProviderBuilders",
+                    r => r.WithFile($"{entityName}ProviderBuilder.cs",
+                        $@"using System;
+using System.Collections.Generic;
+using System.Linq;
+using Attest.Fake.Builders;
+using Attest.Fake.Core;
+using Attest.Fake.Setup.Contracts;
+using {solutionName}.Data.Contracts.Dto;
+using {solutionName}.Data.Contracts.Providers;
+
+namespace {solutionName}.Data.Fake.ProviderBuilders
+{{
+    public sealed class {entityName}ProviderBuilder : FakeBuilderBase<I{entityName}DataProvider>.WithInitialSetup
+    {{
+        private readonly List<{entityName}Dto> _itemsStorage = new List<{entityName}Dto>();
+
+        private {entityName}ProviderBuilder()
+        {{
+
+        }}
+
+        public static {entityName}ProviderBuilder CreateBuilder() => new {entityName}ProviderBuilder();
+
+        public void WithItems(IEnumerable<{entityName}Dto> items)
+        {{
+            _itemsStorage.Clear();
+            _itemsStorage.AddRange(items);
+        }}
+
+        protected override IServiceCall<I{entityName}DataProvider> CreateServiceCall(
+            IHaveNoMethods<I{entityName}DataProvider> serviceCallTemplate) => serviceCallTemplate
+            .AddMethodCallWithResult(t => t.GetItems(),
+                r => r.Complete(GetItems))
+            .AddMethodCallWithResult<Guid, bool>(t => t.DeleteItem(It.IsAny<Guid>()),
+                (r, id) => r.Complete(DeleteItem(id)))
+            .AddMethodCallWithResult<{entityName}Dto, bool>(t => t.UpdateItem(It.IsAny<{entityName}Dto>()),
+                (r, dto) => r.Complete(k =>
+                {{
+                    SaveItem(k);
+                    return true;
+                }}))
+            .AddMethodCall<{entityName}Dto>(t => t.CreateItem(It.IsAny<{entityName}Dto>()),
+                (r, dto) => r.Complete(SaveItem));
+
+        private IEnumerable<{entityName}Dto> GetItems() => _itemsStorage;
+
+        private bool DeleteItem(Guid id)
+        {{
+            var dto = _itemsStorage.SingleOrDefault(x => x.Id == id);
+            return dto != null && _itemsStorage.Remove(dto);
+        }}
+
+        private void SaveItem({entityName}Dto dto)
+        {{
+            var oldDto = _itemsStorage.SingleOrDefault(x => x.Id == dto.Id);
+            if (oldDto == null)
+            {{
+                _itemsStorage.Add(dto);
+            }}
+        }}
+    }}
 }}"));
             structure.AssertGeneratedCode();
         }

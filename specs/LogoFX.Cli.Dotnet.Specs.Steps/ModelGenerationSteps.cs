@@ -16,11 +16,13 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             var structure = new GeneratedFolder(tempPath, folderName)
                 .WithFolder($"{solutionName}.Data.Contracts.Dto",
                     r =>
-                        r.WithFile($"{entityName}Dto.cs", $@"namespace {solutionName}.Data.Contracts.Dto
+                        r.WithFile($"{entityName}Dto.cs", $@"using System;
+
+namespace {solutionName}.Data.Contracts.Dto
 {{
     public class {entityName}Dto
     {{
-        public string Id {{ get; set; }}
+        public Guid Id {{ get; set; }}
     }}
 }}")).WithFolder($"{solutionName}.Model.Contracts", r => r.WithFile($"I{entityName}.cs", $@"namespace {solutionName}.Model.Contracts
 {{

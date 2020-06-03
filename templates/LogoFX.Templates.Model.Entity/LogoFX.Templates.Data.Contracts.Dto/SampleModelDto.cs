@@ -1,7 +1,9 @@
-﻿namespace LogoFX.Templates.Data.Contracts.Dto
+﻿using System;
+
+namespace LogoFX.Templates.Data.Contracts.Dto
 {
     public class SampleModelDto
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
     }
 }
