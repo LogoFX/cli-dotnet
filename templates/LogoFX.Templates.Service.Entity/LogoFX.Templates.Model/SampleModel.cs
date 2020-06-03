@@ -1,5 +1,5 @@
 ﻿using LogoFX.Templates.Model.Contracts;
-#if TEMPLATE
+#if IN_PROJECT
 using LogoFX.Templates.WPF.Model;
 #endif
 

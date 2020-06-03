@@ -7,7 +7,7 @@ using LogoFX.Core;
 using LogoFX.Templates.Data.Contracts.Providers;
 using LogoFX.Templates.Model.Contracts;
 using LogoFX.Templates.Model.Mappers;
-#if TEMPLATE
+#if IN_PROJECT
 using LogoFX.Templates.WPF.Model;
 #endif
 
