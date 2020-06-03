@@ -8,12 +8,12 @@ using LogoFX.Templates.Data.Fake.Containers.Contracts;
 
 namespace LogoFX.Templates.Data.Fake.Containers
 {
-    public interface ISampleModelContainer : IDataContainer
+    public interface ISampleModelDataContainer : IDataContainer
     {
         IEnumerable<SampleModelDto> Items { get; }
     }
 
-    public sealed class SampleModelContainer : ISampleModelContainer
+    public sealed class SampleModelDataContainer : ISampleModelDataContainer
     {
         private readonly List<SampleModelDto> _items = new List<SampleModelDto>();
         public IEnumerable<SampleModelDto> Items => _items;
