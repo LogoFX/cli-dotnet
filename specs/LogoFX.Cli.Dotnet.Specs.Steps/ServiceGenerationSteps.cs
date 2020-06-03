@@ -16,7 +16,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             var structure = new GeneratedFolder(tempPath, folderName)
                 .WithFolder($"{solutionName}.Data.Contracts.Providers",
                     r => r.WithFile($"I{entityName}DataProvider.cs",
-                        $@"using System.Collections.Generic;
+                        $@"using System;
+using System.Collections.Generic;
 using {solutionName}.Data.Contracts.Dto;
 
 namespace {solutionName}.Data.Contracts.Providers
@@ -25,7 +26,7 @@ namespace {solutionName}.Data.Contracts.Providers
     {{
         IEnumerable<{entityName}Dto> GetItems();
         
-        bool DeleteItem(string id);
+        bool DeleteItem(Guid id);
         
         bool UpdateItem({entityName}Dto dto);
         
@@ -42,13 +43,13 @@ namespace {solutionName}.Model.Contracts
     {{
         IEnumerable<I{entityName}> Items {{ get; }}
 
-        Task GetItemsAsync();
+        Task GetItems();
 
-        Task<I{entityName}> NewItemAsync();
+        Task<I{entityName}> NewItem();
 
-        Task SaveItemAsync(I{entityName} item);
+        Task SaveItem(I{entityName} item);
 
-        Task DeleteItemAsync(I{entityName} item);
+        Task DeleteItem(I{entityName} item);
     }}
 }}"));
 
