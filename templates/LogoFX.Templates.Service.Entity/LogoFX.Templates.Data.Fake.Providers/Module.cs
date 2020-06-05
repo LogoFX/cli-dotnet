@@ -1,13 +1,13 @@
 ﻿using System;
 using JetBrains.Annotations;
-using LogoFX.Templates.WPF.Data.Contracts.Dto;
-using LogoFX.Templates.WPF.Data.Contracts.Providers;
-using LogoFX.Templates.WPF.Data.Fake.Containers;
-using LogoFX.Templates.WPF.Data.Fake.ProviderBuilders;
+using LogoFX.Templates.Data.Contracts.Dto;
+using LogoFX.Templates.Data.Contracts.Providers;
+using LogoFX.Templates.Data.Fake.Containers;
+using LogoFX.Templates.Data.Fake.ProviderBuilders;
 using Solid.Practices.IoC;
 using Solid.Practices.Modularity;
 
-namespace LogoFX.Templates.WPF.Data.Fake.Providers
+namespace LogoFX.Templates.Data.Fake.Providers
 {
     [UsedImplicitly]
     internal sealed class Module : ICompositionModule<IDependencyRegistrator>
@@ -16,50 +16,52 @@ namespace LogoFX.Templates.WPF.Data.Fake.Providers
         {
             dependencyRegistrator
                 .AddInstance(InitializeSampleContainer())
-                .AddSingleton<ISampleProvider, FakeSampleProvider>()
-                .RegisterInstance(SampleProviderBuilder.CreateBuilder());
+                .AddSingleton<ISampleModelDataProvider, FakeSampleModelDataProvider>();
+
+            dependencyRegistrator.RegisterInstance(SampleModelProviderBuilder.CreateBuilder());
         }
 
-        private static ISampleContainer InitializeSampleContainer()
+        private static ISampleModelDataContainer InitializeSampleContainer()
         {
-            var sampleContainer = new SampleContainer();
+            var sampleContainer = new SampleModelDataContainer();
             sampleContainer.UpdateItems(new[]
             {
-                new SampleItemDto
+                new SampleModelDto
                 {
                     Id = Guid.NewGuid(),
                     DisplayName = "PC",
                     Value = 8
                 },
 
-                new SampleItemDto
+                new SampleModelDto
                 {
                     Id = Guid.NewGuid(),
                     DisplayName = "Acme",
                     Value = 10
                 },
 
-                new SampleItemDto
+                new SampleModelDto
                 {
                     Id = Guid.NewGuid(),
                     DisplayName = "Bacme",
                     Value = 3
                 },
 
-                new SampleItemDto
+                new SampleModelDto
                 {
                     Id = Guid.NewGuid(),
                     DisplayName = "Exceed",
                     Value = 100
                 },
 
-                new SampleItemDto
+                new SampleModelDto
                 {
                     Id = Guid.NewGuid(),
                     DisplayName = "Acme2",
                     Value = 10
                 }
             });
+
             return sampleContainer;
         }
     }

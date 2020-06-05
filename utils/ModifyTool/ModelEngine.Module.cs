@@ -8,97 +8,19 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ModifyTool
 {
-    internal sealed class Engine
+    internal sealed partial class ModelEngine
     {
         private const string ModuleFileName = "Module.cs";
         private const string ModuleClassName = "Module";
         private const string RegisterModuleMethodName = "RegisterModule";
+
         private const string MapperSuffix = "Mapper";
         private const string RegistrationMethodName = "AddSingleton";
-        
-        private const string MappersFolderName = "Mappers";
-        private const string MappingProfileFileName = "MappingProfile.cs";
-        private const string MappingProfileClassName = "MappingProfile";
 
-        private const string ModelSuffix = "Model";
-
-        private readonly string _solutionFolder;
-
-        public Engine(string solutionFolder)
-        {
-            _solutionFolder = Path.GetFullPath(solutionFolder);
-        }
-
-        private string GetProjectFolder()
-        {
-            return $"{_solutionFolder}.{ModelSuffix}";
-        }
-
-        public void CreateMapping(string entityName)
-        {
-            var filePath = Path.Combine(Path.Combine(GetProjectFolder(), MappersFolderName), MappingProfileFileName);
-
-            if (!File.Exists(filePath))
-            {
-                var helper = new ResourceHelper(MappingProfileFileName);
-
-                using var stream = helper.GetResourceStream();
-                using (var fileStream = File.Create(filePath))
-                {
-                    stream.CopyTo(fileStream);
-                }
-
-                var solutionName = Path.GetFileName(_solutionFolder);
-                ReplaceInFile(filePath, solutionName);
-            }
-
-            var text = File.ReadAllText(filePath);
-            var tree = CSharpSyntaxTree.ParseText(text);
-            var node = tree.GetRoot();
-            var @class = node.DescendantNodes()
-                .OfType<ClassDeclarationSyntax>()
-                .Single(x => x.Identifier.Text == MappingProfileClassName);
-
-            var methodName = $"Create{entityName}Maps";
-
-            var foundMember = @class.Members
-                .OfType<MethodDeclarationSyntax>()
-                .Any(x => x.Identifier.Text == methodName);
-
-            if (foundMember)
-            {
-                return;
-            }
-
-            var statementMember = SyntaxFactory.GenericName("CreateDomainObjectMap");
-            statementMember = statementMember.AddTypeArgumentListArguments(
-                SyntaxFactory.ParseTypeName($"{entityName}Dto"),
-                SyntaxFactory.ParseTypeName($"I{entityName}"),
-                SyntaxFactory.ParseTypeName($"{entityName}"));
-            var statement = SyntaxFactory.InvocationExpression(statementMember);
-
-            var method = SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)), methodName);
-            method = method.AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword));
-            method = method.WithBody(SyntaxFactory.Block(SyntaxFactory.ExpressionStatement(statement)));
-
-            var ctorIndex = @class.Members.IndexOf(x => x is ConstructorDeclarationSyntax);
-
-            var members = @class.Members.Insert(ctorIndex + 1, method);
-            var ctorDecl = (ConstructorDeclarationSyntax) members[ctorIndex];
-            // ReSharper disable once PossibleNullReferenceException
-            var body = ctorDecl.Body.AddStatements(
-                SyntaxFactory.ExpressionStatement(
-                    SyntaxFactory.InvocationExpression(
-                        SyntaxFactory.IdentifierName(method.Identifier))));
-            ctorDecl = ctorDecl.WithBody(body);
-            members = members.RemoveAt(ctorIndex);
-            members = members.Insert(ctorIndex, ctorDecl);
-            var newClass = @class.WithMembers(members);
-
-            node = node.ReplaceNode(@class, newClass);
-            File.WriteAllText(filePath, node.NormalizeWhitespace().ToFullString());
-        }
-
+        /// <summary>
+        /// Create or update Module.cs in .Module project.
+        /// </summary>
+        /// <param name="entityName"></param>
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public void RegisterMappers(string entityName)
         {
@@ -106,7 +28,7 @@ namespace ModifyTool
 
             if (!File.Exists(moduleFilePath))
             {
-                var helper = new ResourceHelper(ModuleFileName);
+                var helper = new ResourceHelper("Model", ModuleFileName);
 
                 using var stream = helper.GetResourceStream();
                 using (var fileStream = File.Create(moduleFilePath))
@@ -114,8 +36,7 @@ namespace ModifyTool
                     stream.CopyTo(fileStream);
                 }
 
-                var solutionName = Path.GetFileName(_solutionFolder);
-                ReplaceInFile(moduleFilePath, solutionName);
+                ReplaceSolutionName(moduleFilePath);
             }
 
             var moduleText = File.ReadAllText(moduleFilePath);
@@ -146,18 +67,6 @@ namespace ModifyTool
             var newClass = moduleClass.WithMembers(members);
             node = node.ReplaceNode(moduleClass, newClass);
             File.WriteAllText(moduleFilePath, node.ToFullString());
-        }
-
-        private void ReplaceInFile(string filePath, string solutionName)
-        {
-            const string namespaceKey = "namespace";
-
-            var lines = File.ReadAllText(filePath);
-            var index1 = lines.IndexOf(namespaceKey, StringComparison.Ordinal) + namespaceKey.Length;
-            var index2 = lines.IndexOf($".{ModelSuffix}", index1, StringComparison.Ordinal);
-            var oldSolutionName = lines.Substring(index1, index2 - index1).Trim();
-            lines = lines.Replace(oldSolutionName, solutionName);
-            File.WriteAllText(filePath, lines);
         }
 
         private ExpressionStatementSyntax AddMapperRegistration(ExpressionStatementSyntax statement, string entityName)

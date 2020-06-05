@@ -23,12 +23,18 @@ namespace {solutionName}.Data.Contracts.Dto
     public class {entityName}Dto
     {{
         public Guid Id {{ get; set; }}
+
+        public string DisplayName {{ get; set; }}
+
+        public int Value {{ get; set; }}
     }}
 }}")).WithFolder($"{solutionName}.Model.Contracts", r => r.WithFile($"I{entityName}.cs", $@"namespace {solutionName}.Model.Contracts
 {{
     public interface I{entityName} : IAppModel
     {{
-        
+        string DisplayName {{ get; }}
+
+        int Value {{ get; set; }}
     }}
 }}"))
                 .WithFolder($"{solutionName}.Model", r =>
@@ -38,7 +44,21 @@ namespace {solutionName}.Model
 {{
     internal class {entityName} : AppModel, I{entityName}
     {{
-        
+        private string _displayName;
+
+        public string DisplayName
+        {{
+            get => _displayName;
+            set => SetProperty(ref _displayName, value);
+        }}
+
+        private int _value;
+
+        public int Value
+        {{
+            get => _value;
+            set => SetProperty(ref _value, value);
+        }}
     }}
 }}").WithFile("Module.cs", $@"using System.Reflection;
 using AutoMapper;
