@@ -20,7 +20,7 @@ namespace LogoFX.Templates.WPF.Data.Fake.Providers
                 .RegisterInstance(SampleProviderBuilder.CreateBuilder());
         }
 
-        private static ISampleContainer InitializeSampleContainer()
+        private ISampleContainer InitializeSampleContainer()
         {
             var sampleContainer = new SampleContainer();
             sampleContainer.UpdateItems(new[]

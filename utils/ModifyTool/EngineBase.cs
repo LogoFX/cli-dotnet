@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace ModifyTool
 {
@@ -32,5 +34,14 @@ namespace ModifyTool
             lines = lines.Replace(oldSolutionName, solutionName);
             File.WriteAllText(filePath, lines);
         }
+
+        protected SyntaxTrivia EndOfLineTrivia => SyntaxFactory.EndOfLine(Environment.NewLine);
+
+        protected SyntaxTrivia Whitespace(int count) => SyntaxFactory.Whitespace(new string(' ', count));
+
+        protected SyntaxToken PrivateModifier =>
+            SyntaxFactory.Token(SyntaxKind.PrivateKeyword)
+                .WithLeadingTrivia(EndOfLineTrivia, Whitespace(8))
+                .WithTrailingTrivia(Whitespace(1));
     }
 }
