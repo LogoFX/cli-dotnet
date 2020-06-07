@@ -13,11 +13,18 @@ namespace ModifyTool
     {
         private const string ModuleClassName = "Module";
         private const string RegisterModuleMethodName = "RegisterModule";
+        private const string CreateBuilderMethodName = "CreateBuilder";
+        private const string RegisterInstanceName = "RegisterInstance";
+        private const string AddSingletonName = "AddSingleton";
+        private const string AddInstanceName = "AddInstance";
 
-        private readonly string _type;
+            private readonly string _type;
         private readonly string _name;
         private readonly string _dtoName;
         private readonly string _initializeContainerMethodName;
+        private readonly string _providerBuilderName;
+        private readonly string _providerContractName;
+        private readonly string _fakeProviderName;
 
         private string _checkingMethod;
 
@@ -27,7 +34,9 @@ namespace ModifyTool
             _name = _type.ToCamelCase();
             _dtoName = $"{entityName}Dto";
             _initializeContainerMethodName = $"Initialize{entityName}Container";
-
+            _providerBuilderName = $"{entityName}ProviderBuilder";
+            _providerContractName = $"I{entityName}DataProvider";
+            _fakeProviderName = $"Fake{entityName}DataProvider";
         }
 
         public bool NormalizeWhitespaceOnly { get; set; }
@@ -77,38 +86,76 @@ namespace ModifyTool
                 .Reverse()
                 .FirstOrDefault(x => CheckExpression(x, dependencyRegistratorParam.Identifier));
 
-            var newSt = CreateRegistrationStatement(st);
-            var stList = body.Statements.Replace(st!, newSt);
+            var newSt = CreateRegistrationStatement(st, dependencyRegistratorParam.Identifier.Text);
+            var stList = st == null ? body.Statements.Add(newSt) : body.Statements.Replace(st, newSt);
+
             body = body.WithStatements(stList);
             method = method.WithBody(body);
             return method;
         }
 
-        private StatementSyntax CreateRegistrationStatement(StatementSyntax st)
+        private StatementSyntax CreateRegistrationStatement(StatementSyntax st, string registratorIdentifier)
         {
-            MemberAccessExpressionSyntax CreateMemberAccessExpression()
-            {
-
-            }
-
-            ArgumentListSyntax CreateArgumentList(ExpressionSyntax argument)
-            {
-
-            }
-
-            ExpressionSyntax CreateInvocationExpression(ExpressionSyntax expression, ArgumentListSyntax argumentList = null)
-            {
-
-            }
-
             if (st == null)
             {
                 return SyntaxFactory.ExpressionStatement(
-                    CreateInvocationExpression(
-                        CreateMemberAccessExpression(),
-                        CreateArgumentList(CreateInvocationExpression(
-                            CreateMemberAccessExpression()))));
+                    InvocationExpression(
+                        MemberAccessExpression(
+                            InvocationExpression(
+                                MemberAccessExpression(
+                                    InvocationExpression(
+                                        MemberAccessExpression(registratorIdentifier, AddInstanceName),
+                                        ArgumentList(
+                                            InvocationExpression(_initializeContainerMethodName))),
+                                    GenericName(AddSingletonName, _providerContractName, _fakeProviderName))),
+                            RegisterInstanceName),
+                        ArgumentList(InvocationExpression(
+                            MemberAccessExpression(_providerBuilderName, CreateBuilderMethodName)))));
             }
+
+            return null;
+        }
+
+        private GenericNameSyntax GenericName(string identifier, params string[] typeNames)
+        {
+            return SyntaxFactory.GenericName(
+                SyntaxFactory.Identifier(identifier),
+                SyntaxFactory.TypeArgumentList(
+                    SyntaxFactory.SeparatedList(typeNames.Select(x => SyntaxFactory.ParseTypeName(x)))));
+        }
+
+        private MemberAccessExpressionSyntax MemberAccessExpression(string identifier, string name)
+        {
+            return MemberAccessExpression(SyntaxFactory.IdentifierName(identifier), name);
+        }
+
+        private MemberAccessExpressionSyntax MemberAccessExpression(ExpressionSyntax expression, string name)
+        {
+            return MemberAccessExpression(expression, SyntaxFactory.IdentifierName(name));
+        }
+
+        private MemberAccessExpressionSyntax MemberAccessExpression(ExpressionSyntax expression, SimpleNameSyntax name)
+        {
+            return SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expression, name);
+        }
+
+        private ArgumentListSyntax ArgumentList(ExpressionSyntax argument)
+        {
+            return SyntaxFactory.ArgumentList(
+                SyntaxFactory.SeparatedList(new[]
+                {
+                    SyntaxFactory.Argument(argument)
+                }));
+        }
+
+        private ExpressionSyntax InvocationExpression(string identifier, ArgumentListSyntax argumentList = null)
+        {
+            return InvocationExpression(SyntaxFactory.IdentifierName(identifier), argumentList);
+        }
+
+        private ExpressionSyntax InvocationExpression(ExpressionSyntax expression, ArgumentListSyntax argumentList = null)
+        {
+            return SyntaxFactory.InvocationExpression(expression, argumentList ?? SyntaxFactory.ArgumentList());
         }
 
         private static bool CheckExpression(CSharpSyntaxNode expression, SyntaxToken name)
