@@ -1,16 +1,13 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ModifyTool
 {
     internal sealed partial class FakeProviderEngine
     {
         private const string ModuleFileName = "Module.cs";
-        private const string RegisterModuleMethodName = "RegisterModule";
 
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public void RegisterProvider(string entityName)
@@ -32,7 +29,7 @@ namespace ModifyTool
 
         private void CreateModule(string moduleFilePath)
         {
-            if (true || !File.Exists(moduleFilePath))
+            if (!File.Exists(moduleFilePath))
             {
                 var helper = new ResourceHelper("Provider", ModuleFileName);
 

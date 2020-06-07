@@ -113,7 +113,7 @@ namespace ModifyTool
                             MemberAccessExpression(_providerBuilderName, CreateBuilderMethodName)))));
             }
 
-            return null;
+            return st;
         }
 
         private GenericNameSyntax GenericName(string identifier, params string[] typeNames)
@@ -207,7 +207,7 @@ namespace ModifyTool
                 node = node.WithCloseBraceToken(closeBrace);
             }
 
-            return base.VisitInitializerExpression(node);
+            return base.VisitInitializerExpression(node!);
         }
 
         public override SyntaxNode VisitObjectCreationExpression(ObjectCreationExpressionSyntax node)
