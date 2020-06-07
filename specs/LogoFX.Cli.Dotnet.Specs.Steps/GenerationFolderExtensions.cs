@@ -650,13 +650,15 @@ namespace {folder.Name}.Model.Validation
 using LogoFX.Client.Mvvm.Model;
 using {folder.Name}.Model.Contracts;
 
+
 namespace {folder.Name}.Model
 {{    
     internal abstract class AppModel : EditableModel<Guid>, IAppModel
     {{        
         public bool IsNew {{ get; set; }}
     }}
-}}").WithFile("DataService.cs", $@"using System.Collections.Generic;
+}}
+").WithFile("DataService.cs", $@"using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -685,9 +687,9 @@ namespace {folder.Name}.Model
 
         IEnumerable<ISampleItem> IDataService.Items => _items;
 
-        Task IDataService.GetItems() => MethodRunner.RunAsync(GetItems);
+        Task IDataService.GetItems() => MethodRunner.RunAsync(Method);
 
-        private void GetItems()
+        private void Method()
         {{
             var items = _sampleProvider.GetItems().Select(_sampleMapper.MapToSampleItem);
             _items.Clear();
@@ -700,7 +702,7 @@ namespace {folder.Name}.Model
                 IsNew = true
             }});
 
-        Task IDataService.SaveItem(ISampleItem item) => MethodRunner.RunAsync(() =>
+        public Task SaveItem(ISampleItem item) => MethodRunner.RunAsync(() =>
         {{
             var dto = _sampleMapper.MapToSampleItemDto(item);
 
@@ -1031,6 +1033,33 @@ namespace {folder.Name}.Presentation.Shell.ViewModels
                     .WithFolder("SampleItem",
                         t => t.WithFile("Display.xaml", AssertionHelper.Any)
                             .WithFile("Edit.xaml", AssertionHelper.Any))));
+        }
+
+        internal static GeneratedFolder WithPresentationContracts(this GeneratedFolder folder)
+        {
+            return folder.WithFolder($"{folder.Name}.Presentation.Contracts", r =>
+                r.WithFile($"{folder.Name}.Presentation.Contracts.csproj", AssertionHelper.Any)
+                    .WithFile("IMainViewModel.cs", $@"namespace {folder.Name}.Presentation.Contracts
+{{
+    public interface IMainViewModel
+    {{
+        
+    }}
+}}").WithFile("ISampleItemViewModel.cs", $@"using {folder.Name}.Model.Contracts;
+
+namespace {folder.Name}.Presentation.Contracts
+{{
+    public interface ISampleItemViewModel
+    {{
+        ISampleItem Model {{ get; }}
+    }}
+}}").WithFile("IShellViewModel.cs", $@"namespace {folder.Name}.Presentation.Contracts
+{{
+    public interface IShellViewModel
+    {{
+        
+    }}
+}}"));
         }
     }
 }

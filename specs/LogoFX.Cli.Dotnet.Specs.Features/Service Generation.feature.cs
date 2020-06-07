@@ -82,16 +82,16 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableTheoryAttribute(DisplayName="Generate model entity in an empty folder")]
+        [Xunit.SkippableTheoryAttribute(DisplayName="Generate service entity in an empty folder")]
         [Xunit.TraitAttribute("FeatureTitle", "Data Service Generation")]
-        [Xunit.TraitAttribute("Description", "Generate model entity in an empty folder")]
+        [Xunit.TraitAttribute("Description", "Generate service entity in an empty folder")]
         [Xunit.InlineDataAttribute("Sample", "-sn", new string[0])]
         [Xunit.InlineDataAttribute("Another", "--solution-name", new string[0])]
-        public virtual void GenerateModelEntityInAnEmptyFolder(string entityNameValue, string solutionNameOption, string[] exampleTags)
+        public virtual void GenerateServiceEntityInAnEmptyFolder(string entityNameValue, string solutionNameOption, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate model entity in an empty folder", null, exampleTags);
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate service entity in an empty folder", null, exampleTags);
+#line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -111,10 +111,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 7
+#line 8
  testRunner.When("I install the template pack \'LogoFX.Templates\' from local package", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 8
+#line 9
  testRunner.And("I create a folder named \'Generation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -129,136 +129,11 @@ this.ScenarioInitialize(scenarioInfo);
                 table3.AddRow(new string[] {
                             "--allow-scripts",
                             "yes"});
-#line 9
- testRunner.And("I generate the code in folder named \'Generation\' using \'logofx-model\' template wi" +
-                        "th the following options", ((string)(null)), table3, "And ");
-#line hidden
-#line 14
- testRunner.Then(string.Format("The folder \'Generation\' contains generated model entity objects for name \'{0}\' fo" +
-                            "r solution name \'Test\'", entityNameValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.SkippableTheoryAttribute(DisplayName="Generate model entity in existing solution")]
-        [Xunit.TraitAttribute("FeatureTitle", "Data Service Generation")]
-        [Xunit.TraitAttribute("Description", "Generate model entity in existing solution")]
-        [Xunit.InlineDataAttribute("-sn", new string[0])]
-        [Xunit.InlineDataAttribute("--solution-name", new string[0])]
-        public virtual void GenerateModelEntityInExistingSolution(string solutionNameOption, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate model entity in existing solution", null, exampleTags);
-#line 21
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 22
- testRunner.When("I install the template pack \'LogoFX.Templates\' from local package", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 23
- testRunner.And("I create a folder named \'Generation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 24
- testRunner.And("I generate the code in folder named \'Generation\' using \'logofx-wpf\' template with" +
-                        " the default options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Name",
-                            "Value"});
-                table4.AddRow(new string[] {
-                            "-n",
-                            "Sample"});
-                table4.AddRow(new string[] {
-                            string.Format("{0}", solutionNameOption),
-                            "Test"});
-                table4.AddRow(new string[] {
-                            "--allow-scripts",
-                            "yes"});
-#line 25
- testRunner.And("I generate the code in folder named \'Generation\' using \'logofx-model\' template wi" +
-                        "th the following options", ((string)(null)), table4, "And ");
-#line hidden
-#line 30
- testRunner.Then("The folder \'Generation\' contains working LogoFX template-based solution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 31
- testRunner.And("The folder \'Generation\' contains generated model entity objects for name \'Sample\'" +
-                        " for solution name \'Test\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.SkippableTheoryAttribute(DisplayName="Generate service entity in an empty folder")]
-        [Xunit.TraitAttribute("FeatureTitle", "Data Service Generation")]
-        [Xunit.TraitAttribute("Description", "Generate service entity in an empty folder")]
-        [Xunit.InlineDataAttribute("Sample", "-sn", new string[0])]
-        [Xunit.InlineDataAttribute("Another", "--solution-name", new string[0])]
-        public virtual void GenerateServiceEntityInAnEmptyFolder(string entityNameValue, string solutionNameOption, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate service entity in an empty folder", null, exampleTags);
-#line 38
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 39
- testRunner.When("I install the template pack \'LogoFX.Templates\' from local package", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 40
- testRunner.And("I create a folder named \'Generation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Name",
-                            "Value"});
-                table5.AddRow(new string[] {
-                            "-n",
-                            string.Format("{0}", entityNameValue)});
-                table5.AddRow(new string[] {
-                            string.Format("{0}", solutionNameOption),
-                            "Test"});
-                table5.AddRow(new string[] {
-                            "--allow-scripts",
-                            "yes"});
-#line 41
+#line 10
  testRunner.And("I generate the code in folder named \'Generation\' using \'logofx-entity-service\' te" +
-                        "mplate with the following options", ((string)(null)), table5, "And ");
+                        "mplate with the following options", ((string)(null)), table3, "And ");
 #line hidden
-#line 46
+#line 15
  testRunner.Then(string.Format("The folder \'Generation\' contains generated service entity objects for name \'{0}\' " +
                             "for solution name \'Test\'", entityNameValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

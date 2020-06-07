@@ -7,12 +7,12 @@ namespace LogoFX.Templates.Model.Contracts
     {
         IEnumerable<ISampleModel> Items { get; }
 
-        Task GetItems();
+        Task GetItemsAsync();
 
-        Task<ISampleModel> NewItem();
+        Task<ISampleModel> NewItemAsync();
 
-        Task SaveItem(ISampleModel item);
+        Task SaveItemAsync(ISampleModel item);
 
-        Task DeleteItem(ISampleModel item);
+        Task DeleteItemAsync(ISampleModel item);
     }
 }
