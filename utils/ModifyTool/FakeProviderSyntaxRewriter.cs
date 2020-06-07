@@ -64,7 +64,15 @@ namespace ModifyTool
             {
                 if (NormalizeWhitespaceOnly)
                 {
-
+                    var body = node.Body;
+                    var ess = body?.Statements.OfType<ExpressionStatementSyntax>().FirstOrDefault();
+                    if (ess != null)
+                    {
+                        var newEss = AlignExpression(ess);
+                        var statements = body.Statements.Replace(ess, newEss);
+                        body = body.WithStatements(statements);
+                        node = node.WithBody(body);
+                    }
                 }
                 else
                 {
@@ -74,6 +82,31 @@ namespace ModifyTool
             var result = base.VisitMethodDeclaration(node);
             _checkingMethod = null;
             return result;
+        }
+
+        private ExpressionStatementSyntax AlignExpression(ExpressionStatementSyntax ess)
+        {
+            return ess.WithExpression(AlignExpression(ess.Expression));
+        }
+
+        private ExpressionSyntax AlignExpression(ExpressionSyntax expression)
+        {
+            if (expression is InvocationExpressionSyntax invocationExpression)
+            {
+                return invocationExpression.WithExpression(AlignExpression(invocationExpression.Expression));
+            }
+
+            if (expression is MemberAccessExpressionSyntax memberAccessExpression)
+            {
+                return memberAccessExpression
+                    .WithExpression(
+                        AlignExpression(memberAccessExpression.Expression))
+                    .WithOperatorToken(
+                        memberAccessExpression.OperatorToken
+                            .WithLeadingTrivia(EndOfLineTrivia, Whitespace(16)));
+            }
+
+            return expression;
         }
 
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
