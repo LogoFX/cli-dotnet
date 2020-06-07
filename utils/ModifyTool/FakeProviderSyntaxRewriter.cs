@@ -185,7 +185,7 @@ namespace ModifyTool
 
         public override SyntaxNode VisitImplicitArrayCreationExpression(ImplicitArrayCreationExpressionSyntax node)
         {
-            if (NormalizeWhitespaceOnly && _checkingMethod == _initializeContainerMethodName)
+            if (NormalizeWhitespaceOnly && _checkingMethod != RegisterInstanceName)
             {
                 var closeBracket = node.CloseBracketToken.WithTrailingTrivia(EndOfLineTrivia);
                 node = node.WithCloseBracketToken(closeBracket);
@@ -199,7 +199,7 @@ namespace ModifyTool
         {
             if (NormalizeWhitespaceOnly &&
                 node.IsKind(SyntaxKind.ArrayInitializerExpression) &&
-                _checkingMethod == _initializeContainerMethodName)
+                _checkingMethod != RegisterInstanceName)
             {
                 var openBrace = node.OpenBraceToken.WithLeadingTrivia(Whitespace(12));
                 node = node.WithOpenBraceToken(openBrace);
@@ -215,7 +215,7 @@ namespace ModifyTool
             if (NormalizeWhitespaceOnly &&
                 node.Parent is InitializerExpressionSyntax initializerExpression &&
                 initializerExpression.IsKind(SyntaxKind.ArrayInitializerExpression) &&
-                _checkingMethod == _initializeContainerMethodName)
+                _checkingMethod != RegisterInstanceName)
             {
                 var newKeyword = node.NewKeyword
                     .WithLeadingTrivia(EndOfLineTrivia, Whitespace(16))
