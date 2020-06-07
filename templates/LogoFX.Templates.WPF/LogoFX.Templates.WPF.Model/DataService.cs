@@ -27,9 +27,9 @@ namespace LogoFX.Templates.WPF.Model
 
         IEnumerable<ISampleItem> IDataService.Items => _items;
 
-        Task IDataService.GetItems() => MethodRunner.RunAsync(Method);
+        Task IDataService.GetItems() => MethodRunner.RunAsync(GetItems);
 
-        private void Method()
+        private void GetItems()
         {
             var items = _sampleProvider.GetItems().Select(_sampleMapper.MapToSampleItem);
             _items.Clear();
@@ -42,7 +42,7 @@ namespace LogoFX.Templates.WPF.Model
                 IsNew = true
             });
 
-        public Task SaveItem(ISampleItem item) => MethodRunner.RunAsync(() =>
+        Task IDataService.SaveItem(ISampleItem item) => MethodRunner.RunAsync(() =>
         {
             var dto = _sampleMapper.MapToSampleItemDto(item);
 

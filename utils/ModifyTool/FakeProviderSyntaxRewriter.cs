@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Common.Infra;
 using Microsoft.CodeAnalysis;
@@ -50,9 +51,89 @@ namespace ModifyTool
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
         {
             _checkingMethod = node.Identifier.Text;
+            if (_checkingMethod == RegisterModuleMethodName)
+            {
+                if (NormalizeWhitespaceOnly)
+                {
+
+                }
+                else
+                {
+                    node = RewriteRegisterModuleMethod(node);
+                }
+            }
             var result = base.VisitMethodDeclaration(node);
             _checkingMethod = null;
             return result;
+        }
+
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+        private MethodDeclarationSyntax RewriteRegisterModuleMethod(MethodDeclarationSyntax method)
+        {
+            var dependencyRegistratorParam = method.ParameterList.ChildNodes().OfType<ParameterSyntax>().First();
+            var body = method.Body;
+            var st = body.Statements
+                .OfType<ExpressionStatementSyntax>()
+                .Reverse()
+                .FirstOrDefault(x => CheckExpression(x, dependencyRegistratorParam.Identifier));
+
+            var newSt = CreateRegistrationStatement(st);
+            var stList = body.Statements.Replace(st!, newSt);
+            body = body.WithStatements(stList);
+            method = method.WithBody(body);
+            return method;
+        }
+
+        private StatementSyntax CreateRegistrationStatement(StatementSyntax st)
+        {
+            MemberAccessExpressionSyntax CreateMemberAccessExpression()
+            {
+
+            }
+
+            ArgumentListSyntax CreateArgumentList(ExpressionSyntax argument)
+            {
+
+            }
+
+            ExpressionSyntax CreateInvocationExpression(ExpressionSyntax expression, ArgumentListSyntax argumentList = null)
+            {
+
+            }
+
+            if (st == null)
+            {
+                return SyntaxFactory.ExpressionStatement(
+                    CreateInvocationExpression(
+                        CreateMemberAccessExpression(),
+                        CreateArgumentList(CreateInvocationExpression(
+                            CreateMemberAccessExpression()))));
+            }
+        }
+
+        private static bool CheckExpression(CSharpSyntaxNode expression, SyntaxToken name)
+        {
+            if (expression is IdentifierNameSyntax ins)
+            {
+                return SyntaxFactory.AreEquivalent(ins.Identifier, name);
+            }
+
+            if (expression is ExpressionStatementSyntax ess)
+            {
+                return CheckExpression(ess.Expression, name);
+            }
+
+            if (expression is InvocationExpressionSyntax ies)
+            {
+                return CheckExpression(ies.Expression, name);
+            }
+
+            if (expression is MemberAccessExpressionSyntax maes)
+            {
+                return CheckExpression(maes.Expression, name);
+            }
+
+            return false;
         }
 
         public override SyntaxNode VisitImplicitArrayCreationExpression(ImplicitArrayCreationExpressionSyntax node)

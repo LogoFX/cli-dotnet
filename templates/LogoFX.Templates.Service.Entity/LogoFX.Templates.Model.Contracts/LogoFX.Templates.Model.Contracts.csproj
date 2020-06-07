@@ -1,8 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE;IN_PROJECT</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;IN_PROJECT</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\LogoFX.Templates.Model.Entity\LogoFX.Templates.Model.Contracts\ISampleModel.cs" Link="ISampleModel.cs" />
+    <Compile Include="..\..\LogoFX.Templates.WPF\LogoFX.Templates.WPF.Model.Contracts\IAppModel.cs" Link="IAppModel.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="LogoFX.Client.Mvvm.Model" Version="2.2.0-rc1" />

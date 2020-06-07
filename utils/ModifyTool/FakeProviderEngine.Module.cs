@@ -30,20 +30,6 @@ namespace ModifyTool
             File.WriteAllText(moduleFilePath, node.ToFullString());
         }
 
-        private ClassDeclarationSyntax ModifyRegistrationMethod(ClassDeclarationSyntax moduleClass, string entityName)
-        {
-            var method = moduleClass.Members
-                .OfType<MethodDeclarationSyntax>()
-                .First(x => x.Identifier.Text == RegisterModuleMethodName);
-            var dependencyRegistratorParam = method.ParameterList.ChildNodes().OfType<ParameterSyntax>().First();
-            var st = method.Body.Statements
-                .OfType<ExpressionStatementSyntax>()
-                .Reverse()
-                .FirstOrDefault(x => CheckExpression(x, dependencyRegistratorParam.Identifier));
-
-            return moduleClass;
-        }
-
         private void CreateModule(string moduleFilePath)
         {
             if (true || !File.Exists(moduleFilePath))
@@ -58,31 +44,6 @@ namespace ModifyTool
 
                 ReplaceSolutionName(moduleFilePath);
             }
-        }
-
-        private static bool CheckExpression(CSharpSyntaxNode expression, SyntaxToken name)
-        {
-            if (expression is IdentifierNameSyntax ins)
-            {
-                return SyntaxFactory.AreEquivalent(ins.Identifier, name);
-            }
-
-            if (expression is ExpressionStatementSyntax ess)
-            {
-                return CheckExpression(ess.Expression, name);
-            }
-
-            if (expression is InvocationExpressionSyntax ies)
-            {
-                return CheckExpression(ies.Expression, name);
-            }
-
-            if (expression is MemberAccessExpressionSyntax maes)
-            {
-                return CheckExpression(maes.Expression, name);
-            }
-
-            return false;
         }
     }
 }
