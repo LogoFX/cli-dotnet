@@ -94,26 +94,25 @@ namespace ModifyTool
             return method;
         }
 
-        private StatementSyntax CreateRegistrationStatement(StatementSyntax st, string registratorIdentifier)
+        private StatementSyntax CreateRegistrationStatement(ExpressionStatementSyntax st, string registratorIdentifier)
         {
-            if (st == null)
-            {
-                return SyntaxFactory.ExpressionStatement(
-                    InvocationExpression(
-                        MemberAccessExpression(
-                            InvocationExpression(
-                                MemberAccessExpression(
-                                    InvocationExpression(
-                                        MemberAccessExpression(registratorIdentifier, AddInstanceName),
-                                        ArgumentList(
-                                            InvocationExpression(_initializeContainerMethodName))),
-                                    GenericName(AddSingletonName, _providerContractName, _fakeProviderName))),
-                            RegisterInstanceName),
-                        ArgumentList(InvocationExpression(
-                            MemberAccessExpression(_providerBuilderName, CreateBuilderMethodName)))));
-            }
+            var rootExpression = st == null
+                ? SyntaxFactory.IdentifierName(registratorIdentifier)
+                : st.Expression;
 
-            return st;
+            return SyntaxFactory.ExpressionStatement(
+                InvocationExpression(
+                    MemberAccessExpression(
+                        InvocationExpression(
+                            MemberAccessExpression(
+                                InvocationExpression(
+                                    MemberAccessExpression(rootExpression, AddInstanceName),
+                                    ArgumentList(
+                                        InvocationExpression(_initializeContainerMethodName))),
+                                GenericName(AddSingletonName, _providerContractName, _fakeProviderName))),
+                        RegisterInstanceName),
+                    ArgumentList(InvocationExpression(
+                        MemberAccessExpression(_providerBuilderName, CreateBuilderMethodName)))));
         }
 
         private GenericNameSyntax GenericName(string identifier, params string[] typeNames)
