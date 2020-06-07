@@ -73,11 +73,9 @@ namespace ModifyTool
                 node.IsKind(SyntaxKind.ArrayInitializerExpression) &&
                 _checkingMethod == _initializeContainerMethodName)
             {
-                var openBrace = node.OpenBraceToken
-                    .WithLeadingTrivia(Whitespace(12))
-                    .WithTrailingTrivia(EndOfLineTrivia);
+                var openBrace = node.OpenBraceToken.WithLeadingTrivia(Whitespace(12));
                 node = node.WithOpenBraceToken(openBrace);
-                var closeBrace = node.CloseBraceToken.WithLeadingTrivia(Whitespace(12));
+                var closeBrace = node.CloseBraceToken.WithLeadingTrivia(EndOfLineTrivia, Whitespace(12));
                 node = node.WithCloseBraceToken(closeBrace);
             }
 
@@ -91,7 +89,9 @@ namespace ModifyTool
                 initializerExpression.IsKind(SyntaxKind.ArrayInitializerExpression) &&
                 _checkingMethod == _initializeContainerMethodName)
             {
-                var newKeyword = node.NewKeyword.WithLeadingTrivia(Whitespace(16)).WithTrailingTrivia(Whitespace(1));
+                var newKeyword = node.NewKeyword
+                    .WithLeadingTrivia(EndOfLineTrivia, Whitespace(16))
+                    .WithTrailingTrivia(Whitespace(1));
                 node = node.WithNewKeyword(newKeyword);
                 var type = (IdentifierNameSyntax) node.Type;
                 
