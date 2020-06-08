@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using Common.Infra;
 using JetBrains.Annotations;
 using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
@@ -9,7 +10,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
     [UsedImplicitly]
     internal sealed class WindowsProcessManagementService : IProcessManagementService
     {
-        public ExecutionInfo Start(string tool, string args)
+        public ExecutionInfo Start(string tool, string args, int? pause = 2000)
         {
             var currentDir = Directory.GetCurrentDirectory();
 
@@ -33,6 +34,11 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
                     ErrorStrings = exitInfo.Errors.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries),
                     ExitCode = exitInfo.ExitCode
                 };
+
+                if (pause.HasValue && !exitInfo.IsError)
+                {
+                    Thread.Sleep(pause.Value);
+                }
 
                 return result;
             }
