@@ -1,6 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
-using LogoFX.Templates.Data.Contracts.Dto;
+using LogoFX.Templates.WPF.Data.Contracts.Dto;
 using LogoFX.Templates.WPF.Data.Contracts.Providers;
 using LogoFX.Templates.WPF.Data.Fake.Containers;
 using LogoFX.Templates.WPF.Data.Fake.ProviderBuilders;

@@ -208,14 +208,14 @@ namespace {solutionName}.Data.Fake.Providers
         {{
             dependencyRegistrator
                 .AddInstance(Initialize{entityName}Container())
-                .AddSingleton<I{entityName}DataProvider, Fake{entityName}DataProvider>()
-                .RegisterInstance({entityName}ProviderBuilder.CreateBuilder());
+                .AddSingleton<I{entityName}DataProvider, Fake{entityName}DataProvider>();
+            dependencyRegistrator.RegisterInstance({entityName}ProviderBuilder.CreateBuilder());
         }}
 
-        private void Initialize{entityName}Container()
+        private I{entityName}DataContainer Initialize{entityName}Container()
         {{
-            var anotherContainer = new {entityName}Container();
-            anotherContainer.UpdateItems(new[]
+            var container = new {entityName}DataContainer();
+            container.UpdateItems(new[]
             {{
                 new {entityName}Dto
                 {{
@@ -252,7 +252,7 @@ namespace {solutionName}.Data.Fake.Providers
                     Value = 10
                 }}
             }});
-            return anotherContainer;
+            return container;
         }}
     }}
 }}"));

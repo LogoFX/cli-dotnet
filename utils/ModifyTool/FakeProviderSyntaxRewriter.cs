@@ -20,7 +20,7 @@ namespace ModifyTool
 
         private readonly string _containerContract;
         private readonly string _containerType;
-        private readonly string _name;
+        private readonly string _containerName;
         private readonly string _dtoName;
         private readonly string _initializeContainerMethodName;
         private readonly string _providerBuilderName;
@@ -33,7 +33,7 @@ namespace ModifyTool
         {
             _containerContract = $"I{entityName}DataContainer";
             _containerType = $"{entityName}DataContainer";
-            _name = _containerType.ToCamelCase();
+            _containerName = "container";
             _dtoName = $"{entityName}Dto";
             _initializeContainerMethodName = $"Initialize{entityName}Container";
             _providerBuilderName = $"{entityName}ProviderBuilder";
@@ -308,7 +308,7 @@ namespace ModifyTool
         {
             var updateItemsMemberAccessExpr = SyntaxFactory.MemberAccessExpression(
                 SyntaxKind.SimpleMemberAccessExpression,
-                SyntaxFactory.IdentifierName(_name),
+                SyntaxFactory.IdentifierName(_containerName),
                 SyntaxFactory.IdentifierName("UpdateItems"));
             var updateItemsExpr = SyntaxFactory.InvocationExpression(
                 updateItemsMemberAccessExpr,
@@ -384,14 +384,14 @@ namespace ModifyTool
 
         private StatementSyntax CreateReturnContainerStatement()
         {
-            var statement = SyntaxFactory.ReturnStatement(SyntaxFactory.IdentifierName(_name));
+            var statement = SyntaxFactory.ReturnStatement(SyntaxFactory.IdentifierName(_containerName));
             return statement;
         }
 
         private StatementSyntax CreateContainerCreationStatement()
         {
             var varId = SyntaxFactory.IdentifierName("var");
-            var declarator = SyntaxFactory.VariableDeclarator(_name);
+            var declarator = SyntaxFactory.VariableDeclarator(_containerName);
             var objCreationExpr = SyntaxFactory.ObjectCreationExpression(SyntaxFactory.ParseTypeName(_containerType), SyntaxFactory.ArgumentList(), null);
             var initializer = SyntaxFactory.EqualsValueClause(objCreationExpr);
             declarator = declarator.WithInitializer(initializer);
