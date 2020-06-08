@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Extra\Model\for_git" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="..\..\templates\LogoFX.Templates.WPF\LogoFX.Templates.WPF.Model\Mappers\MappingProfile.cs" Link="Extra\Model\MappingProfile.cs" />
   </ItemGroup>
 

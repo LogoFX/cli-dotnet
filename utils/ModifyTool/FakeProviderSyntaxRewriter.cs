@@ -18,7 +18,8 @@ namespace ModifyTool
         private const string AddSingletonName = "AddSingleton";
         private const string AddInstanceName = "AddInstance";
 
-            private readonly string _type;
+        private readonly string _containerContract;
+        private readonly string _containerType;
         private readonly string _name;
         private readonly string _dtoName;
         private readonly string _initializeContainerMethodName;
@@ -30,8 +31,9 @@ namespace ModifyTool
 
         public FakeProviderSyntaxRewriter(string entityName)
         {
-            _type = $"{entityName}Container";
-            _name = _type.ToCamelCase();
+            _containerContract = $"I{entityName}DataContainer";
+            _containerType = $"{entityName}DataContainer";
+            _name = _containerType.ToCamelCase();
             _dtoName = $"{entityName}Dto";
             _initializeContainerMethodName = $"Initialize{entityName}Container";
             _providerBuilderName = $"{entityName}ProviderBuilder";
@@ -114,38 +116,35 @@ namespace ModifyTool
         {
             var dependencyRegistratorParam = method.ParameterList.ChildNodes().OfType<ParameterSyntax>().First();
             var body = method.Body;
-            var st = body.Statements
-                .OfType<ExpressionStatementSyntax>()
-                .Reverse()
-                .FirstOrDefault(x => CheckExpression(x, dependencyRegistratorParam.Identifier));
 
-            var newSt = CreateRegistrationStatement(st, dependencyRegistratorParam.Identifier.Text);
-            var stList = st == null ? body.Statements.Add(newSt) : body.Statements.Replace(st, newSt);
-
+            var stList = CreateRegistrationStatement(body.Statements, dependencyRegistratorParam.Identifier.Text);
             body = body.WithStatements(stList);
             method = method.WithBody(body);
             return method;
         }
 
-        private StatementSyntax CreateRegistrationStatement(ExpressionStatementSyntax st, string registratorIdentifier)
+        private SyntaxList<StatementSyntax> CreateRegistrationStatement(SyntaxList<StatementSyntax> statements, string registratorIdentifier)
         {
-            var rootExpression = st == null
-                ? SyntaxFactory.IdentifierName(registratorIdentifier)
-                : st.Expression;
+            statements = statements.Add(
+                SyntaxFactory.ExpressionStatement(
+                    InvocationExpression(
+                        MemberAccessExpression(
+                            InvocationExpression(
+                                MemberAccessExpression(registratorIdentifier, AddInstanceName),
+                                ArgumentList(
+                                    InvocationExpression(_initializeContainerMethodName))),
+                            GenericName(AddSingletonName, _providerContractName, _fakeProviderName)))));
 
-            return SyntaxFactory.ExpressionStatement(
-                InvocationExpression(
-                    MemberAccessExpression(
-                        InvocationExpression(
-                            MemberAccessExpression(
-                                InvocationExpression(
-                                    MemberAccessExpression(rootExpression, AddInstanceName),
-                                    ArgumentList(
-                                        InvocationExpression(_initializeContainerMethodName))),
-                                GenericName(AddSingletonName, _providerContractName, _fakeProviderName))),
-                        RegisterInstanceName),
-                    ArgumentList(InvocationExpression(
-                        MemberAccessExpression(_providerBuilderName, CreateBuilderMethodName)))));
+            statements = statements.Add(
+                SyntaxFactory.ExpressionStatement(
+                    InvocationExpression(
+                        MemberAccessExpression(registratorIdentifier, RegisterInstanceName),
+                        ArgumentList(
+                            InvocationExpression(
+                                MemberAccessExpression(_providerBuilderName, CreateBuilderMethodName))))));
+
+
+            return statements;
         }
 
         private GenericNameSyntax GenericName(string identifier, params string[] typeNames)
@@ -302,7 +301,9 @@ namespace ModifyTool
                 return null;
             }
 
-            var method = SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)), _initializeContainerMethodName);
+            var method = SyntaxFactory.MethodDeclaration(
+                SyntaxFactory.ParseTypeName(_containerContract),
+                _initializeContainerMethodName);
             method = method.NormalizeWhitespace().AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword));
             method = method.WithBody(CreateContainerInitializationBody());
 
@@ -409,7 +410,7 @@ namespace ModifyTool
         {
             var varId = SyntaxFactory.IdentifierName("var");
             var declarator = SyntaxFactory.VariableDeclarator(_name);
-            var objCreationExpr = SyntaxFactory.ObjectCreationExpression(SyntaxFactory.ParseTypeName(_type), SyntaxFactory.ArgumentList(), null);
+            var objCreationExpr = SyntaxFactory.ObjectCreationExpression(SyntaxFactory.ParseTypeName(_containerType), SyntaxFactory.ArgumentList(), null);
             var initializer = SyntaxFactory.EqualsValueClause(objCreationExpr);
             declarator = declarator.WithInitializer(initializer);
             var variables = SyntaxFactory.SeparatedList(new[] { declarator });

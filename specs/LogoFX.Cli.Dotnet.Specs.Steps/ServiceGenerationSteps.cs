@@ -191,53 +191,69 @@ namespace {solutionName}.Data.Fake.Providers
 }}")).WithFolder($"{solutionName}.Data.Fake.Providers",
                     r => r.WithFile("Module.cs",
                         $@"using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Attest.Fake.Builders;
 using JetBrains.Annotations;
 using {solutionName}.Data.Contracts.Dto;
 using {solutionName}.Data.Contracts.Providers;
 using {solutionName}.Data.Fake.Containers;
 using {solutionName}.Data.Fake.ProviderBuilders;
+using Solid.Practices.IoC;
+using Solid.Practices.Modularity;
 
 namespace {solutionName}.Data.Fake.Providers
 {{
     [UsedImplicitly]
-    internal sealed class Fake{entityName}DataProvider : FakeProviderBase<{entityName}ProviderBuilder, I{entityName}DataProvider>, I{entityName}DataProvider
+    internal sealed class Module : ICompositionModule<IDependencyRegistrator>
     {{
-        private readonly Random _random = new Random();
-
-        public Fake{entityName}DataProvider(
-            {entityName}ProviderBuilder sampleProviderBuilder,
-            I{entityName}DataContainer sampleContainer)
-            : base(sampleProviderBuilder)
+        public void RegisterModule(IDependencyRegistrator dependencyRegistrator)
         {{
-            sampleProviderBuilder.WithItems(sampleContainer.Items);
+            dependencyRegistrator
+                .AddInstance(Initialize{entityName}Container())
+                .AddSingleton<I{entityName}DataProvider, Fake{entityName}DataProvider>()
+                .RegisterInstance({entityName}ProviderBuilder.CreateBuilder());
         }}
 
-        IEnumerable<{entityName}Dto> I{entityName}DataProvider.GetItems() => GetService(r =>
+        private void Initialize{entityName}Container()
         {{
-            Task.Delay(_random.Next(2000)).Wait();
-            return r;
-        }}).GetItems();
+            var anotherContainer = new {entityName}Container();
+            anotherContainer.UpdateItems(new[]
+            {{
+                new {entityName}Dto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""PC"",
+                    Value = 8
+                }},
 
-        bool I{entityName}DataProvider.DeleteItem(Guid id) => GetService(r =>
-        {{
-            Task.Delay(_random.Next(2000)).Wait();
-            return r;
-        }}).DeleteItem(id);
+                new {entityName}Dto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""Acme"",
+                    Value = 10
+                }},
 
-        bool I{entityName}DataProvider.UpdateItem({entityName}Dto dto) => GetService(r =>
-        {{
-            Task.Delay(_random.Next(2000)).Wait();
-            return r;
-        }}).UpdateItem(dto);
+                new {entityName}Dto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""Bacme"",
+                    Value = 3
+                }},
 
-        void I{entityName}DataProvider.CreateItem({entityName}Dto dto) => GetService(r =>
-        {{
-            Task.Delay(_random.Next(2000)).Wait();
-            return r;
-        }}).CreateItem(dto);
+                new {entityName}Dto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""Exceed"",
+                    Value = 100
+                }},
+
+                new {entityName}Dto
+                {{
+                    Id = Guid.NewGuid(),
+                    DisplayName = ""Acme2"",
+                    Value = 10
+                }}
+            }});
+            return anotherContainer;
+        }}
     }}
 }}"));
 
