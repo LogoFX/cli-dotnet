@@ -29,7 +29,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             foreach (var file in structure.Files)
             {
                 var filePath = Path.Combine(file.RootPath, file.Name);
-                File.Exists(filePath).Should().BeTrue();
+                File.Exists(filePath).Should().BeTrue($"File '{filePath}' not found.");
                 if (file.Contents != Any)
                 {
                     var contents = File.ReadAllText(filePath);

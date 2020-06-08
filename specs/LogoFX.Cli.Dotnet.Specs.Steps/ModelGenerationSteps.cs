@@ -144,6 +144,9 @@ namespace {solutionName}.Model.Mappers
 
         public I{entityName} MapTo{entityName}({entityName}Dto dto) =>
             _mapper.Map<I{entityName}>(dto);
+
+        public {entityName}Dto MapFrom{entityName}(I{entityName} model) =>
+            _mapper.Map<{entityName}Dto>(model);
     }}
 }}")));
             structure.AssertGeneratedCode();
