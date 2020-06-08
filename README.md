@@ -26,7 +26,7 @@ dotnet new logofx-wpf -n <solution-name>
 Inside solution folder run
 
 ```
-dotnet new logofx-model -sn <solution-name> -n <entity-name> [--allow-scripts yes]
+dotnet new logofx-entity -sn <solution-name> -n <entity-name> [--allow-scripts yes]
 ```
 
 This command adds `<entity-name>` entity to `<solution-name>.Model` project; `I<entity-name>` contract to `<solution-name>.Model.Contracts` project; `<entity-name>Dto` dto to `<solution-name>.Data.Contracts.Dto` project.

@@ -132,11 +132,11 @@ this.ScenarioInitialize(scenarioInfo);
                             "Tags"});
                 table6.AddRow(new string[] {
                             "LogoFX Model Entity",
-                            "logofx-model",
+                            "logofx-entity",
                             "[C#]",
-                            "LogoFX/Model"});
+                            "LogoFX/Entity"});
 #line 11
- testRunner.And("The template for \'logofx-model\' is installed with the following parameters", ((string)(null)), table6, "And ");
+ testRunner.And("The template for \'logofx-entity\' is installed with the following parameters", ((string)(null)), table6, "And ");
 #line hidden
             }
             this.ScenarioCleanup();

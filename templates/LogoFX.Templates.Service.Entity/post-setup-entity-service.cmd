@@ -1,6 +1,6 @@
 REM Launch dotnet new
 
-dotnet new logofx-model -n SampleModel -sn LogoFX.Templates --allow-scripts yes
+dotnet new logofx-entity -n SampleModel -sn LogoFX.Templates --allow-scripts yes
 
 if %ERRORLEVEL% NEQ 0 ( 
 	exit /b %ERRORLEVEL%
