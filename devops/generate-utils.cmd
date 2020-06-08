@@ -33,7 +33,13 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
-call remove-folder ..\..\%generated%\%1\%utils%
+call remove-folder ..\..\%generated%\%1\%utils%\runtimes
+
+if %ERRORLEVEL% NEQ 0 ( 
+	goto EXIT
+)
+
+del ..\..\%generated%\%1\%utils%\ModifyTool.deps.json
 
 cd ..\..\devops
 
