@@ -6,7 +6,7 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
-call generate-utils.cmd LogoFX.Templates.Model.Entity
+call generate-utils.cmd LogoFX.Templates.Model.Entity model-utils
 
 :EXIT
 REM /copy-template-logofx-model.cmd 

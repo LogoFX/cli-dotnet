@@ -10,7 +10,7 @@
   "sources": [
     {
       "copyOnly": [
-        "**/utils/**"
+        "**/model-utils/**"
       ]
     }
   ],

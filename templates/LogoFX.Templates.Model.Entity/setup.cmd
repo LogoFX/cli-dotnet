@@ -1,6 +1,6 @@
 REM Modify the code
 
-dotnet .\utils\ModifyTool.dll .\LogoFX.Templates --model SampleModel
+dotnet .\model-utils\ModifyTool.dll .\LogoFX.Templates --model SampleModel
 
 if %ERRORLEVEL% NEQ 0 ( 
 	exit /b %ERRORLEVEL%
@@ -8,7 +8,11 @@ if %ERRORLEVEL% NEQ 0 (
 
 REM Delete utils
 
-rmdir utils /s /q
+rmdir model-utils /s /q
+
+if %ERRORLEVEL% NEQ 0 ( 
+	exit /b %ERRORLEVEL%
+)
 
 REM Delete setup.cmd
 
