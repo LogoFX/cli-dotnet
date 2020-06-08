@@ -16,14 +16,15 @@ namespace LogoFX.Templates.WPF.Data.Fake.Providers
         {
             dependencyRegistrator
                 .AddInstance(InitializeSampleContainer())
-                .AddSingleton<ISampleProvider, FakeSampleProvider>()
-                .RegisterInstance(SampleProviderBuilder.CreateBuilder());
+                .AddSingleton<ISampleDataProvider, FakeSampleDataProvider>();
+
+            dependencyRegistrator.RegisterInstance(SampleProviderBuilder.CreateBuilder());
         }
 
-        private ISampleContainer InitializeSampleContainer()
+        private static ISampleDataContainer InitializeSampleContainer()
         {
-            var sampleContainer = new SampleContainer();
-            sampleContainer.UpdateItems(new[]
+            var container = new SampleDataContainer();
+            container.UpdateItems(new[]
             {
                 new SampleItemDto
                 {
@@ -60,7 +61,7 @@ namespace LogoFX.Templates.WPF.Data.Fake.Providers
                     Value = 10
                 }
             });
-            return sampleContainer;
+            return container;
         }
     }
 }

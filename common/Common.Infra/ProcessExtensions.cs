@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Management;
+using System.Threading;
 
 namespace Common.Infra
 {
@@ -110,7 +111,21 @@ namespace Common.Infra
 
             if (File.Exists(outputFileName))
             {
-                result.Output = File.ReadAllLines(outputFileName);
+                var count = 5;
+                while (count > 0)
+                {
+                    try
+                    {
+                        result.Output = File.ReadAllLines(outputFileName);
+                        break;
+                    }
+                    catch (IOException err)
+                    {
+                        Debug.WriteLine(err.Message);
+                        count -= 1;
+                        Thread.Sleep(500);
+                    }
+                }
             }
 
             File.Delete(outputFileName);
