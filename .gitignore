@@ -354,3 +354,4 @@ MigrationBackup/
 /generated
 /utils/ModifyTool/Properties/launchSettings.json
 /utils/DevopUtils/GetPackageVersion/Properties/launchSettings.json
+/utils/DevopUtils/UninstallTemplate/Properties/launchSettings.json
