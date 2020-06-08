@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Common.Infra;
@@ -218,64 +217,7 @@ namespace UninstallTemplate
 
         private static string[] LaunchApp(string appName, string[] args)
         {
-            var process = new Process
-            {
-                StartInfo =
-                {
-                    FileName = appName,
-                    Arguments = string.Join(' ', args),
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true
-                }
-            };
-
-            process.Start();
-
-            var lines = new List<string>();
-            process.OutputDataReceived += (sender, e) =>
-            {
-                if (e.Data == null)
-                {
-                    return;
-                }
-                lines.Add(e.Data);
-                Debug.WriteLine("output>>" + e.Data);
-                Console.WriteLine(e.Data);
-            };
-            process.BeginOutputReadLine();
-
-            var isError = false;
-            process.ErrorDataReceived += (sender, e) =>
-            {
-                if (e.Data == null)
-                {
-                    return;
-                }
-                isError = true;
-                Debug.WriteLine("error>>" + e.Data);
-                Console.WriteLine(e.Data);
-            };
-
-            process.BeginErrorReadLine();
-
-            process.WaitForExit(Consts.ProcessExecutionTimeout);
-
-            if (!process.HasExited)
-            {
-                isError = true;
-                process.KillProcessAndChildren();
-            }
-
-            process.Close();
-
-            if (isError)
-            {
-                return null;
-            }
-
-            return lines.ToArray();
+            return ProcessExtensions.LaunchApp(appName, args);
         }
 
         private static TemplateNameKind GetTemplateNameKind(string str)

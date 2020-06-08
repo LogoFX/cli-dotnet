@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Management;
 
 namespace Common.Infra
@@ -46,6 +47,52 @@ namespace Common.Infra
             {
                 // TODO: Handle Access is denied case
             }
+        }
+
+        public static string[] LaunchApp(string appName, string[] args)
+        {
+            var outputFileName = Path.GetTempFileName();
+
+            var arguments = $"/c {appName} {string.Join(" ", args)} > {outputFileName}";
+            var process = new Process
+            {
+                StartInfo =
+                {
+                    FileName = "cmd",
+                    Arguments = arguments,
+                    CreateNoWindow = false,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = false,
+                    RedirectStandardError = false
+                }
+            };
+
+            process.Start();
+
+            var exited = process.WaitForExit(Consts.ProcessExecutionTimeout);
+
+            bool isError;
+
+            if (exited)
+            {
+                isError = process.ExitCode != ReturnCode.Successful;
+            }
+            else
+            {
+                isError = true;
+                process.KillProcessAndChildren();
+            }
+
+            process.Close();
+
+            if (isError)
+            {
+                return null;
+            }
+
+            var lines = File.ReadAllLines(outputFileName);
+            File.Delete(outputFileName);
+            return lines;
         }
     }
 }
