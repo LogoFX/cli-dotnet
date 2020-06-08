@@ -112,31 +112,31 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
  testRunner.When("I install the template pack \'LogoFX.Templates\' from local package", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Description",
-                            "Short Name",
-                            "Languages",
-                            "Tags"});
-                table4.AddRow(new string[] {
-                            "LogoFX WPF Application",
-                            "logofx-wpf",
-                            "[C#]",
-                            "LogoFX/WPF"});
-#line 8
- testRunner.Then("The template for \'logofx-wpf\' is installed with the following parameters", ((string)(null)), table4, "Then ");
-#line hidden
                 TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                             "Description",
                             "Short Name",
                             "Languages",
                             "Tags"});
                 table5.AddRow(new string[] {
+                            "LogoFX WPF Application",
+                            "logofx-wpf",
+                            "[C#]",
+                            "LogoFX/WPF"});
+#line 8
+ testRunner.Then("The template for \'logofx-wpf\' is installed with the following parameters", ((string)(null)), table5, "Then ");
+#line hidden
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Description",
+                            "Short Name",
+                            "Languages",
+                            "Tags"});
+                table6.AddRow(new string[] {
                             "LogoFX Model Entity",
                             "logofx-model",
                             "[C#]",
                             "LogoFX/Model"});
 #line 11
- testRunner.And("The template for \'logofx-model\' is installed with the following parameters", ((string)(null)), table5, "And ");
+ testRunner.And("The template for \'logofx-model\' is installed with the following parameters", ((string)(null)), table6, "And ");
 #line hidden
             }
             this.ScenarioCleanup();
