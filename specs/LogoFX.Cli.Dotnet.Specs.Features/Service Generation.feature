@@ -12,7 +12,8 @@ Scenario Outline: Generate service entity in an empty folder
 	| -n                   | <entityNameValue> |
 	| <solutionNameOption> | Test              |
 	| --allow-scripts      | yes               |
-	Then The folder 'Generation' contains generated service entity objects for name '<entityNameValue>' for solution name 'Test'
+	Then The folder 'Generation' contains generated model entity objects for name '<entityNameValue>' for solution name 'Test'
+	And The folder 'Generation' contains generated service entity objects for name '<entityNameValue>' for solution name 'Test'
 
 	Examples:
 	| entityNameValue | solutionNameOption |

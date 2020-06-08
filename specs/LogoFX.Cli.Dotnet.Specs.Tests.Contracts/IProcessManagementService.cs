@@ -2,7 +2,7 @@
 {
     public interface IProcessManagementService
     {
-        ExecutionInfo Start(string tool, string args, int? waitTime = null);
+        ExecutionInfo Start(string tool, string args);
         void Stop(int processId);
     }
 

@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Threading;
 using FluentAssertions;
 
 namespace LogoFX.Cli.Dotnet.Specs.Steps
@@ -9,7 +11,16 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
 
         internal static void AssertGeneratedCode(this GeneratedFolder structure)
         {
-            Directory.Exists(Path.Combine(structure.RootPath, structure.Name)).Should().BeTrue();
+            var path = Path.Combine(structure.RootPath, structure.Name);
+            var count = 10;
+            while (!Directory.Exists(path) && count > 0)
+            {
+                Debug.WriteLine($"Checking '{path}, attempts: {count}'");
+                count -= 1;
+                Thread.Sleep(2000);
+            }
+
+            Directory.Exists(path).Should().BeTrue();
             foreach (var folder in structure.Folders)
             {
                 AssertGeneratedCode(folder);

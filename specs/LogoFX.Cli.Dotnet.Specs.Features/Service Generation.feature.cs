@@ -134,8 +134,12 @@ this.ScenarioInitialize(scenarioInfo);
                         "mplate with the following options", ((string)(null)), table3, "And ");
 #line hidden
 #line 15
- testRunner.Then(string.Format("The folder \'Generation\' contains generated service entity objects for name \'{0}\' " +
-                            "for solution name \'Test\'", entityNameValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("The folder \'Generation\' contains generated model entity objects for name \'{0}\' fo" +
+                            "r solution name \'Test\'", entityNameValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 16
+ testRunner.And(string.Format("The folder \'Generation\' contains generated service entity objects for name \'{0}\' " +
+                            "for solution name \'Test\'", entityNameValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

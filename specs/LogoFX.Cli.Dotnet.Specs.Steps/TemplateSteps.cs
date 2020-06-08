@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Common.Infra;
 using FluentAssertions;
 using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
 using LogoFX.Cli.Dotnet.Specs.Tests.Infra;
@@ -24,7 +23,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
         public void WhenIInstallTheTemplatePackFromLocalPackage(string templatePackName)
         {
             //TODO: Use template pack name
-            var execInfo = _processManagementService.Start("../../devops/install-template-pack", string.Empty, Consts.ProcessExecutionTimeout);
+            var execInfo = _processManagementService.Start("../../devops/install-template-pack", string.Empty);
             execInfo.ShouldBeSuccessful();
         }
 

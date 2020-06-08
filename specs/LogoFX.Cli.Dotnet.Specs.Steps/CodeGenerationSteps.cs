@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Common.Infra;
 using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
 using LogoFX.Cli.Dotnet.Specs.Tests.Infra;
 using TechTalk.SpecFlow;
@@ -33,7 +32,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
 
             var optionsLine = options == null ? null : string.Join(" ", options.Select(k => $"{k.Name}  {k.Value}"));
             var args = $"new {shortName} {optionsLine}";
-            var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), args, Consts.ProcessExecutionTimeout);
+            var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), args);
             execInfo.ShouldBeSuccessful();
         }
 

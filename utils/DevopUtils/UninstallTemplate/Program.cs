@@ -34,28 +34,28 @@ namespace UninstallTemplate
             }
 
             var name = string.Join(' ', args.Skip(1));
-            var lines = LaunchApp("dotnet new -u");
+            var exitInfo = LaunchApp("dotnet new -u");
 
-            if (lines == null)
+            if (exitInfo.IsError)
             {
                 return ReturnCode.Error;
             }
 
-            var uninstallString = FindUninstallString(lines, name, kind);
+            var uninstallString = FindUninstallString(exitInfo.Output, name, kind);
 
             if (string.IsNullOrEmpty(uninstallString))
             {
                 return ReturnCode.Successful;
             }
 
-            lines = LaunchApp(uninstallString);
+            exitInfo = LaunchApp(uninstallString);
             
-            if (lines == null)
+            if (exitInfo.IsError)
             {
                 return ReturnCode.Error;
             }
 
-            foreach (var line in lines)
+            foreach (var line in exitInfo.Output)
             {
                 Console.WriteLine(line);
             }
@@ -209,13 +209,13 @@ namespace UninstallTemplate
             return null;
         }
 
-        private static string[] LaunchApp(string launchString)
+        private static IProcessExitInfo LaunchApp(string launchString)
         {
             var strings = launchString.Split(' ');
             return LaunchApp(strings[0], strings.Skip(1).ToArray());
         }
 
-        private static string[] LaunchApp(string appName, string[] args)
+        private static IProcessExitInfo LaunchApp(string appName, string[] args)
         {
             return ProcessExtensions.LaunchApp(appName, args);
         }
