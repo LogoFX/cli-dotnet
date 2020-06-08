@@ -42,7 +42,7 @@ namespace {solutionName}.Data.Contracts.Dto
 
 namespace {solutionName}.Model
 {{
-    public class {entityName} : AppModel, I{entityName}
+    internal class {entityName} : AppModel, I{entityName}
     {{
         private string _displayName;
 
@@ -129,18 +129,20 @@ namespace {solutionName}.Model.Mappers
         }}
     }}
 }}").WithFile($"{entityName}Mapper.cs", $@"using AutoMapper;
+using JetBrains.Annotations;
 using {solutionName}.Data.Contracts.Dto;
 using {solutionName}.Model.Contracts;
 
 namespace {solutionName}.Model.Mappers
 {{
+    [UsedImplicitly]
     internal sealed class {entityName}Mapper
     {{
         private readonly IMapper _mapper;
 
         public {entityName}Mapper(IMapper mapper) => _mapper = mapper;
 
-        public I{entityName} MapTo{entityName}Value({entityName}Dto dto) =>
+        public I{entityName} MapTo{entityName}({entityName}Dto dto) =>
             _mapper.Map<I{entityName}>(dto);
     }}
 }}")));
