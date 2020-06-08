@@ -15,13 +15,13 @@ namespace LogoFX.Templates.WPF.Data.Fake.Providers
         public void RegisterModule(IDependencyRegistrator dependencyRegistrator)
         {
             dependencyRegistrator
-                .AddInstance(InitializeSampleContainer())
+                .AddInstance(InitializeSampleDataContainer())
                 .AddSingleton<ISampleDataProvider, FakeSampleDataProvider>();
 
             dependencyRegistrator.RegisterInstance(SampleProviderBuilder.CreateBuilder());
         }
 
-        private static ISampleDataContainer InitializeSampleContainer()
+        private static ISampleDataContainer InitializeSampleDataContainer()
         {
             var container = new SampleDataContainer();
             container.UpdateItems(new[]

@@ -141,13 +141,13 @@ namespace {folder.Name}.Data.Contracts.Providers
     {{
         public static string AssemblyName {{ get; }} = $""{{Assembly.GetExecutingAssembly().GetName().Name}}.dll"";
     }}
-}}").WithFile("ISampleProvider.cs", $@"using System;
+}}").WithFile("ISampleDataProvider.cs", $@"using System;
 using System.Collections.Generic;
 using {folder.Name}.Data.Contracts.Dto;
 
 namespace {folder.Name}.Data.Contracts.Providers
 {{
-    public interface ISampleProvider
+    public interface ISampleDataProvider
     {{
         IEnumerable<SampleItemDto> GetItems();
         bool DeleteItem(Guid id);
@@ -163,19 +163,19 @@ namespace {folder.Name}.Data.Contracts.Providers
             return folder
                 .WithFolder($"{folder.Name}.Data.Fake.Containers", r =>
                     r.WithFile($"{folder.Name}.Data.Fake.Containers.csproj", AssertionHelper.Any)
-                        .WithFile("SampleContainer.cs",
+                        .WithFile("SampleDataContainer.cs",
                             $@"using System.Collections.Generic;
 using {folder.Name}.Data.Contracts.Dto;
 using {folder.Name}.Data.Fake.Containers.Contracts;
 
 namespace {folder.Name}.Data.Fake.Containers
 {{
-    public interface ISampleContainer : IDataContainer
+    public interface ISampleDataContainer : IDataContainer
     {{
         IEnumerable<SampleItemDto> Items {{ get; }}
     }}
 
-    public sealed class SampleContainer : ISampleContainer
+    public sealed class SampleDataContainer : ISampleDataContainer
     {{
         private readonly List<SampleItemDto> _items = new List<SampleItemDto>();
         public IEnumerable<SampleItemDto> Items => _items;
@@ -221,7 +221,7 @@ using {folder.Name}.Data.Contracts.Providers;
 
 namespace {folder.Name}.Data.Fake.ProviderBuilders
 {{
-    public sealed class SampleProviderBuilder : FakeBuilderBase<ISampleProvider>.WithInitialSetup
+    public sealed class SampleProviderBuilder : FakeBuilderBase<ISampleDataProvider>.WithInitialSetup
     {{
         private readonly List<SampleItemDto> _itemsStorage = new List<SampleItemDto>();
 
@@ -238,8 +238,8 @@ namespace {folder.Name}.Data.Fake.ProviderBuilders
             _itemsStorage.AddRange(items);
         }}
 
-        protected override IServiceCall<ISampleProvider> CreateServiceCall(
-            IHaveNoMethods<ISampleProvider> serviceCallTemplate) => serviceCallTemplate
+        protected override IServiceCall<ISampleDataProvider> CreateServiceCall(
+            IHaveNoMethods<ISampleDataProvider> serviceCallTemplate) => serviceCallTemplate
             .AddMethodCallWithResult(t => t.GetItems(),
                 r => r.Complete(GetItems))
             .AddMethodCallWithResult<Guid, bool>(t => t.DeleteItem(It.IsAny<Guid>()),
@@ -282,7 +282,7 @@ namespace {folder.Name}.Data.Fake.ProviderBuilders
             return folder
                 .WithFolder($"{folder.Name}.Data.Fake.Providers", r =>
                     r.WithFile($"{folder.Name}.Data.Fake.Providers.csproj", AssertionHelper.Any)
-                        .WithFile("FakeSampleProvider.cs",
+                        .WithFile("FakeSampleDataProvider.cs",
                             $@"using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -296,37 +296,37 @@ using {folder.Name}.Data.Fake.ProviderBuilders;
 namespace {folder.Name}.Data.Fake.Providers
 {{
     [UsedImplicitly]
-    internal sealed class FakeSampleProvider : FakeProviderBase<SampleProviderBuilder, ISampleProvider>, ISampleProvider
+    internal sealed class FakeSampleDataProvider : FakeProviderBase<SampleProviderBuilder, ISampleDataProvider>, ISampleDataProvider
     {{
         private readonly Random _random = new Random();
 
-        public FakeSampleProvider(
-            SampleProviderBuilder sampleProviderBuilder,
-            ISampleContainer sampleContainer)
-            : base(sampleProviderBuilder)
+        public FakeSampleDataProvider(
+            SampleProviderBuilder providerBuilder,
+            ISampleDataContainer container)
+            : base(providerBuilder)
         {{
-            sampleProviderBuilder.WithItems(sampleContainer.Items);
+            providerBuilder.WithItems(container.Items);
         }}
 
-        IEnumerable<SampleItemDto> ISampleProvider.GetItems() => GetService(r =>
+        IEnumerable<SampleItemDto> ISampleDataProvider.GetItems() => GetService(r =>
         {{
             Task.Delay(_random.Next(2000)).Wait();
             return r;
         }}).GetItems();
 
-        bool ISampleProvider.DeleteItem(Guid id) => GetService(r =>
+        bool ISampleDataProvider.DeleteItem(Guid id) => GetService(r =>
         {{
             Task.Delay(_random.Next(2000)).Wait();
             return r;
         }}).DeleteItem(id);
 
-        bool ISampleProvider.UpdateItem(SampleItemDto dto) => GetService(r =>
+        bool ISampleDataProvider.UpdateItem(SampleItemDto dto) => GetService(r =>
         {{
             Task.Delay(_random.Next(2000)).Wait();
             return r;
         }}).UpdateItem(dto);
 
-        void ISampleProvider.CreateItem(SampleItemDto dto) => GetService(r =>
+        void ISampleDataProvider.CreateItem(SampleItemDto dto) => GetService(r =>
         {{
             Task.Delay(_random.Next(2000)).Wait();
             return r;
@@ -349,16 +349,16 @@ namespace {folder.Name}.Data.Fake.Providers
         public void RegisterModule(IDependencyRegistrator dependencyRegistrator)
         {{
             dependencyRegistrator
-                .AddInstance(InitializeSampleContainer())
-                .AddSingleton<ISampleProvider, FakeSampleProvider>();
+                .AddInstance(InitializeSampleDataContainer())
+                .AddSingleton<ISampleDataProvider, FakeSampleDataProvider>();
 
             dependencyRegistrator.RegisterInstance(SampleProviderBuilder.CreateBuilder());
         }}
 
-        private static ISampleContainer InitializeSampleContainer()
+        private static ISampleDataContainer InitializeSampleDataContainer()
         {{
-            var sampleContainer = new SampleContainer();
-            sampleContainer.UpdateItems(new[]
+            var container = new SampleDataContainer();
+            container.UpdateItems(new[]
             {{
                 new SampleItemDto
                 {{
@@ -395,7 +395,7 @@ namespace {folder.Name}.Data.Fake.Providers
                     Value = 10
                 }}
             }});
-            return sampleContainer;
+            return container;
         }}
     }}
 }}"));
@@ -406,14 +406,14 @@ namespace {folder.Name}.Data.Fake.Providers
             return folder
                 .WithFolder($"{folder.Name}.Data.Real.Providers", r =>
                     r.WithFile($"{folder.Name}.Data.Real.Providers.csproj", AssertionHelper.Any)
-                        .WithFile("SampleProvider.cs", $@"using System;
+                        .WithFile("SampleDataProvider.cs", $@"using System;
 using System.Collections.Generic;
 using {folder.Name}.Data.Contracts.Dto;
 using {folder.Name}.Data.Contracts.Providers;
 
 namespace {folder.Name}.Data.Real.Providers
 {{
-    internal sealed class SampleProvider : ISampleProvider
+    internal sealed class SampleDataProvider : ISampleDataProvider
     {{
         public IEnumerable<SampleItemDto> GetItems()
         {{
@@ -650,15 +650,13 @@ namespace {folder.Name}.Model.Validation
 using LogoFX.Client.Mvvm.Model;
 using {folder.Name}.Model.Contracts;
 
-
 namespace {folder.Name}.Model
-{{    
+{{
     internal abstract class AppModel : EditableModel<Guid>, IAppModel
-    {{        
+    {{
         public bool IsNew {{ get; set; }}
     }}
-}}
-").WithFile("DataService.cs", $@"using System.Collections.Generic;
+}}").WithFile("DataService.cs", $@"using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -673,13 +671,13 @@ namespace {folder.Name}.Model
     [UsedImplicitly]
     internal sealed class DataService : NotifyPropertyChangedBase<DataService>, IDataService
     {{
-        private readonly ISampleProvider _sampleProvider;
+        private readonly ISampleDataProvider _sampleProvider;
         private readonly SampleMapper _sampleMapper;
 
         private readonly RangeObservableCollection<ISampleItem> _items =
             new RangeObservableCollection<ISampleItem>();
 
-        public DataService(ISampleProvider sampleProvider, SampleMapper sampleMapper)
+        public DataService(ISampleDataProvider sampleProvider, SampleMapper sampleMapper)
         {{
             _sampleProvider = sampleProvider;
             _sampleMapper = sampleMapper;
@@ -687,9 +685,9 @@ namespace {folder.Name}.Model
 
         IEnumerable<ISampleItem> IDataService.Items => _items;
 
-        Task IDataService.GetItems() => MethodRunner.RunAsync(Method);
+        Task IDataService.GetItems() => MethodRunner.RunAsync(GetItems);
 
-        private void Method()
+        private void GetItems()
         {{
             var items = _sampleProvider.GetItems().Select(_sampleMapper.MapToSampleItem);
             _items.Clear();
@@ -702,7 +700,7 @@ namespace {folder.Name}.Model
                 IsNew = true
             }});
 
-        public Task SaveItem(ISampleItem item) => MethodRunner.RunAsync(() =>
+        Task IDataService.SaveItem(ISampleItem item) => MethodRunner.RunAsync(() =>
         {{
             var dto = _sampleMapper.MapToSampleItemDto(item);
 
