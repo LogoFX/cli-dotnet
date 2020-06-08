@@ -67,14 +67,16 @@ namespace ModifyTool
                 if (NormalizeWhitespaceOnly)
                 {
                     var body = node.Body;
-                    var ess = body?.Statements.OfType<ExpressionStatementSyntax>().FirstOrDefault();
-                    if (ess != null)
+                    var statements = new SyntaxList<StatementSyntax>();
+                    // ReSharper disable once PossibleNullReferenceException
+                    foreach (var newEss in body.Statements
+                        .OfType<ExpressionStatementSyntax>()
+                        .Select(AlignExpression))
                     {
-                        var newEss = AlignExpression(ess);
-                        var statements = body.Statements.Replace(ess, newEss);
-                        body = body.WithStatements(statements);
-                        node = node.WithBody(body);
+                       statements = statements.Add(newEss);
                     }
+                    body = body.WithStatements(statements);
+                    node = node.WithBody(body);
                 }
                 else
                 {
@@ -88,6 +90,11 @@ namespace ModifyTool
 
         private ExpressionStatementSyntax AlignExpression(ExpressionStatementSyntax ess)
         {
+            if (ess.ToFullString().Length <= 120)
+            {
+                return ess;
+            }
+
             return ess.WithExpression(AlignExpression(ess.Expression));
         }
 
@@ -187,31 +194,6 @@ namespace ModifyTool
         private ExpressionSyntax InvocationExpression(ExpressionSyntax expression, ArgumentListSyntax argumentList = null)
         {
             return SyntaxFactory.InvocationExpression(expression, argumentList ?? SyntaxFactory.ArgumentList());
-        }
-
-        private static bool CheckExpression(CSharpSyntaxNode expression, SyntaxToken name)
-        {
-            if (expression is IdentifierNameSyntax ins)
-            {
-                return SyntaxFactory.AreEquivalent(ins.Identifier, name);
-            }
-
-            if (expression is ExpressionStatementSyntax ess)
-            {
-                return CheckExpression(ess.Expression, name);
-            }
-
-            if (expression is InvocationExpressionSyntax ies)
-            {
-                return CheckExpression(ies.Expression, name);
-            }
-
-            if (expression is MemberAccessExpressionSyntax maes)
-            {
-                return CheckExpression(maes.Expression, name);
-            }
-
-            return false;
         }
 
         public override SyntaxNode VisitImplicitArrayCreationExpression(ImplicitArrayCreationExpressionSyntax node)
