@@ -31,7 +31,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 if exist output (
-	rem call remove-folder output
+	call remove-folder output
 )
 
 if %ERRORLEVEL% NEQ 0 (

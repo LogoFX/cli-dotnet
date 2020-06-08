@@ -33,6 +33,8 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
+call remove-folder ..\..\%generated%\%1\%utils%
+
 cd ..\..\devops
 
 :EXIT
