@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModifyTool", "ModifyTool.csproj", "{8059B5A7-2891-4AA9-87E2-284C61EEEFB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModifyTool", "ModifyTool.csproj", "{8059B5A7-2891-4AA9-87E2-284C61EEEFB4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Infra", "..\..\common\Common.Infra\Common.Infra.csproj", "{FB854A27-15A6-490C-869B-493ABFC9B6A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8059B5A7-2891-4AA9-87E2-284C61EEEFB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8059B5A7-2891-4AA9-87E2-284C61EEEFB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8059B5A7-2891-4AA9-87E2-284C61EEEFB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB854A27-15A6-490C-869B-493ABFC9B6A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB854A27-15A6-490C-869B-493ABFC9B6A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB854A27-15A6-490C-869B-493ABFC9B6A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB854A27-15A6-490C-869B-493ABFC9B6A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

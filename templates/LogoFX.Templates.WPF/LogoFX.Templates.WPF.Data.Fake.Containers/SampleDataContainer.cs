@@ -4,12 +4,12 @@ using LogoFX.Templates.WPF.Data.Fake.Containers.Contracts;
 
 namespace LogoFX.Templates.WPF.Data.Fake.Containers
 {
-    public interface ISampleContainer : IDataContainer
+    public interface ISampleDataContainer : IDataContainer
     {
         IEnumerable<SampleItemDto> Items { get; }
     }
 
-    public sealed class SampleContainer : ISampleContainer
+    public sealed class SampleDataContainer : ISampleDataContainer
     {
         private readonly List<SampleItemDto> _items = new List<SampleItemDto>();
         public IEnumerable<SampleItemDto> Items => _items;

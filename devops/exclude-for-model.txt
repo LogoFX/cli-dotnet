@@ -1,2 +1,4 @@
 .sln
 .csproj
+AppModel.cs
+IAppModel.cs

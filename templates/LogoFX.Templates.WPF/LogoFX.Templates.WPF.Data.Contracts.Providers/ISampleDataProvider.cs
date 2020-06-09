@@ -4,7 +4,7 @@ using LogoFX.Templates.WPF.Data.Contracts.Dto;
 
 namespace LogoFX.Templates.WPF.Data.Contracts.Providers
 {
-    public interface ISampleProvider
+    public interface ISampleDataProvider
     {
         IEnumerable<SampleItemDto> GetItems();
         bool DeleteItem(Guid id);

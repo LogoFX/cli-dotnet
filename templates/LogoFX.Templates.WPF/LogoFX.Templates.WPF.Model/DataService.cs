@@ -13,13 +13,13 @@ namespace LogoFX.Templates.WPF.Model
     [UsedImplicitly]
     internal sealed class DataService : NotifyPropertyChangedBase<DataService>, IDataService
     {
-        private readonly ISampleProvider _sampleProvider;
+        private readonly ISampleDataProvider _sampleProvider;
         private readonly SampleMapper _sampleMapper;
 
         private readonly RangeObservableCollection<ISampleItem> _items =
             new RangeObservableCollection<ISampleItem>();
 
-        public DataService(ISampleProvider sampleProvider, SampleMapper sampleMapper)
+        public DataService(ISampleDataProvider sampleProvider, SampleMapper sampleMapper)
         {
             _sampleProvider = sampleProvider;
             _sampleMapper = sampleMapper;

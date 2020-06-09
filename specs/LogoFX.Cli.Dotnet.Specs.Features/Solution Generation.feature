@@ -8,9 +8,9 @@ Scenario: Install template pack
 	Then The template for 'logofx-wpf' is installed with the following parameters
 	| Description            | Short Name | Languages | Tags       |
 	| LogoFX WPF Application | logofx-wpf | [C#]      | LogoFX/WPF |
-	And The template for 'logofx-model' is installed with the following parameters
-	| Description         | Short Name   | Languages | Tags         |
-	| LogoFX Model Entity | logofx-model | [C#]      | LogoFX/Model |
+	And The template for 'logofx-entity' is installed with the following parameters
+	| Description         | Short Name    | Languages | Tags         |
+	| LogoFX Model Entity | logofx-entity | [C#]      | LogoFX/Entity |
 
 Scenario: Generate solution skeleton
 	When I install the template pack 'LogoFX.Templates' from local package

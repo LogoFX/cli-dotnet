@@ -6,8 +6,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
     [Binding]
     internal sealed class ModelGenerationSteps
     {
-        [Then(@"The folder '(.*)' contains generated model entity objects for name '(.*)' for solution name '(.*)'")]
-        public void ThenTheFolderContainsGeneratedModelEntityObjectsForSolutionName(string folderName,
+        [Then(@"The folder '(.*)' contains generated entity objects for name '(.*)' for solution name '(.*)'")]
+        public void ThenTheFolderContainsGeneratedEntityObjectsForNameForSolutionName(string folderName,
             string entityName,
             string solutionName)
         {
@@ -16,17 +16,25 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             var structure = new GeneratedFolder(tempPath, folderName)
                 .WithFolder($"{solutionName}.Data.Contracts.Dto",
                     r =>
-                        r.WithFile($"{entityName}Dto.cs", $@"namespace {solutionName}.Data.Contracts.Dto
+                        r.WithFile($"{entityName}Dto.cs", $@"using System;
+
+namespace {solutionName}.Data.Contracts.Dto
 {{
     public class {entityName}Dto
     {{
-        public string Id {{ get; set; }}
+        public Guid Id {{ get; set; }}
+
+        public string DisplayName {{ get; set; }}
+
+        public int Value {{ get; set; }}
     }}
 }}")).WithFolder($"{solutionName}.Model.Contracts", r => r.WithFile($"I{entityName}.cs", $@"namespace {solutionName}.Model.Contracts
 {{
     public interface I{entityName} : IAppModel
     {{
-        
+        string DisplayName {{ get; }}
+
+        int Value {{ get; set; }}
     }}
 }}"))
                 .WithFolder($"{solutionName}.Model", r =>
@@ -36,7 +44,21 @@ namespace {solutionName}.Model
 {{
     internal class {entityName} : AppModel, I{entityName}
     {{
-        
+        private string _displayName;
+
+        public string DisplayName
+        {{
+            get => _displayName;
+            set => SetProperty(ref _displayName, value);
+        }}
+
+        private int _value;
+
+        public int Value
+        {{
+            get => _value;
+            set => SetProperty(ref _value, value);
+        }}
     }}
 }}").WithFile("Module.cs", $@"using System.Reflection;
 using AutoMapper;
@@ -122,6 +144,9 @@ namespace {solutionName}.Model.Mappers
 
         public I{entityName} MapTo{entityName}({entityName}Dto dto) =>
             _mapper.Map<I{entityName}>(dto);
+
+        public {entityName}Dto MapFrom{entityName}(I{entityName} model) =>
+            _mapper.Map<{entityName}Dto>(model);
     }}
 }}")));
             structure.AssertGeneratedCode();

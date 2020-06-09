@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using Common.Infra;
 using JetBrains.Annotations;
 using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
@@ -11,7 +10,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
     [UsedImplicitly]
     internal sealed class WindowsProcessManagementService : IProcessManagementService
     {
-        public ExecutionInfo Start(string tool, string args, int? waitTime = null)
+        //TODO: get from config.json. Use same source across all usages
+        public ExecutionInfo Start(string tool, string args, int? pause = 2000)
         {
             var currentDir = Directory.GetCurrentDirectory();
 
@@ -26,67 +26,20 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
                     Directory.SetCurrentDirectory(path);
                 }
 
-                var outputStrings = new List<string>();
-                var errorStrings = new List<string>();
-
-                var processInfo = new ProcessStartInfo("cmd.exe", $"/c {fileName} {args}")
-                {
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                    RedirectStandardError = true,
-                    RedirectStandardOutput = true
-                };
-
-                var process = Process.Start(processInfo);
-
-                // ReSharper disable once PossibleNullReferenceException
-                process.OutputDataReceived += (sender, e) =>
-                {
-                    if (e.Data == null)
-                    {
-                        return;
-                    }
-                    outputStrings.Add(e.Data);
-                    Debug.WriteLine("output>>" + e.Data);
-                    Console.WriteLine(e.Data);
-                };
-                process.BeginOutputReadLine();
-
-                process.ErrorDataReceived += (sender, e) =>
-                {
-                    if (e.Data == null)
-                    {
-                        return;
-                    }
-                    errorStrings.Add(e.Data);
-                    Debug.WriteLine("error>>" + e.Data);
-                    Console.WriteLine(e.Data);
-                };
-                process.BeginErrorReadLine();
-
-                if (waitTime.HasValue)
-                {
-                    process.WaitForExit(waitTime.Value);
-                }
-                else
-                {
-                    process.WaitForExit();
-                }
-
-                if (!process.HasExited)
-                {
-                    process.KillProcessAndChildren();
-                }
+                var exitInfo = ProcessExtensions.LaunchApp(fileName, args);
 
                 var result = new ExecutionInfo
                 {
-                    ProcessId = process.Id,
-                    OutputStrings = outputStrings.ToArray(),
-                    ErrorStrings = errorStrings.ToArray(),
-                    ExitCode = process.ExitCode
+                    ProcessId = exitInfo.ProcessId,
+                    OutputStrings = exitInfo.Output,
+                    ErrorStrings = exitInfo.Errors.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries),
+                    ExitCode = exitInfo.ExitCode
                 };
 
-                process.Close();
+                if (pause.HasValue && !exitInfo.IsError)
+                {
+                    Thread.Sleep(pause.Value);
+                }
 
                 return result;
             }

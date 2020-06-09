@@ -43,7 +43,7 @@ namespace LogoFX.Templates.Model
 
         Task ISampleModelService.SaveItem(ISampleModel item) => MethodRunner.RunAsync(() =>
         {
-            var dto = _mapper.MapToSampleModelDto(item);
+            var dto = _mapper.MapFromSampleModel(item);
 
             if (item.IsNew)
             {

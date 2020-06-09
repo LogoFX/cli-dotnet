@@ -3,11 +3,30 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Management;
+using System.Threading;
 
 namespace Common.Infra
 {
+    public interface IProcessExitInfo
+    {
+        int ProcessId { get; }
+        string[] Output { get; }
+        string Errors { get; }
+        int ExitCode { get; }
+        bool IsError { get; }
+    }
+
     public static class ProcessExtensions
     {
+        private sealed class ProcessExitInfo : IProcessExitInfo
+        {
+            public int ProcessId { get; set; }
+            public string[] Output { get; set; }
+            public string Errors { get; set; }
+            public int ExitCode { get; set; }
+            public bool IsError { get; set; }
+        }
+
         public static void KillProcessAndChildren(this Process process)
         {
             KillProcessAndChildrenImpl(process?.Id ?? 0);
@@ -49,8 +68,10 @@ namespace Common.Infra
             }
         }
 
-        public static string[] LaunchApp(string appName, string[] args)
+        public static IProcessExitInfo LaunchApp(string appName, params string[] args)
         {
+            var result = new ProcessExitInfo();
+
             var outputFileName = Path.GetTempFileName();
 
             var arguments = $"/c {appName} {string.Join(" ", args)} > {outputFileName}";
@@ -63,36 +84,52 @@ namespace Common.Infra
                     CreateNoWindow = false,
                     UseShellExecute = false,
                     RedirectStandardOutput = false,
-                    RedirectStandardError = false
+                    RedirectStandardError = true
                 }
             };
 
             process.Start();
 
-            var exited = process.WaitForExit(Consts.ProcessExecutionTimeout);
+            result.ProcessId = process.Id;
 
-            bool isError;
+            var exited = process.WaitForExit(Consts.ProcessExecutionTimeout);
 
             if (exited)
             {
-                isError = process.ExitCode != ReturnCode.Successful;
+                result.ExitCode = process.ExitCode;
+                result.IsError = result.ExitCode != ReturnCode.Successful;
             }
             else
             {
-                isError = true;
+                result.IsError = true;
                 process.KillProcessAndChildren();
             }
 
+            result.Errors = process.StandardError.ReadToEnd();
+
             process.Close();
 
-            if (isError)
+            if (File.Exists(outputFileName))
             {
-                return null;
+                var count = 5;
+                while (count > 0)
+                {
+                    try
+                    {
+                        result.Output = File.ReadAllLines(outputFileName);
+                        break;
+                    }
+                    catch (IOException err)
+                    {
+                        Debug.WriteLine(err.Message);
+                        count -= 1;
+                        Thread.Sleep(500);
+                    }
+                }
             }
 
-            var lines = File.ReadAllLines(outputFileName);
             File.Delete(outputFileName);
-            return lines;
+            return result;
         }
     }
 }

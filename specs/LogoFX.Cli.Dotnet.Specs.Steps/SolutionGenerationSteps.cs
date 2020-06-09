@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Common.Infra;
 using FluentAssertions;
 using JetBrains.Annotations;
 using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
@@ -29,9 +28,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
 
             foreach (var config in configs)
             {
-                var execInfo =
-                    _processManagementService.Start(Path.Combine(path, "dotnet"), $"build -c {config}",
-                        Consts.ProcessExecutionTimeout);
+                var execInfo = _processManagementService.Start(Path.Combine(path, "dotnet"), $"build -c {config}");
                 execInfo.ShouldBeSuccessful();
                 execInfo.OutputStrings.Should().ContainMatch("Build succeeded.");
             }

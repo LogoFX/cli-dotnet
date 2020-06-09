@@ -1,16 +1,16 @@
 {
   "$schema": "http://json.schemastore.org/template",
   "author": "LogoUI",
-  "classifications": [ "LogoFX", "Model" ], 
+  "classifications": [ "LogoFX", "Entity" ], 
   "name": "LogoFX Model Entity",
   "identity": "LogoFX.Model.Entity",         
-  "groupIdentity":"LogoFX.Model",
-  "shortName": "logofx-model",
+  "groupIdentity":"LogoFX.Entity",
+  "shortName": "logofx-entity",
   "sourceName": "SampleModel",
   "sources": [
     {
       "copyOnly": [
-        "**/utils/**"
+        "**/entity-utils/**"
       ]
     }
   ],

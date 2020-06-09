@@ -11,37 +11,37 @@ using LogoFX.Templates.WPF.Data.Fake.ProviderBuilders;
 namespace LogoFX.Templates.WPF.Data.Fake.Providers
 {
     [UsedImplicitly]
-    internal sealed class FakeSampleProvider : FakeProviderBase<SampleProviderBuilder, ISampleProvider>, ISampleProvider
+    internal sealed class FakeSampleDataProvider : FakeProviderBase<SampleProviderBuilder, ISampleDataProvider>, ISampleDataProvider
     {
         private readonly Random _random = new Random();
 
-        public FakeSampleProvider(
-            SampleProviderBuilder sampleProviderBuilder,
-            ISampleContainer sampleContainer)
-            : base(sampleProviderBuilder)
+        public FakeSampleDataProvider(
+            SampleProviderBuilder providerBuilder,
+            ISampleDataContainer container)
+            : base(providerBuilder)
         {
-            sampleProviderBuilder.WithItems(sampleContainer.Items);
+            providerBuilder.WithItems(container.Items);
         }
 
-        IEnumerable<SampleItemDto> ISampleProvider.GetItems() => GetService(r =>
+        IEnumerable<SampleItemDto> ISampleDataProvider.GetItems() => GetService(r =>
         {
             Task.Delay(_random.Next(2000)).Wait();
             return r;
         }).GetItems();
 
-        bool ISampleProvider.DeleteItem(Guid id) => GetService(r =>
+        bool ISampleDataProvider.DeleteItem(Guid id) => GetService(r =>
         {
             Task.Delay(_random.Next(2000)).Wait();
             return r;
         }).DeleteItem(id);
 
-        bool ISampleProvider.UpdateItem(SampleItemDto dto) => GetService(r =>
+        bool ISampleDataProvider.UpdateItem(SampleItemDto dto) => GetService(r =>
         {
             Task.Delay(_random.Next(2000)).Wait();
             return r;
         }).UpdateItem(dto);
 
-        void ISampleProvider.CreateItem(SampleItemDto dto) => GetService(r =>
+        void ISampleDataProvider.CreateItem(SampleItemDto dto) => GetService(r =>
         {
             Task.Delay(_random.Next(2000)).Wait();
             return r;

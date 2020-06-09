@@ -10,7 +10,7 @@
   "sources": [
     {
       "copyOnly": [
-        "**/utils/**"
+        "**/service-utils/**"
       ]
     }
   ],
@@ -40,7 +40,7 @@
          "text": "Run 'setup-entity-service.cmd'" 
        }],
       "continueOnError": false,
-      "description ": "setups the project by calling setup.cmd"
+      "description ": "setups the project by calling setup-entity-service.cmd"
     }
   ]  
 }

@@ -6,12 +6,27 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
-    <EmbeddedResource Include="..\..\templates\LogoFX.Templates.WPF\LogoFX.Templates.WPF.Model\Mappers\MappingProfile.cs" Link="Extra\MappingProfile.cs" />
+    <Compile Remove="Extra\Provider\Module.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\..\templates\LogoFX.Templates.WPF\LogoFX.Templates.WPF.Model\Module.cs" Link="Extra\Module.cs" />
+    <None Remove="Extra\Model\for_git" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\templates\LogoFX.Templates.WPF\LogoFX.Templates.WPF.Model\Mappers\MappingProfile.cs" Link="Extra\Model\MappingProfile.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\templates\LogoFX.Templates.WPF\LogoFX.Templates.WPF.Model\Module.cs" Link="Extra\Model\Module.cs" />
+    <EmbeddedResource Include="Extra\Provider\Module.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +34,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extra\" />
+    <Folder Include="Extra\Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\common\Common.Infra\Common.Infra.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ModelEngine.MappingProfile.cs">
+      <DependentUpon>ModelEngine.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ModelEngine.Module.cs">
+      <DependentUpon>ModelEngine.cs</DependentUpon>
+    </Compile>
+    <Compile Update="FakeProviderEngine.Module.cs">
+      <DependentUpon>FakeProviderEngine.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

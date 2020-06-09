@@ -5,7 +5,7 @@ using LogoFX.Templates.WPF.Data.Contracts.Providers;
 
 namespace LogoFX.Templates.WPF.Data.Real.Providers
 {
-    internal sealed class SampleProvider : ISampleProvider
+    internal sealed class SampleDataProvider : ISampleDataProvider
     {
         public IEnumerable<SampleItemDto> GetItems()
         {

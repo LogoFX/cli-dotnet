@@ -14,5 +14,8 @@ namespace LogoFX.Templates.Model.Mappers
 
         public ISampleModel MapToSampleModel(SampleModelDto dto) =>
             _mapper.Map<ISampleModel>(dto);
+
+        public SampleModelDto MapFromSampleModel(ISampleModel model) =>
+            _mapper.Map<SampleModelDto>(model);
     }
 }

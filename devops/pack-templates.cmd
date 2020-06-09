@@ -6,7 +6,7 @@ if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
-call copy-template-logofx-model.cmd
+call copy-template-logofx-entity.cmd
 
 if %ERRORLEVEL% NEQ 0 ( 
 	goto EXIT

@@ -2,7 +2,8 @@
 {
     public interface IProcessManagementService
     {
-        ExecutionInfo Start(string tool, string args, int? waitTime = null);
+        //TODO: get from config.json. Use same source across all usages
+        ExecutionInfo Start(string tool, string args, int? pause = 2000);
         void Stop(int processId);
     }
 

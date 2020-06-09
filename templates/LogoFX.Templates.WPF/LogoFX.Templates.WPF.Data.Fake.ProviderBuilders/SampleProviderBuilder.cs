@@ -9,7 +9,7 @@ using LogoFX.Templates.WPF.Data.Contracts.Providers;
 
 namespace LogoFX.Templates.WPF.Data.Fake.ProviderBuilders
 {
-    public sealed class SampleProviderBuilder : FakeBuilderBase<ISampleProvider>.WithInitialSetup
+    public sealed class SampleProviderBuilder : FakeBuilderBase<ISampleDataProvider>.WithInitialSetup
     {
         private readonly List<SampleItemDto> _itemsStorage = new List<SampleItemDto>();
 
@@ -26,8 +26,8 @@ namespace LogoFX.Templates.WPF.Data.Fake.ProviderBuilders
             _itemsStorage.AddRange(items);
         }
 
-        protected override IServiceCall<ISampleProvider> CreateServiceCall(
-            IHaveNoMethods<ISampleProvider> serviceCallTemplate) => serviceCallTemplate
+        protected override IServiceCall<ISampleDataProvider> CreateServiceCall(
+            IHaveNoMethods<ISampleDataProvider> serviceCallTemplate) => serviceCallTemplate
             .AddMethodCallWithResult(t => t.GetItems(),
                 r => r.Complete(GetItems))
             .AddMethodCallWithResult<Guid, bool>(t => t.DeleteItem(It.IsAny<Guid>()),

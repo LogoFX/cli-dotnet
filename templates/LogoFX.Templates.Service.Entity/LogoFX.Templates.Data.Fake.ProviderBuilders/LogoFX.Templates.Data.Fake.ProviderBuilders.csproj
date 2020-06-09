@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Configurations>DebugWithFake;Release;DebugWithReal</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Attest.Fake.Builders" Version="2.1.0-rc1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LogoFX.Templates.Data.Contracts.Providers\LogoFX.Templates.Data.Contracts.Providers.csproj" />
+  </ItemGroup>
+
+</Project>

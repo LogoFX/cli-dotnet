@@ -1,3 +1,2 @@
-\Mappers\
 .sln
 .csproj
