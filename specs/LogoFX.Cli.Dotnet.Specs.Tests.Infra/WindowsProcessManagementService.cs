@@ -10,6 +10,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
     [UsedImplicitly]
     internal sealed class WindowsProcessManagementService : IProcessManagementService
     {
+        //TODO: get from config.json. Use same source across all usages
         public ExecutionInfo Start(string tool, string args, int? pause = 2000)
         {
             var currentDir = Directory.GetCurrentDirectory();

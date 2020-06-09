@@ -1,5 +1,7 @@
 ﻿namespace LogoFX.Cli.Dotnet.Specs.Steps
 {
+    //TODO: Change …DataProvider by …Provider, …DataContainer by Container
+
     static class GenerationFolderExtensions
     {
         internal static GeneratedFolder WithBootstrapping(this GeneratedFolder folder)
