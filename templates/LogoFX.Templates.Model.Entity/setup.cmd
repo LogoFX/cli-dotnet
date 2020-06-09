@@ -1,6 +1,6 @@
 REM Modify the code
 
-dotnet .\model-utils\ModifyTool.dll .\LogoFX.Templates --model SampleModel
+dotnet .\entity-utils\ModifyTool.dll .\LogoFX.Templates --model SampleModel
 
 if %ERRORLEVEL% NEQ 0 ( 
 	exit /b %ERRORLEVEL%
