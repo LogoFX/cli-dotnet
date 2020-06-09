@@ -14,7 +14,6 @@ namespace LogoFX.Templates.WPF.Data.Fake.Providers
     {
         public void RegisterModule(IDependencyRegistrator dependencyRegistrator)
         {
-
         }
     }
 }

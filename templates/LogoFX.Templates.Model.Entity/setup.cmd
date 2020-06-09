@@ -1,6 +1,6 @@
 REM Modify the code
 
-dotnet .\entity-utils\ModifyTool.dll .\LogoFX.Templates --model SampleModel
+dotnet .\entity-utils\ModifyTool.dll .\LogoFX.Templates --entity SampleModel
 
 if %ERRORLEVEL% NEQ 0 ( 
 	exit /b %ERRORLEVEL%
@@ -8,7 +8,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 REM Delete utils
 
-rmdir model-utils /s /q
+rmdir entity-utils /s /q
 
 if %ERRORLEVEL% NEQ 0 ( 
 	exit /b %ERRORLEVEL%

@@ -22,7 +22,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
                 Thread.Sleep(2000);
             }
 
-            Directory.Exists(path).Should().BeTrue();
+            Directory.Exists(path).Should().BeTrue($"Folder doesn't exist: '{path}'");
             foreach (var folder in structure.Folders)
             {
                 AssertGeneratedCode(folder);

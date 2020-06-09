@@ -5,6 +5,7 @@ using LogoFX.Templates.Data.Contracts.Providers;
 
 namespace LogoFX.Templates.Data.Real.Providers
 {
+    //TODO: Use explicit implementation
     internal sealed class SampleModelDataProvider : ISampleModelDataProvider
     {
         public IEnumerable<SampleModelDto> GetItems()

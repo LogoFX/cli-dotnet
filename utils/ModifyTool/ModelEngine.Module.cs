@@ -27,6 +27,7 @@ namespace ModifyTool
 
             if (!File.Exists(moduleFilePath))
             {
+                //TODO: Refactor helper creation
                 var helper = new ResourceHelper("Model", ModuleFileName);
 
                 using var stream = helper.GetResourceStream();

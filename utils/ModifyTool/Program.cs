@@ -6,7 +6,7 @@ namespace ModifyTool
 {
     internal static class Program
     {
-        private const string ModelKey = "model";
+        private const string EntityKey = "entity";
         private const string ServiceKey = "service";
 
         private static readonly Dictionary<string, Action<string, string>> _engineActions =
@@ -14,7 +14,7 @@ namespace ModifyTool
 
         static Program()
         {
-            _engineActions.Add(ModelKey, ModelAction);
+            _engineActions.Add(EntityKey, ModelAction);
             _engineActions.Add(ServiceKey, ServiceAction);
         }
 
@@ -106,7 +106,7 @@ namespace ModifyTool
         private static void ShowUsage()
         {
             Console.WriteLine("Usage:");
-            Console.WriteLine("    ModifyTool <solution folder> --model <entity name>");
+            Console.WriteLine("    ModifyTool <solution folder> --entity <entity name>");
             Console.WriteLine("or");
             Console.WriteLine("    ModifyTool <solution folder> --service <entity name>");
         }

@@ -209,6 +209,7 @@ namespace UninstallTemplate
             return null;
         }
 
+        //TODO: TODO: Make this code clearer
         private static IProcessExitInfo LaunchApp(string launchString)
         {
             var strings = launchString.Split(' ');

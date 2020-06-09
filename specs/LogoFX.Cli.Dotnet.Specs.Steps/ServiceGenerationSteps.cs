@@ -6,8 +6,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
     [Binding]
     internal sealed class ServiceGenerationSteps
     {
-        [Then(@"The folder '(.*)' contains generated entity objects for name '(.*)' for solution name '(.*)'")]
-        public void ThenTheFolderContainsGeneratedEntityObjectsForNameForSolutionName(string folderName,
+        [Then(@"The folder '(.*)' contains generated entity service objects for name '(.*)' for solution name '(.*)'")]
+        public void ThenTheFolderContainsGeneratedEntityServiceObjectsForNameForSolutionName(string folderName,
             string entityName,
             string solutionName)
         {
@@ -94,7 +94,6 @@ namespace {solutionName}.Data.Fake.ProviderBuilders
 
         private {entityName}ProviderBuilder()
         {{
-
         }}
 
         public static {entityName}ProviderBuilder CreateBuilder() => new {entityName}ProviderBuilder();
@@ -264,6 +263,7 @@ using {solutionName}.Data.Contracts.Providers;
 
 namespace {solutionName}.Data.Real.Providers
 {{
+    //TODO: Use explicit implementation
     internal sealed class {entityName}DataProvider : I{entityName}DataProvider
     {{
         public IEnumerable<{entityName}Dto> GetItems()

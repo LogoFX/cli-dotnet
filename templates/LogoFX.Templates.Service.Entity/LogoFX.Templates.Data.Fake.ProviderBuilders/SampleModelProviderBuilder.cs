@@ -15,7 +15,6 @@ namespace LogoFX.Templates.Data.Fake.ProviderBuilders
 
         private SampleModelProviderBuilder()
         {
-
         }
 
         public static SampleModelProviderBuilder CreateBuilder() => new SampleModelProviderBuilder();

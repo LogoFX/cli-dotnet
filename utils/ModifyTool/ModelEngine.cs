@@ -5,7 +5,6 @@
         public ModelEngine(string solutionFolder)
             : base(solutionFolder)
         {
-
         }
 
         protected override string GetProjectSuffix() => "Model";
