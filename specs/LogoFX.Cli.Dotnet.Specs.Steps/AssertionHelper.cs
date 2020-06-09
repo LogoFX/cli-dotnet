@@ -12,11 +12,13 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
         internal static void AssertGeneratedCode(this GeneratedFolder structure)
         {
             var path = Path.Combine(structure.RootPath, structure.Name);
+            //TODO: Get from config.json
             var count = 10;
             while (!Directory.Exists(path) && count > 0)
             {
                 Debug.WriteLine($"Checking '{path}, attempts: {count}'");
                 count -= 1;
+                //TODO: Get from config.json
                 Thread.Sleep(2000);
             }
 
