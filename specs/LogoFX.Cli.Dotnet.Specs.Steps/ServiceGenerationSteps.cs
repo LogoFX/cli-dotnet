@@ -6,8 +6,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
     [Binding]
     internal sealed class ServiceGenerationSteps
     {
-        [Then(@"The folder '(.*)' contains generated service entity objects for name '(.*)' for solution name '(.*)'")]
-        public void ThenTheFolderContainsGeneratedServiceEntityObjectsForNameForSolutionName(string folderName,
+        [Then(@"The folder '(.*)' contains generated entity objects for name '(.*)' for solution name '(.*)'")]
+        public void ThenTheFolderContainsGeneratedEntityObjectsForNameForSolutionName(string folderName,
             string entityName,
             string solutionName)
         {

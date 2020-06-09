@@ -82,15 +82,15 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableTheoryAttribute(DisplayName="Generate model entity in an empty folder")]
+        [Xunit.SkippableTheoryAttribute(DisplayName="Generate entity in an empty folder")]
         [Xunit.TraitAttribute("FeatureTitle", "Model Generation")]
-        [Xunit.TraitAttribute("Description", "Generate model entity in an empty folder")]
+        [Xunit.TraitAttribute("Description", "Generate entity in an empty folder")]
         [Xunit.InlineDataAttribute("Sample", "-sn", new string[0])]
         [Xunit.InlineDataAttribute("Another", "--solution-name", new string[0])]
-        public virtual void GenerateModelEntityInAnEmptyFolder(string entityNameValue, string solutionNameOption, string[] exampleTags)
+        public virtual void GenerateEntityInAnEmptyFolder(string entityNameValue, string solutionNameOption, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate model entity in an empty folder", null, exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate entity in an empty folder", null, exampleTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -134,22 +134,22 @@ this.ScenarioInitialize(scenarioInfo);
                         "ith the following options", ((string)(null)), table1, "And ");
 #line hidden
 #line 14
- testRunner.Then(string.Format("The folder \'Generation\' contains generated model entity objects for name \'{0}\' fo" +
-                            "r solution name \'Test\'", entityNameValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("The folder \'Generation\' contains generated entity objects for name \'{0}\' for solu" +
+                            "tion name \'Test\'", entityNameValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableTheoryAttribute(DisplayName="Generate model entity in existing solution")]
+        [Xunit.SkippableTheoryAttribute(DisplayName="Generate entity in existing solution")]
         [Xunit.TraitAttribute("FeatureTitle", "Model Generation")]
-        [Xunit.TraitAttribute("Description", "Generate model entity in existing solution")]
+        [Xunit.TraitAttribute("Description", "Generate entity in existing solution")]
         [Xunit.InlineDataAttribute("-sn", new string[0])]
         [Xunit.InlineDataAttribute("--solution-name", new string[0])]
-        public virtual void GenerateModelEntityInExistingSolution(string solutionNameOption, string[] exampleTags)
+        public virtual void GenerateEntityInExistingSolution(string solutionNameOption, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate model entity in existing solution", null, exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate entity in existing solution", null, exampleTags);
 #line 21
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -200,8 +200,8 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("The folder \'Generation\' contains working LogoFX template-based solution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 31
- testRunner.And("The folder \'Generation\' contains generated model entity objects for name \'Sample\'" +
-                        " for solution name \'Test\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("The folder \'Generation\' contains generated entity objects for name \'Sample\' for s" +
+                        "olution name \'Test\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
