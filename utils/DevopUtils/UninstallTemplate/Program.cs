@@ -157,10 +157,8 @@ namespace UninstallTemplate
             {
                 var sourceName = GetNextSource(lines, ref index);
                 if (string.IsNullOrEmpty(sourceName))
-                {
                     break;
-                }
-
+                
                 if (kind == TemplateNameKind.Directory)
                 {
                     var dirName = Path.GetFileName(sourceName);
@@ -172,44 +170,53 @@ namespace UninstallTemplate
                 else
                 {
                     var templates = GetTemplates(lines, ref index);
-                    bool found = false;
-                    foreach (var template in templates)
-                    {
-                        ExtractName(template, out var name1, out var shortName, out _);
-                        string cmpName;
-                        switch (kind)
-                        {
-                            case TemplateNameKind.Name:
-                                cmpName = name1;
-                                break;
-                            case TemplateNameKind.ShortName:
-                                cmpName = shortName;
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException(nameof(kind), kind, null);
-                        }
-
-                        if (string.Compare(cmpName, name, StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            found = true;
-                            break;
-                        }
-                    }
-
+                    var found = FindMatchingTemplate(name, kind, templates);
                     if (!found)
                     {
                         continue;
                     }
                 }
-
                 var uninstallCommand = GetUninstallCommand(lines, ref index);
                 return uninstallCommand;
             }
-
             return null;
         }
 
-        //TODO: TODO: Make this code clearer
+        private static bool FindMatchingTemplate(string name, TemplateNameKind kind, string[] templates)
+        {
+            var found = false;
+            foreach (var template in templates)
+            {
+                ExtractName(template, out var name1, out var shortName, out _);
+                var nameToCompare = GetNameToCompare(kind, name1, shortName);
+                if (string.Compare(nameToCompare, name, StringComparison.OrdinalIgnoreCase) == 0)
+                {
+                    found = true;
+                    break;
+                }
+            }
+            return found;
+        }
+
+        private static string GetNameToCompare(TemplateNameKind kind, string name1, string shortName)
+        {
+            string nameToCompare;
+            switch (kind)
+            {
+                case TemplateNameKind.Name:
+                    nameToCompare = name1;
+                    break;
+                case TemplateNameKind.ShortName:
+                    nameToCompare = shortName;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(kind), kind, null);
+            }
+
+            return nameToCompare;
+        }
+
+        //TODO:Make this code clearer
         private static IProcessExitInfo LaunchApp(string launchString)
         {
             var strings = launchString.Split(' ');
