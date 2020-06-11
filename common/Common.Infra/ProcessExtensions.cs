@@ -70,45 +70,14 @@ namespace Common.Infra
 
         public static IProcessExitInfo LaunchApp(string appName, params string[] args)
         {
-            var result = new ProcessExitInfo();
-
             var outputFileName = Path.GetTempFileName();
+            var result = RunProcess(appName, args, outputFileName);
+            ReadOutput(outputFileName, result);
+            return result;
+        }
 
-            var arguments = $"/c {appName} {string.Join(" ", args)} > {outputFileName}";
-            var process = new Process
-            {
-                StartInfo =
-                {
-                    FileName = "cmd",
-                    Arguments = arguments,
-                    CreateNoWindow = false,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = false,
-                    RedirectStandardError = true
-                }
-            };
-
-            process.Start();
-
-            result.ProcessId = process.Id;
-
-            var exited = process.WaitForExit(Consts.ProcessExecutionTimeout);
-
-            if (exited)
-            {
-                result.ExitCode = process.ExitCode;
-                result.IsError = result.ExitCode != ReturnCode.Successful;
-            }
-            else
-            {
-                result.IsError = true;
-                process.KillProcessAndChildren();
-            }
-
-            result.Errors = process.StandardError.ReadToEnd();
-
-            process.Close();
-
+        private static void ReadOutput(string outputFileName, ProcessExitInfo result)
+        {
             if (File.Exists(outputFileName))
             {
                 var count = 5;
@@ -129,7 +98,48 @@ namespace Common.Infra
             }
 
             File.Delete(outputFileName);
+        }
+
+        private static ProcessExitInfo RunProcess(string appName, string[] args, string outputFileName)
+        {
+            var result = new ProcessExitInfo();
+            var arguments = $"/c {appName} {string.Join(" ", args)} > {outputFileName}";
+            var process = new Process
+            {
+                StartInfo =
+                {
+                    FileName = "cmd",
+                    Arguments = arguments,
+                    CreateNoWindow = false,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = false,
+                    RedirectStandardError = true
+                }
+            };
+
+            process.Start();
+            result.ProcessId = process.Id;
+            HandleProcessExit(process, result);
+            result.Errors = process.StandardError.ReadToEnd();
+            process.Close();
             return result;
+        }
+
+        private static void HandleProcessExit(
+            Process process, 
+            ProcessExitInfo result)
+        {
+            var exited = process.WaitForExit(Consts.ProcessExecutionTimeout);
+            if (exited)
+            {
+                result.ExitCode = process.ExitCode;
+                result.IsError = result.ExitCode != ReturnCode.Successful;
+            }
+            else
+            {
+                result.IsError = true;
+                process.KillProcessAndChildren();
+            }
         }
     }
 }
