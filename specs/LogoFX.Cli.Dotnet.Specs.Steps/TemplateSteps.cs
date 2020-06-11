@@ -33,6 +33,20 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             var expectedResult = table.CreateSet<TemplateAssertionData>().Single();
             var execInfo = _processManagementService.Start("dotnet", $"new {shortName} -l");
             execInfo.ShouldBeSuccessful();
+            
+            var words = GetWords(execInfo);
+            var actualDescription = words[0];
+            var actualShortName = words[1];
+            var actualLanguages = words[2];
+            var actualTags = words[3];
+            actualDescription.Should().Be(expectedResult.Description);
+            actualShortName.Should().Be(expectedResult.ShortName);
+            actualLanguages.Should().Be(expectedResult.Languages);
+            actualTags.Should().Be(expectedResult.Tags);
+        }
+
+        private static List<string> GetWords(ExecutionInfo execInfo)
+        {
             var lines = execInfo.OutputStrings;
             var dashLine = lines[1];
             var infoLine = lines[2];
@@ -50,29 +64,25 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
                         continue;
                     }
                 }
+
                 if (dashLine[i] == '-')
                 {
                     if (start == initStart)
                     {
                         start = i;
                     }
+
                     length++;
                     if (i != dashLine.Length - 1)
                         continue;
                 }
+
                 words.Add(infoLine[new Range(new Index(start), new Index(start + length))].Trim());
                 start = initStart;
                 length = initLength;
             }
 
-            var actualDescription = words[0];
-            var actualShortName = words[1];
-            var actualLanguages = words[2];
-            var actualTags = words[3];
-            actualDescription.Should().Be(expectedResult.Description);
-            actualShortName.Should().Be(expectedResult.ShortName);
-            actualLanguages.Should().Be(expectedResult.Languages);
-            actualTags.Should().Be(expectedResult.Tags);
+            return words;
         }
     }
 }
