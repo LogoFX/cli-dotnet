@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
+    <PackageReference Include="Solid.Patterns.ChainOfResponsibility" Version="2.2.0" />
     <PackageReference Include="System.Management" Version="4.7.0" />
   </ItemGroup>
 
