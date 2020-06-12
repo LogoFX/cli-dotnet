@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LogoFX.Templates.Model.Entity\LogoFX.Templates.Data.Contracts.Dto\LogoFX.Templates.Data.Contracts.Dto.csproj" />
+    <ProjectReference Include="..\..\LogoFX.Templates.Entity\LogoFX.Templates.Data.Contracts.Dto\LogoFX.Templates.Data.Contracts.Dto.csproj" />
     <ProjectReference Include="..\..\LogoFX.Templates.WPF\LogoFX.Templates.WPF.Data.Fake.Containers.Contracts\LogoFX.Templates.WPF.Data.Fake.Containers.Contracts.csproj" />
   </ItemGroup>
 

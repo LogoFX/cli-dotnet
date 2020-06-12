@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Model.Cont
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Data.Contracts.Providers", "LogoFX.Templates.Data.Contracts.Providers\LogoFX.Templates.Data.Contracts.Providers.csproj", "{FD452F9C-58E9-406A-9711-B0E3E01C35A1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Data.Contracts.Dto", "..\LogoFX.Templates.Model.Entity\LogoFX.Templates.Data.Contracts.Dto\LogoFX.Templates.Data.Contracts.Dto.csproj", "{FF993CDB-6DFF-4F8A-8C47-7111C491D543}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Data.Contracts.Dto", "..\LogoFX.Templates.Entity\LogoFX.Templates.Data.Contracts.Dto\LogoFX.Templates.Data.Contracts.Dto.csproj", "{FF993CDB-6DFF-4F8A-8C47-7111C491D543}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Templates.Data.Fake.Containers", "LogoFX.Templates.Data.Fake.Containers\LogoFX.Templates.Data.Fake.Containers.csproj", "{2DD13D28-A537-4AAF-89D4-61E1D0404950}"
 EndProject
