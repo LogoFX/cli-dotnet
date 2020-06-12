@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using FluentAssertions;
 using LogoFX.Cli.Dotnet.Specs.Tests.Contracts;
 using LogoFX.Cli.Dotnet.Specs.Tests.Infra;
@@ -69,20 +70,17 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
 
         private static WordInfo GetWordInfo(in int currentIndex, string dashLine)
         {
-            const int initStart = -1; const int initLength = 0;
-            var start = initStart; var length = initLength;
+            var (start, length) = InitHelper.InitRange();
 
             for (var i = currentIndex; i < dashLine.Length; i++)
             {
-                if (dashLine[i] == ' ' && length == initLength)
+                if (dashLine[i] == ' ' && !InitHelper.HasStartedBuilding(length))
                     continue;
 
                 if (dashLine[i] == '-')
                 {
-                    if (start == initStart)
-                    {
+                    if (InitHelper.ShouldInitStart(start))
                         start = i;
-                    }
 
                     length++;
                     if (i != dashLine.Length - 1)
@@ -97,6 +95,27 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
                 };
             }
             return new WordInfo();
+        }
+
+        private static class InitHelper
+        {
+            private const int InitStart = -1;
+            private const int InitLength = 0;
+
+            internal static bool ShouldInitStart(int start)
+            {
+                return start == InitStart;
+            }
+
+            internal static bool HasStartedBuilding(int length)
+            {
+                return length > InitLength;
+            }
+
+            internal static Tuple<int, int> InitRange()
+            {
+                return new Tuple<int, int>(InitStart, InitLength);
+            }
         }
 
         private class WordInfo
