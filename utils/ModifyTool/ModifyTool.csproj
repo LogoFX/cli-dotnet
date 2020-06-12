@@ -51,6 +51,9 @@
     <Compile Update="FakeProviderEngine.Module.cs">
       <DependentUpon>FakeProviderEngine.cs</DependentUpon>
     </Compile>
+    <Compile Update="FakeProviderSyntaxRewriter.Container.cs">
+      <DependentUpon>FakeProviderSyntaxRewriter.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>
