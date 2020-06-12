@@ -63,28 +63,26 @@ namespace ModifyTool
             _checkingMethod = node.Identifier.Text;
             if (_checkingMethod == RegisterModuleMethodName)
             {
-                if (NormalizeWhitespaceOnly)
-                {
-                    var body = node.Body;
-                    var statements = new SyntaxList<StatementSyntax>();
-                    // ReSharper disable once PossibleNullReferenceException
-                    foreach (var newEss in body.Statements
-                        .OfType<ExpressionStatementSyntax>()
-                        .Select(AlignExpression))
-                    {
-                       statements = statements.Add(newEss);
-                    }
-                    body = body.WithStatements(statements);
-                    node = node.WithBody(body);
-                }
-                else
-                {
-                    node = RewriteRegisterModuleMethod(node);
-                }
+                node = NormalizeWhitespaceOnly ? 
+                    NormalizeWhitespace(node) :
+                    RewriteRegisterModuleMethod(node);
             }
             var result = base.VisitMethodDeclaration(node);
             _checkingMethod = null;
             return result;
+        }
+
+        private MethodDeclarationSyntax NormalizeWhitespace(MethodDeclarationSyntax node)
+        {
+            var body = node.Body;
+            var statements = new SyntaxList<StatementSyntax>();
+            // ReSharper disable once PossibleNullReferenceException
+            statements = body.Statements.OfType<ExpressionStatementSyntax>()
+                .Select(AlignExpression)
+                .Aggregate(statements, (current, newEss) => current.Add(newEss));
+            body = body.WithStatements(statements);
+            node = node.WithBody(body);
+            return node;
         }
 
         private ExpressionStatementSyntax AlignExpression(ExpressionStatementSyntax ess)
