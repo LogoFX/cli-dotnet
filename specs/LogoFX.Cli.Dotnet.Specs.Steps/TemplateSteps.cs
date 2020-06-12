@@ -50,12 +50,30 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             var lines = execInfo.OutputStrings;
             var dashLine = lines[1];
             var infoLine = lines[2];
+            var words = new List<string>();
+            var currentIndex = 0;
+            while (currentIndex < dashLine.Length)
+            {
+                var wordInfo = GetWordInfo(currentIndex, dashLine);
+                if (wordInfo.Length > 0)
+                {
+                    words.Add(infoLine[new Range(new Index(wordInfo.Start), 
+                        new Index(wordInfo.Start + wordInfo.Length))].Trim());
+                }
+
+                currentIndex = wordInfo.Index + 1;
+            }
+
+            return words;
+        }
+
+        private static WordInfo GetWordInfo(in int currentIndex, string dashLine)
+        {
             const int initStart = -1;
             const int initLength = 0;
             int start = initStart;
             int length = initLength;
-            var words = new List<string>();
-            for (int i = 0; i < dashLine.Length; i++)
+            for (int i = currentIndex; i < dashLine.Length; i++)
             {
                 if (dashLine[i] == ' ')
                 {
@@ -77,12 +95,21 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
                         continue;
                 }
 
-                words.Add(infoLine[new Range(new Index(start), new Index(start + length))].Trim());
-                start = initStart;
-                length = initLength;
+                return new WordInfo
+                {
+                    Start = start,
+                    Length = length,
+                    Index = i
+                };
             }
+            return new WordInfo();
+        }
 
-            return words;
+        private class WordInfo
+        {
+            public int Start { get; set; }
+            public int Length { get; set; }
+            public int Index { get; set; }
         }
     }
 }
