@@ -4,7 +4,7 @@
   "classifications": [ "LogoFX", "Entity" ], 
   "name": "LogoFX Model Entity",
   "identity": "LogoFX.Model.Entity",         
-  "groupIdentity":"LogoFX.Entity",
+  "groupIdentity":"LogoFX.Model.Entity",
   "shortName": "logofx-entity",
   "sourceName": "SampleModel",
   "sources": [

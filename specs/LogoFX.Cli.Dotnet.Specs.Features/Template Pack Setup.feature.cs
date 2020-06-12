@@ -19,7 +19,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.3.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class SolutionGenerationFeature : object, Xunit.IClassFixture<SolutionGenerationFeature.FixtureData>, System.IDisposable
+    public partial class TemplatePackSetupFeature : object, Xunit.IClassFixture<TemplatePackSetupFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "Solution Generation.feature"
+#line 1 "Template Pack Setup.feature"
 #line hidden
         
-        public SolutionGenerationFeature(SolutionGenerationFeature.FixtureData fixtureData, LogoFX_Cli_Dotnet_Specs_Features_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public TemplatePackSetupFeature(TemplatePackSetupFeature.FixtureData fixtureData, LogoFX_Cli_Dotnet_Specs_Features_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,9 +40,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Solution Generation", "\tIn order to provide tools to developers who want to scaffold LogoFX-based soluti" +
-                    "ons\r\n\tAs a framework developer\r\n\tI want to be able to install and use the corres" +
-                    "pondent template via existing dotnet means", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Template Pack Setup", "\tIn order to write LogoFX-based code in a fast and efficient way\r\n\tAs an app deve" +
+                    "loper\r\n\tI want to be able to add new LogoFX-based elements via cli", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -82,13 +81,13 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Generate solution skeleton")]
-        [Xunit.TraitAttribute("FeatureTitle", "Solution Generation")]
-        [Xunit.TraitAttribute("Description", "Generate solution skeleton")]
-        public virtual void GenerateSolutionSkeleton()
+        [Xunit.SkippableFactAttribute(DisplayName="Install template pack")]
+        [Xunit.TraitAttribute("FeatureTitle", "Template Pack Setup")]
+        [Xunit.TraitAttribute("Description", "Install template pack")]
+        public virtual void InstallTemplatePack()
         {
             string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate solution skeleton", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Install template pack", null, ((string[])(null)));
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -112,15 +111,44 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
  testRunner.When("I install the template pack \'LogoFX.Templates\' from local package", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Description",
+                            "Short Name",
+                            "Languages",
+                            "Tags"});
+                table5.AddRow(new string[] {
+                            "LogoFX WPF Application",
+                            "logofx-wpf",
+                            "[C#]",
+                            "LogoFX/WPF"});
 #line 8
- testRunner.And("I create a folder named \'Generation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("The template for \'logofx-wpf\' is installed with the following parameters", ((string)(null)), table5, "Then ");
 #line hidden
-#line 9
- testRunner.And("I generate the code in folder named \'Generation\' using \'logofx-wpf\' template with" +
-                        " the default options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Description",
+                            "Short Name",
+                            "Languages",
+                            "Tags"});
+                table6.AddRow(new string[] {
+                            "LogoFX Model Entity",
+                            "logofx-entity",
+                            "[C#]",
+                            "LogoFX/Entity"});
+#line 11
+ testRunner.And("The template for \'logofx-entity\' is installed with the following parameters", ((string)(null)), table6, "And ");
 #line hidden
-#line 10
- testRunner.Then("The folder \'Generation\' contains working LogoFX template-based solution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Description",
+                            "Short Name",
+                            "Languages",
+                            "Tags"});
+                table7.AddRow(new string[] {
+                            "LogoFX Model Service",
+                            "logofx-service",
+                            "[C#]",
+                            "LogoFX/Service"});
+#line 14
+ testRunner.And("The template for \'logofx-service\' is installed with the following parameters", ((string)(null)), table7, "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -133,12 +161,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                SolutionGenerationFeature.FeatureSetup();
+                TemplatePackSetupFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                SolutionGenerationFeature.FeatureTearDown();
+                TemplatePackSetupFeature.FeatureTearDown();
             }
         }
     }

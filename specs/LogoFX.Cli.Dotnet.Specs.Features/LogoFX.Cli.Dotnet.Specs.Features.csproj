@@ -38,6 +38,9 @@
     <Compile Update="Model Generation.feature.cs">
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Update="Template Pack Setup.feature.cs">
+      <DesignTime>True</DesignTime>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +56,10 @@
     <SpecFlowFeatureFiles Update="Model Generation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Model Generation.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Template Pack Setup.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Template Pack Setup.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
   </ItemGroup>
 

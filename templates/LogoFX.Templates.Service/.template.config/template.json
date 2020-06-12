@@ -2,10 +2,10 @@
   "$schema": "http://json.schemastore.org/template",
   "author": "LogoUI",
   "classifications": [ "LogoFX", "Service" ], 
-  "name": "LogoFX Service Entity",
-  "identity": "LogoFX.Service.Entity",         
-  "groupIdentity":"LogoFX.Service",
-  "shortName": "logofx-entity-service",
+  "name": "LogoFX Model Service",
+  "identity": "LogoFX.Model.Service",         
+  "groupIdentity":"LogoFX.Model.Service",
+  "shortName": "logofx-service",
   "sourceName": "SampleModel",
   "sources": [
     {

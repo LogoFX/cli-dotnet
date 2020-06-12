@@ -130,8 +130,8 @@ this.ScenarioInitialize(scenarioInfo);
                             "--allow-scripts",
                             "yes"});
 #line 10
- testRunner.And("I generate the code in folder named \'Generation\' using \'logofx-entity-service\' te" +
-                        "mplate with the following options", ((string)(null)), table3, "And ");
+ testRunner.And("I generate the code in folder named \'Generation\' using \'logofx-service\' template " +
+                        "with the following options", ((string)(null)), table3, "And ");
 #line hidden
 #line 15
  testRunner.Then(string.Format("The folder \'Generation\' contains generated entity objects for name \'{0}\' for solu" +
@@ -197,8 +197,8 @@ this.ScenarioInitialize(scenarioInfo);
                             "--allow-scripts",
                             "yes"});
 #line 27
- testRunner.And("I generate the code in folder named \'Generation\' using \'logofx-entity-service\' te" +
-                        "mplate with the following options", ((string)(null)), table4, "And ");
+ testRunner.And("I generate the code in folder named \'Generation\' using \'logofx-service\' template " +
+                        "with the following options", ((string)(null)), table4, "And ");
 #line hidden
 #line 32
  testRunner.Then("The folder \'Generation\' contains working LogoFX template-based solution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

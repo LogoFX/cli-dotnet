@@ -7,7 +7,7 @@
 Scenario Outline: Generate entity service in an empty folder
 	When I install the template pack 'LogoFX.Templates' from local package
 	And I create a folder named 'Generation'
-	And I generate the code in folder named 'Generation' using 'logofx-entity-service' template with the following options
+	And I generate the code in folder named 'Generation' using 'logofx-service' template with the following options
 	| Name                 | Value             |
 	| -n                   | <entityNameValue> |
 	| <solutionNameOption> | Test              |
@@ -24,7 +24,7 @@ Scenario Outline: Generate entity service in existing solution
 	When I install the template pack 'LogoFX.Templates' from local package
 	And I create a folder named 'Generation'
 	And I generate the code in folder named 'Generation' using 'logofx-wpf' template with the default options
-	And I generate the code in folder named 'Generation' using 'logofx-entity-service' template with the following options
+	And I generate the code in folder named 'Generation' using 'logofx-service' template with the following options
 	| Name                 | Value  |
 	| -n                   | Sample |
 	| <solutionNameOption> | Test   |
