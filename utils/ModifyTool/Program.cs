@@ -45,29 +45,33 @@ namespace ModifyTool
             var index = 1;
             while (index < args.Count)
             {
-                var key = args[index];
-                if (!key.StartsWith(Consts.KeyPrefix))
-                {
-                    parseErrorHandler.Handle(ArgumentParseErrorType.InvalidKey, key);
-                    throw new Exception();
-                }
-
-                var action = actionMatcher.Match(key);
-                if (action == null)
-                {
-                    parseErrorHandler.Handle(ArgumentParseErrorType.UnknownKey, key);
-                    throw new Exception();
-                }
-
-                ++index;
-                var entityName = args[index];
-
+                var action = FindAction(args, parseErrorHandler, index, actionMatcher);
+                var entityName = args[++index];
                 actionList.Add(new Tuple<Action<string, string>, string, string>(action, solutionName, entityName));
-
                 ++index;
             }
 
             return actionList;
+        }
+
+        private static Action<string, string> FindAction(IReadOnlyList<string> args, IArgumentParseErrorHandler parseErrorHandler, int index,
+            ActionMatcher actionMatcher)
+        {
+            var key = args[index];
+            if (!key.StartsWith(Consts.KeyPrefix))
+            {
+                parseErrorHandler.Handle(ArgumentParseErrorType.InvalidKey, key);
+                throw new Exception();
+            }
+
+            var action = actionMatcher.Match(key);
+            if (action == null)
+            {
+                parseErrorHandler.Handle(ArgumentParseErrorType.UnknownKey, key);
+                throw new Exception();
+            }
+
+            return action;
         }
 
         //TODO: Impure function
