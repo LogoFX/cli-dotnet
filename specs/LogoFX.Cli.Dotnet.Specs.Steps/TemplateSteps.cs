@@ -69,19 +69,13 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
 
         private static WordInfo GetWordInfo(in int currentIndex, string dashLine)
         {
-            const int initStart = -1;
-            const int initLength = 0;
-            int start = initStart;
-            int length = initLength;
-            for (int i = currentIndex; i < dashLine.Length; i++)
+            const int initStart = -1; const int initLength = 0;
+            var start = initStart; var length = initLength;
+
+            for (var i = currentIndex; i < dashLine.Length; i++)
             {
-                if (dashLine[i] == ' ')
-                {
-                    if (length == initLength)
-                    {
-                        continue;
-                    }
-                }
+                if (dashLine[i] == ' ' && length == initLength)
+                    continue;
 
                 if (dashLine[i] == '-')
                 {
