@@ -20,33 +20,16 @@ namespace ModifyTool
         {
             var filePath = Path.Combine(Path.Combine(GetProjectFolder(), MappersFolderName), MappingProfileFileName);
 
-            if (!File.Exists(filePath))
-            {
-                var helper = new ResourceHelper("Model", MappingProfileFileName);
-
-                using var stream = helper.GetResourceStream();
-                using (var fileStream = File.Create(filePath))
-                {
-                    stream.CopyTo(fileStream);
-                }
-
-                ReplaceSolutionName(filePath);
-            }
-
-            var text = File.ReadAllText(filePath);
-            var tree = CSharpSyntaxTree.ParseText(text);
-            var node = tree.GetRoot();
+            FileHelper.CreateFile("Model", filePath, MappingProfileFileName, ReplaceSolutionName);
+            var node = GetRoot(filePath);
             var @class = node.DescendantNodes()
                 .OfType<ClassDeclarationSyntax>()
                 .Single(x => x.Identifier.Text == MappingProfileClassName);
 
             var methodName = $"Create{entityName}Maps";
+            var matchingMethod = FindMethod(@class, methodName);
 
-            var foundMember = @class.Members
-                .OfType<MethodDeclarationSyntax>()
-                .Any(x => x.Identifier.Text == methodName);
-
-            if (foundMember)
+            if (matchingMethod)
             {
                 return;
             }
@@ -75,10 +58,23 @@ namespace ModifyTool
             members = members.RemoveAt(ctorIndex);
             members = members.Insert(ctorIndex, ctorDecl);
             var newClass = @class.WithMembers(members);
-
             node = node.ReplaceNode(@class, newClass);
             File.WriteAllText(filePath, node.NormalizeWhitespace().ToFullString());
         }
 
+        private static bool FindMethod(ClassDeclarationSyntax @class, string methodName)
+        {
+            return @class.Members
+                .OfType<MethodDeclarationSyntax>()
+                .Any(x => x.Identifier.Text == methodName);
+        }
+
+        private static SyntaxNode GetRoot(string filePath)
+        {
+            var text = File.ReadAllText(filePath);
+            var tree = CSharpSyntaxTree.ParseText(text);
+            var node = tree.GetRoot();
+            return node;
+        }
     }
 }

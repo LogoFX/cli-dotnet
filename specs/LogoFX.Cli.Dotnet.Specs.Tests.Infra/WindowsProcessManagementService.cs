@@ -18,13 +18,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
             try
             {
                 var fileName = Path.GetFileName(tool);
-                if (string.Compare(fileName, tool, StringComparison.OrdinalIgnoreCase) != 0)
-                {
-                    var path = Path.GetDirectoryName(tool);
-                    // ReSharper disable once AssignNullToNotNullAttribute
-                    path = Path.GetFullPath(path);
-                    Directory.SetCurrentDirectory(path);
-                }
+                EnsureCurrentDirectory(tool, fileName);
 
                 var exitInfo = ProcessExtensions.LaunchApp(fileName, args);
 
@@ -46,6 +40,17 @@ namespace LogoFX.Cli.Dotnet.Specs.Tests.Infra
             finally
             {
                 Directory.SetCurrentDirectory(currentDir);
+            }
+        }
+
+        private static void EnsureCurrentDirectory(string tool, string fileName)
+        {
+            if (string.Compare(fileName, tool, StringComparison.OrdinalIgnoreCase) != 0)
+            {
+                var path = Path.GetDirectoryName(tool);
+                // ReSharper disable once AssignNullToNotNullAttribute
+                path = Path.GetFullPath(path);
+                Directory.SetCurrentDirectory(path);
             }
         }
 

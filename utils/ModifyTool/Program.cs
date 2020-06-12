@@ -6,87 +6,78 @@ namespace ModifyTool
 {
     internal static class Program
     {
-        private const string EntityKey = "entity";
-        private const string ServiceKey = "service";
-
-        private static readonly Dictionary<string, Action<string, string>> _engineActions =
-            new Dictionary<string, Action<string, string>>();
-
-        static Program()
-        {
-            _engineActions.Add(EntityKey, ModelAction);
-            _engineActions.Add(ServiceKey, ServiceAction);
-        }
-
-        private static void ModelAction(string solutionFolder, string entityName)
-        {
-            var engine = new ModelEngine(solutionFolder);
-            engine.CreateMapping(entityName);
-            engine.RegisterMappers(entityName);
-        }
-
-        private static void ServiceAction(string solutionFolder, string entityName)
-        {
-            var engine = new FakeProviderEngine(solutionFolder);
-            engine.RegisterProvider(entityName);
-        }
-
         private static int Main(string[] args)
         {
+            //TODO: Introduce IoC
+            var parseErrorHandler = new ArgumentParseErrorHandler(
+                new ArgumentParseErrorMessageFactory(),
+                new ErrorMessageConsoleRenderer());
             if (args.Length < 3)
             {
-                ShowUsage();
-                return ReturnCode.IncorrectFunction;
+                parseErrorHandler.Handle(ArgumentParseErrorType.InvalidNumberOfArguments, default);
             }
 
-            var solutionName = args[0];
+            try
+            {
+                var actionList = MatchActions(args, parseErrorHandler);
+                if (actionList.Count == 0)
+                {
+                    parseErrorHandler.Handle(ArgumentParseErrorType.NoKeysFound, default);
+                    return ReturnCode.IncorrectFunction;
+                }
 
+                var result = ApplyActions(actionList);
+                return result ? ReturnCode.Successful : ReturnCode.Error;
+            }
+            catch
+            {
+                return ReturnCode.IncorrectFunction;
+            }
+        }
+
+        private static List<Tuple<Action<string, string>, string, string>> MatchActions(
+            IReadOnlyList<string> args,
+            IArgumentParseErrorHandler parseErrorHandler)
+        {
+            var actionMatcher = new ActionMatcher();
+            var solutionName = args[0];
             var actionList = new List<Tuple<Action<string, string>, string, string>>();
             var index = 1;
-            while (index < args.Length)
+            while (index < args.Count)
             {
-                var key = args[index];
-                if (!key.StartsWith("--"))
-                {
-                    Console.WriteLine($"{key} is not a key");
-                    ShowUsage();
-                    return ReturnCode.IncorrectFunction;
-                }
-
-                Action<string, string> action = null;
-                foreach (var pair in _engineActions)
-                {
-                    if (string.Compare(key, $"--{pair.Key}", StringComparison.OrdinalIgnoreCase) == 0)
-                    {
-                        action = pair.Value;
-                        break;
-                    }
-                }
-
-                if (action == null)
-                {
-                    Console.WriteLine($"Unknown key {key}");
-                    ShowUsage();
-                    return ReturnCode.IncorrectFunction;
-                }
-
-                ++index;
-                var entityName = args[index];
-
+                var action = FindAction(args, parseErrorHandler, index, actionMatcher);
+                var entityName = args[++index];
                 actionList.Add(new Tuple<Action<string, string>, string, string>(action, solutionName, entityName));
-                
                 ++index;
             }
 
+            return actionList;
+        }
 
-            if (actionList.Count == 0)
+        private static Action<string, string> FindAction(IReadOnlyList<string> args, IArgumentParseErrorHandler parseErrorHandler, int index,
+            ActionMatcher actionMatcher)
+        {
+            var key = args[index];
+            if (!key.StartsWith(Consts.KeyPrefix))
             {
-                Console.WriteLine($"No keys found");
-                ShowUsage();
-                return ReturnCode.IncorrectFunction;
+                parseErrorHandler.Handle(ArgumentParseErrorType.InvalidKey, key);
+                throw new Exception();
             }
 
-            foreach (var action in actionList)
+            var action = actionMatcher.Match(key);
+            if (action == null)
+            {
+                parseErrorHandler.Handle(ArgumentParseErrorType.UnknownKey, key);
+                throw new Exception();
+            }
+
+            return action;
+        }
+
+        //TODO: Impure function
+        private static bool ApplyActions(IEnumerable<Tuple<Action<string, string>, string, string>> actions)
+        {
+            foreach (var action in actions)
             {
                 try
                 {
@@ -94,13 +85,13 @@ namespace ModifyTool
                 }
                 catch (Exception err)
                 {
+                    //TODO: Replace with renderer
                     Console.WriteLine(err.Message);
-                    return ReturnCode.Error;
+                    return false;
                 }
-
             }
 
-            return ReturnCode.Successful;
+            return true;
         }
 
         private static void ShowUsage()

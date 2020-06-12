@@ -33,38 +33,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             var expectedResult = table.CreateSet<TemplateAssertionData>().Single();
             var execInfo = _processManagementService.Start("dotnet", $"new {shortName} -l");
             execInfo.ShouldBeSuccessful();
-            var lines = execInfo.OutputStrings;
-            var dashLine = lines[1];
-            var infoLine = lines[2];
-            const int initStart = -1;
-            const int initLength = 0;
-            int start = initStart;
-            int length = initLength;
-            var words = new List<string>();
-            for (int i = 0; i < dashLine.Length; i++)
-            {
-                if (dashLine[i] == ' ')
-                {
-                    if (length == initLength)
-                    {
-                        continue;
-                    }
-                }
-                if (dashLine[i] == '-')
-                {
-                    if (start == initStart)
-                    {
-                        start = i;
-                    }
-                    length++;
-                    if (i != dashLine.Length - 1)
-                        continue;
-                }
-                words.Add(infoLine[new Range(new Index(start), new Index(start + length))].Trim());
-                start = initStart;
-                length = initLength;
-            }
-
+            
+            var words = GetWords(execInfo);
             var actualDescription = words[0];
             var actualShortName = words[1];
             var actualLanguages = words[2];
@@ -73,6 +43,85 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             actualShortName.Should().Be(expectedResult.ShortName);
             actualLanguages.Should().Be(expectedResult.Languages);
             actualTags.Should().Be(expectedResult.Tags);
+        }
+
+        private static List<string> GetWords(ExecutionInfo execInfo)
+        {
+            var lines = execInfo.OutputStrings;
+            var dashLine = lines[1];
+            var infoLine = lines[2];
+            var words = new List<string>();
+            var currentIndex = 0;
+            while (currentIndex < dashLine.Length)
+            {
+                var wordInfo = GetWordInfo(currentIndex, dashLine);
+                if (wordInfo.Length > 0)
+                {
+                    words.Add(infoLine[new Range(new Index(wordInfo.Start), 
+                        new Index(wordInfo.Start + wordInfo.Length))].Trim());
+                }
+
+                currentIndex = wordInfo.Index + 1;
+            }
+
+            return words;
+        }
+
+        private static WordInfo GetWordInfo(in int currentIndex, string dashLine)
+        {
+            var (start, length) = InitHelper.InitRange();
+
+            for (var i = currentIndex; i < dashLine.Length; i++)
+            {
+                if (dashLine[i] == ' ' && !InitHelper.HasStartedBuilding(length))
+                    continue;
+
+                if (dashLine[i] == '-')
+                {
+                    if (InitHelper.ShouldInitStart(start))
+                        start = i;
+
+                    length++;
+                    if (i != dashLine.Length - 1)
+                        continue;
+                }
+
+                return new WordInfo
+                {
+                    Start = start,
+                    Length = length,
+                    Index = i
+                };
+            }
+            return new WordInfo();
+        }
+
+        private static class InitHelper
+        {
+            private const int InitStart = -1;
+            private const int InitLength = 0;
+
+            internal static bool ShouldInitStart(int start)
+            {
+                return start == InitStart;
+            }
+
+            internal static bool HasStartedBuilding(int length)
+            {
+                return length > InitLength;
+            }
+
+            internal static Tuple<int, int> InitRange()
+            {
+                return new Tuple<int, int>(InitStart, InitLength);
+            }
+        }
+
+        private class WordInfo
+        {
+            public int Start { get; set; }
+            public int Length { get; set; }
+            public int Index { get; set; }
         }
     }
 }

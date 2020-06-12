@@ -9,7 +9,6 @@ namespace ModifyTool
 {
     internal sealed partial class ModelEngine
     {
-        private const string ModuleFileName = "Module.cs";
         private const string ModuleClassName = "Module";
         private const string RegisterModuleMethodName = "RegisterModule";
 
@@ -23,23 +22,11 @@ namespace ModifyTool
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public void RegisterMappers(string entityName)
         {
-            var moduleFilePath = Path.Combine(GetProjectFolder(), ModuleFileName);
+            var filePath = Path.Combine(GetProjectFolder(), Consts.ModuleFileName);
 
-            if (!File.Exists(moduleFilePath))
-            {
-                //TODO: Refactor helper creation
-                var helper = new ResourceHelper("Model", ModuleFileName);
+            FileHelper.CreateFile("Model", filePath, Consts.ModuleFileName, ReplaceSolutionName);
 
-                using var stream = helper.GetResourceStream();
-                using (var fileStream = File.Create(moduleFilePath))
-                {
-                    stream.CopyTo(fileStream);
-                }
-
-                ReplaceSolutionName(moduleFilePath);
-            }
-
-            var moduleText = File.ReadAllText(moduleFilePath);
+            var moduleText = File.ReadAllText(filePath);
             var tree = CSharpSyntaxTree.ParseText(moduleText);
             var node = tree.GetRoot();
             var moduleClass = node.DescendantNodes()
@@ -66,7 +53,7 @@ namespace ModifyTool
             var members = moduleClass.Members.Replace(method, newMethod);
             var newClass = moduleClass.WithMembers(members);
             node = node.ReplaceNode(moduleClass, newClass);
-            File.WriteAllText(moduleFilePath, node.ToFullString());
+            File.WriteAllText(filePath, node.ToFullString());
         }
 
         private ExpressionStatementSyntax AddMapperRegistration(ExpressionStatementSyntax statement, string entityName)

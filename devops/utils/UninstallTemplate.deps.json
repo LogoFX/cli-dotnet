@@ -10,6 +10,7 @@
         "dependencies": {
           "Common.Infra": "1.0.0",
           "JetBrains.Annotations": "2020.1.0",
+          "Solid.Patterns.ChainOfResponsibility": "2.2.0",
           "System.Management": "4.7.0"
         },
         "runtime": {
@@ -29,6 +30,14 @@
         "dependencies": {
           "System.Security.AccessControl": "4.7.0",
           "System.Security.Principal.Windows": "4.7.0"
+        }
+      },
+      "Solid.Patterns.ChainOfResponsibility/2.2.0": {
+        "runtime": {
+          "lib/netstandard2.0/Solid.Patterns.ChainOfResponsibility.dll": {
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.0"
+          }
         }
       },
       "System.CodeDom/4.7.0": {
@@ -103,6 +112,13 @@
       "sha512": "sha512-KSrRMb5vNi0CWSGG1++id2ZOs/1QhRqROt+qgbEAdQuGjGrFcl4AOl4/exGPUYz2wUnU42nvJqon1T3U0kPXLA==",
       "path": "microsoft.win32.registry/4.7.0",
       "hashPath": "microsoft.win32.registry.4.7.0.nupkg.sha512"
+    },
+    "Solid.Patterns.ChainOfResponsibility/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QocYsm5SwRPRcM46hJeyiQzbC8ZH4J8KFqF2RsIkgeyqbIIX/bP3V2G5gtewnTF/ZDeAg3ruRhjWrGf353IeZA==",
+      "path": "solid.patterns.chainofresponsibility/2.2.0",
+      "hashPath": "solid.patterns.chainofresponsibility.2.2.0.nupkg.sha512"
     },
     "System.CodeDom/4.7.0": {
       "type": "package",

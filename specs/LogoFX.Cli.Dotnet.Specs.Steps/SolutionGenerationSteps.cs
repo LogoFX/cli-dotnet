@@ -23,8 +23,15 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
         public void ThenTheFolderContainsWorkingLogoFXTemplate_BasedSolution(string folderName)
         {
             var tempPath = Path.GetTempPath();
+
+            AssertSolutionBuildsSuccessfullyForAllConfigurations(folderName, tempPath);
+            AssertSolutionStructureIsGeneratedCorrectly(folderName, tempPath);
+        }
+
+        private void AssertSolutionBuildsSuccessfullyForAllConfigurations(string folderName, string tempPath)
+        {
             var path = Path.Combine(tempPath, folderName);
-            var configs = new[] {"DebugWithFake", "Release"};
+            var configs = new[] { "DebugWithFake", "Release" };
 
             foreach (var config in configs)
             {
@@ -32,7 +39,10 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
                 execInfo.ShouldBeSuccessful();
                 execInfo.OutputStrings.Should().ContainMatch("Build succeeded.");
             }
+        }
 
+        private static void AssertSolutionStructureIsGeneratedCorrectly(string folderName, string tempPath)
+        {
             var generatedFolder = new GeneratedFolder(tempPath, folderName)
                 .WithBootstrapping()
                 .WithDataFakeSetup()
