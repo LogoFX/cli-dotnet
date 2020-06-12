@@ -5,11 +5,11 @@ namespace ModifyTool
 {
     internal static class FileHelper
     {
-        internal static void CreateFile(string folderName, string filePath, Action<string> replaceSolutionNameMethod)
+        internal static void CreateFile(string folderName, string filePath, string resource, Action<string> replaceSolutionNameMethod)
         {
             if (!File.Exists(filePath))
             {
-                var helper = new ResourceHelper(folderName, Consts.ModuleFileName);
+                var helper = new ResourceHelper(folderName, resource);
 
                 using var stream = helper.GetResourceStream();
                 using (var fileStream = File.Create(filePath))

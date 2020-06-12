@@ -11,7 +11,7 @@ namespace ModifyTool
         public void RegisterProvider(string entityName)
         {
             var moduleFilePath = Path.Combine(GetProjectFolder(), Consts.ModuleFileName);
-            FileHelper.CreateFile("Provider", moduleFilePath, ReplaceSolutionName);
+            FileHelper.CreateFile("Provider", moduleFilePath, Consts.ModuleFileName, ReplaceSolutionName);
 
             var moduleText = File.ReadAllText(moduleFilePath);
             var tree = CSharpSyntaxTree.ParseText(moduleText);

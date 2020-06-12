@@ -20,7 +20,7 @@ namespace ModifyTool
         {
             var filePath = Path.Combine(Path.Combine(GetProjectFolder(), MappersFolderName), MappingProfileFileName);
 
-            FileHelper.CreateFile("Model", filePath, ReplaceSolutionName);
+            FileHelper.CreateFile("Model", filePath, MappingProfileFileName, ReplaceSolutionName);
             var node = GetRoot(filePath);
             var @class = node.DescendantNodes()
                 .OfType<ClassDeclarationSyntax>()

@@ -24,7 +24,7 @@ namespace ModifyTool
         {
             var filePath = Path.Combine(GetProjectFolder(), Consts.ModuleFileName);
 
-            FileHelper.CreateFile("Model", filePath, ReplaceSolutionName);
+            FileHelper.CreateFile("Model", filePath, Consts.ModuleFileName, ReplaceSolutionName);
 
             var moduleText = File.ReadAllText(filePath);
             var tree = CSharpSyntaxTree.ParseText(moduleText);
