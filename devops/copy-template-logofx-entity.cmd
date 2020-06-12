@@ -1,12 +1,12 @@
 REM copy-template-logofx-model.cmd 
 
-call copy-folder LogoFX.Templates.Model.Entity /exclude:..\devops\exclude-common.txt+..\devops\exclude-for-model.txt
+call copy-folder LogoFX.Templates.Entity /exclude:..\devops\exclude-common.txt+..\devops\exclude-for-model.txt
 
 if %ERRORLEVEL% NEQ 0 (
 	goto EXIT
 )
 
-call generate-utils.cmd LogoFX.Templates.Model.Entity entity-utils
+call generate-utils.cmd LogoFX.Templates.Entity entity-utils
 
 :EXIT
 REM /copy-template-logofx-model.cmd 

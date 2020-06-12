@@ -9,7 +9,7 @@ Scenario: Install template pack
 	| Description            | Short Name | Languages | Tags       |
 	| LogoFX WPF Application | logofx-wpf | [C#]      | LogoFX/WPF |
 	And The template for 'logofx-entity' is installed with the following parameters
-	| Description         | Short Name    | Languages | Tags         |
+	| Description         | Short Name    | Languages | Tags          |
 	| LogoFX Model Entity | logofx-entity | [C#]      | LogoFX/Entity |
 
 Scenario: Generate solution skeleton
