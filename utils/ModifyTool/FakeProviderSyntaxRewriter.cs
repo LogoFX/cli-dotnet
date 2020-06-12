@@ -343,8 +343,15 @@ namespace ModifyTool
 
         private ObjectCreationExpressionSyntax CreateDtoCreation(string dtoName, string displayName, int value)
         {
-            //SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal("PC"))
-            var list = SyntaxFactory.SeparatedList(new[]
+            var list = CreateAssignments(displayName, value);
+            var initializer = SyntaxFactory.InitializerExpression(SyntaxKind.ObjectInitializerExpression, list);
+            var result = SyntaxFactory.ObjectCreationExpression(SyntaxFactory.ParseTypeName(dtoName), null, initializer);
+            return result;
+        }
+
+        private SeparatedSyntaxList<ExpressionSyntax> CreateAssignments(string displayName, int value)
+        {
+            return SyntaxFactory.SeparatedList(new[]
             {
                 CreateDtoAssignment(
                     "Id",
@@ -365,12 +372,9 @@ namespace ModifyTool
                         SyntaxKind.NumericLiteralExpression,
                         SyntaxFactory.Literal(value)))
             });
-            var initializer = SyntaxFactory.InitializerExpression(SyntaxKind.ObjectInitializerExpression, list);
-            var result = SyntaxFactory.ObjectCreationExpression(SyntaxFactory.ParseTypeName(dtoName), null, initializer);
-            return result;
         }
 
-        private ExpressionSyntax CreateDtoAssignment(string name, ExpressionSyntax value)
+        private static ExpressionSyntax CreateDtoAssignment(string name, ExpressionSyntax value)
         {
             var result = SyntaxFactory.AssignmentExpression(
                 SyntaxKind.SimpleAssignmentExpression,
