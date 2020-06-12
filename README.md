@@ -3,8 +3,14 @@ Command-line interface for generating LogoFX-based desktop .NET apps via `dotnet
 
 ## Install templates pack
 
+Install from source:
 ```
 ./devops/install-templates-pack.cmd
+```
+
+Install from package repo:
+```
+dotnet new --install LogoFX.Templates::0.4.2-beta.1
 ```
 
 This command will install all `LogoFX` templates
