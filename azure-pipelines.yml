@@ -19,6 +19,7 @@ steps:
     Invoke-WebRequest -Uri 'https://dot.net/v1/dotnet-install.ps1' -UseBasicParsing -OutFile "$env:temp\dotnet-install.ps1"
     & $env:temp\dotnet-install.ps1 -Architecture x64 -Version $env:CORE_SDK_VERSION -InstallDir "$env:ProgramFiles\dotnet"
   displayName: 'Installing .NET 5 Preview SDK'
+- task: NuGetAuthenticate@0
 - script: dotnet restore specs\LogoFX.Cli.Dotnet.Specs.sln
   displayName: 'Restoring code using dotnet restore'
 - script: dotnet build specs\LogoFX.Cli.Dotnet.Specs.sln --configuration $(buildConfiguration)
