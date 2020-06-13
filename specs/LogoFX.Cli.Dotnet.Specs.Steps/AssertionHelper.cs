@@ -8,6 +8,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
     internal static class AssertionHelper
     {
         public const string Any = "*";
+        //TODO: Get from config.json
+        private const int DefaultSleepTime = 2000;
 
         internal static void AssertGeneratedCode(this GeneratedFolder structure)
         {
@@ -18,8 +20,7 @@ namespace LogoFX.Cli.Dotnet.Specs.Steps
             {
                 Debug.WriteLine($"Checking '{path}, attempts: {count}'");
                 count -= 1;
-                //TODO: Get from config.json
-                Thread.Sleep(2000);
+                Thread.Sleep(DefaultSleepTime);
             }
 
             Directory.Exists(path).Should().BeTrue($"Folder doesn't exist: '{path}'");
