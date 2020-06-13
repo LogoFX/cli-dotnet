@@ -42,5 +42,3 @@ If you didn't specify `--allow-scripts yes` parameter the template engine ask yo
 ## Azure Devops CI Status
 [![Build Status](https://dev.azure.com/LogoFX/cli-dotnet/_apis/build/status/LogoFX.cli-dotnet?branchName=master)](https://dev.azure.com/LogoFX/cli-dotnet/_build/latest?definitionId=1&branchName=master)
 
-## Appveyor CI Status
-<img src=https://ci.appveyor.com/api/projects/status/github/logofx/cli-dotnet>
