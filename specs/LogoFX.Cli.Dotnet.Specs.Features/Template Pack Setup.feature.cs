@@ -40,8 +40,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "", "Template Pack Setup", "\tIn order to write LogoFX-based code in a fast and efficient way\r\n\tAs an app deve" +
-                    "loper\r\n\tI want to be able to add new LogoFX-based elements via cli", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "", "Template Pack Setup", "\tIn order to write LogoFX-based code in a fast and efficient way\n\tAs an app devel" +
+                    "oper\n\tI want to be able to add new LogoFX-based elements via cli", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

@@ -41,8 +41,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "", "Data Service Generation", "\tIn order to provide tools to developers who want to add data service layer objec" +
-                    "ts\r\n\tAs an app developer\r\n\tI want to be able to install and use the corresponden" +
-                    "t template via existing dotnet means", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "ts\n\tAs an app developer\n\tI want to be able to install and use the correspondent " +
+                    "template via existing dotnet means", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
