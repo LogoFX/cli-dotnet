@@ -30,6 +30,11 @@ steps:
   displayName: 'Building code using $(buildConfiguration) configuration'
 - script: dotnet test specs\LogoFX.Cli.Dotnet.Specs.sln --configuration $(buildConfiguration) --logger trx
   displayName: 'Testing code using $(buildConfiguration) configuration'
+- task: SpecFlowPlus@0
+  inputs:
+    projectFilePath: 'specs\LogoFX.Cli.Dotnet.Specs.Features'
+    projectName: 'specs\LogoFX.Cli.Dotnet.Specs.sln'
+    projectLanguage: 'en'
 - task: PublishTestResults@2
   condition: succeededOrFailed()
   inputs:
