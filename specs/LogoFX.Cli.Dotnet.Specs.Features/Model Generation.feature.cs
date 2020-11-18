@@ -40,9 +40,9 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "", "Model Generation", "\tIn order to provide tools to developers who want to add model layer objects\n\tAs " +
-                    "an app developer\n\tI want to be able to install and use the correspondent templat" +
-                    "e via existing dotnet means", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "", "Model Generation", "\tIn order to provide tools to developers who want to add model layer objects\r\n\tAs" +
+                    " an app developer\r\n\tI want to be able to install and use the correspondent templ" +
+                    "ate via existing dotnet means", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
