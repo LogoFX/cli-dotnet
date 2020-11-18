@@ -41,8 +41,8 @@ namespace LogoFX.Cli.Dotnet.Specs.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "", "Solution Generation", "\tIn order to provide tools to developers who want to scaffold LogoFX-based soluti" +
-                    "ons\n\tAs a framework developer\n\tI want to be able to install and use the correspo" +
-                    "ndent template via existing dotnet means", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "ons\r\n\tAs a framework developer\r\n\tI want to be able to install and use the corres" +
+                    "pondent template via existing dotnet means", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
